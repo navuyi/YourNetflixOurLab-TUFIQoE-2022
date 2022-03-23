@@ -4,13 +4,13 @@ import {useEffect} from "react";
 import {STORAGE_KEYS} from "../../Background/config";
 
 
-const DeviceID = () => {
-    const [id, setId] = useState(1)
+const DeviceID = (props) => {
+    
 
     useLayoutEffect(() => {
         const init = async () => {
             const res = await chrome.storage.local.get([STORAGE_KEYS.DEVICE_ID])
-            setId(res[STORAGE_KEYS.DEVICE_ID])
+            props.setDeviceID(res[STORAGE_KEYS.DEVICE_ID])
         }
 
         init()
@@ -18,7 +18,7 @@ const DeviceID = () => {
 
     const handleClick = async (e) => {
         const device_id = parseInt(e.target.getAttribute("device_id"))
-        setId(device_id)
+        props.setDeviceID(device_id)
         await chrome.storage.local.set({
             [STORAGE_KEYS.DEVICE_ID]: device_id
         })
@@ -33,23 +33,23 @@ const DeviceID = () => {
         height: "30px",
 
         fontSize: "18px",
-        color: id === 1 ? "#ffffff" : "#222222",
+        color: props.deviceID === 1 ? "#ffffff" : "#222222",
 
         outline: "none",
         border: "none",
         borderRadius: "3px",
-        backgroundColor: id === 1 ? "#E50914" : "#ffffff",
+        backgroundColor: props.deviceID === 1 ? "#E50914" : "#ffffff",
         cursor: "pointer"
     }
     const button_2_style = {
         width: "100px",
         height: "30px",
         fontSize: "18px",
-        color: id === 2 ? "#ffffff" : "#222222",
+        color: props.deviceID === 2 ? "#ffffff" : "#222222",
         outline: "none",
         border: "none",
         borderRadius: "3px",
-        backgroundColor: id === 2 ? "#E50914" : "#ffffff",
+        backgroundColor: props.deviceID === 2 ? "#E50914" : "#ffffff",
         cursor: "pointer"
     }
 

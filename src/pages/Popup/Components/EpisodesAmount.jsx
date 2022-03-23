@@ -37,7 +37,7 @@ const EpisodesAmount = () => {
 
 
     return(
-        <div style={{width: "100%", marginTop: "20px", display:"flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between"}}>
+        <div style={{width: "100%", marginTop: "30px", display:"flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between"}}>
             <h3>Episodes amount</h3>
             <select
                 style={{width: "200px", height: "30px", 

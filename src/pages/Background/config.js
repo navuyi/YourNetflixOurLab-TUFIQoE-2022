@@ -13,8 +13,8 @@ export const STORAGE_KEYS = {
 
 export const DEFAULT_STORAGE = {
     [STORAGE_KEYS.DEVICE_ID]: 1,                    // 1 or 2 is correct, 1 set by default,
-    [STORAGE_KEYS.TESTER_ONE_ID]: "",          // first tester's phone number
-    [STORAGE_KEYS.TESTER_TWO_ID]: "",         // second tester's phone number
+    [STORAGE_KEYS.TESTER_ONE_ID]: "123",          // first tester's phone number
+    [STORAGE_KEYS.TESTER_TWO_ID]: "456",         // second tester's phone number
     [STORAGE_KEYS.PAIR_ID]: "",                      // Auto filled based on tester one and two ids
 
     [STORAGE_KEYS.SESSION_TYPE]: "alone",    // alone and together are correct values, alone by default
