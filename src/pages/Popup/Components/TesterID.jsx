@@ -1,7 +1,7 @@
 import React from "react"
 import { useState } from "react"
 import { useLayoutEffect } from "react"
-import { STORAGE_KEYS } from "../../Background/config"
+import { STORAGE_KEYS } from "../../config"
 
 
 const TesterID = (props) => {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
-import { STORAGE_KEYS } from "../../Background/config";
+import { STORAGE_KEYS } from "../../config";
 
 
 

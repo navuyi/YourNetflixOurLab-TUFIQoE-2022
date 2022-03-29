@@ -1,7 +1,7 @@
 import React, {useLayoutEffect} from "react";
 import {useState} from "react";
 import {useEffect} from "react";
-import {STORAGE_KEYS} from "../../Background/config";
+import {STORAGE_KEYS} from "../../config";
 
 
 const DeviceID = (props) => {

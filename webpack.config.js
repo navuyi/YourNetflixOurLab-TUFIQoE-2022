@@ -48,6 +48,7 @@ var options = {
 
     devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
     panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
+    
   },
   chromeExtensionBoilerplate: {
     notHotReload: ['background', 'contentScript', 'devtools', "testScript"],  // Remember to include content script in notHotReload!!!
@@ -138,6 +139,7 @@ var options = {
         },
       ],
     }),
+    /*
     new CopyWebpackPlugin({
       patterns: [
         {
@@ -147,10 +149,11 @@ var options = {
         },
       ],
     }),
+    */
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-128.png',
+          from: 'src/assets/img/128.png',
           to: path.join(__dirname, 'build'),
           force: true,
         },
@@ -159,7 +162,7 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
-          from: 'src/assets/img/icon-34.png',
+          from: 'src/assets/img/32.png',
           to: path.join(__dirname, 'build'),
           force: true,
         },

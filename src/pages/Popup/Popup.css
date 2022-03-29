@@ -19,14 +19,14 @@
   font-family: 'Ubuntu', sans-serif;
 }
 
-h1{
-  color: #E50914;
+h1 {
+  color: #e50914;
   font-weight: 600;
   font-size: 32px;
   margin-left: 0;
   padding-left: 0;
 }
-h2{
+h2 {
   margin-left: 0;
   padding-left: 0;
   font-weight: 500;
@@ -34,11 +34,27 @@ h2{
 
   color: #ffffff;
 }
-h3{
+h3 {
   padding-left: 0;
   font-weight: 400;
   font-size: 22px;
   text-align: start;
   color: #ffffff;
   margin: 0;
+}
+
+#startButton {
+  color: white;
+  background-color: #db0000;
+  border: none;
+  border-radius: 5px;
+  font-size: 24px;
+  padding: 5px 60px;
+  cursor: pointer;
+}
+#startButton:hover {
+  background-color: #a00404;
+}
+#startButton:active {
+  background-color: #610000;
 }

@@ -1,6 +1,10 @@
 import { analyze_data } from "./modules/analyze_data"
 import { get_statistics_element } from "./modules/get_statistics_element"
 
+import { StatsRecorder } from "./modules/StatsRecorder"
+
+const statsRecorder = new StatsRecorder()
+statsRecorder.init()
 
 
 const init = async () => {
@@ -9,7 +13,7 @@ const init = async () => {
 
     setInterval(() => {
         analyze_data(element.value.toString())
-    }, 250)
+    }, 1000)
 
 
     const dzejson = {
@@ -38,6 +42,5 @@ const save_json = function(obj) {
 
 
 
-init()
 
 
