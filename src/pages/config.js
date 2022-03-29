@@ -26,3 +26,28 @@ export const DEFAULT_STORAGE = {
     
     [STORAGE_KEYS.SESSION_INDEX]: 0,            // Session index is responsible for tracking sessions iterations, DEFAULTS TO 0
 }
+
+
+
+export const STATS_RECORD_INTERVAL_MS = 1000
+
+export const STATS_UNCLICKABLE = true
+export const STATS_INVISIBLE = true
+
+export const MESSAGE_FORMAT = {
+    HEADER: "header",
+    DATA: "data"
+}
+
+export const MESSAGE_HEADERS = {
+    NERD_STATISTICS: "nerdstats",
+    ASSESSMENT: "assessment"
+}
+
+/*
+    Format of the content scripts <--> background scripts messages
+    msg = {
+        header: "message_header", eg. nerdstats
+        payload: "the_actual_message_data"
+    }
+*/

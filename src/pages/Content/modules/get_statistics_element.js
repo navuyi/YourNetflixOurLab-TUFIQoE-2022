@@ -1,16 +1,28 @@
+import { STATS_INVISIBLE, STATS_UNCLICKABLE } from "../../config"
 
 export const get_statistics_element = () => {
     return new Promise((resolve) => {
         let element = undefined
+        let outer_element = undefined
         let timer = undefined
 
         timer = setInterval(() => {
             simulate_keyboard_events()
             element = document.getElementsByTagName("textarea")[0]
-            console.log("ASDASDASD")
+            outer_element = document.getElementsByClassName("player-info")[0]   // This is the element that contains X (exit) button
 
-            if(element){
+            if(element && outer_element){
+                // Clear retry interval
                 clearInterval(timer)
+                // Make outer container invisible and unclickable based on config
+                if(STATS_INVISIBLE === true){
+                    outer_element.style.visibility = "hidden"
+                }
+                if(STATS_UNCLICKABLE === true){
+                    outer_element.style.pointerEvents = "none"
+                }
+                
+                // Return element containing data
                 resolve(element)
             }
         }, 100)
