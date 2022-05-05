@@ -3,6 +3,8 @@ import { get_statistics_element } from "./get_statistics_element"
 import { STATS_RECORD_INTERVAL_MS } from "../../config"
 import {get_local_datetime} from "../../../utils/time_utils"
 import { DATABASE_KEYS } from "../../config"
+import {save_json} from "../../../utils/save_json";
+
 
 
 export class StatsAnalyzer{
@@ -13,7 +15,7 @@ export class StatsAnalyzer{
     }
 
     print(text){
-        console.log(`[StatsRecorder] ${text}`)
+        console.log(`[StatsAnalyzer] ${text}`)
     }
 
     async init(){
@@ -49,11 +51,10 @@ export class StatsAnalyzer{
                 this.are_credits_available()
 
                 // Check if video has ended, if not send data to background script
-                console.log(`duration ${data["duration"]} ___ position ${data["position"]}`)
                 if(parseInt(data["position"]) >= parseInt(data["duration"])-10){
                     this.print("Finished")
                     chrome.runtime.sendMessage({
-                        [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISH_ANALYZING,
+                        [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
                         [MESSAGE_TEMPLATE.DATA]: true
                     })
                     clearInterval(this.interval)
@@ -132,19 +133,74 @@ export class StatsAnalyzer{
         })
     }
 
+    insert_blockade(){
+        const blockade = window.document.createElement("div")
+        const text = window.document.createElement("h1")
+        /*const style = {
+            width: "100vw", height: "100vh",
+            top: "0", left: "0", position: "absolute",
+            backgroundColor: "black", opacity: "0.5"
+        }
+         */
+        blockade.style.width = "100vw"; blockade.style.height = "100vh";
+        blockade.style.top = "0"; blockade. style.left = "0";
+        blockade.style.position = "absolute";
+        blockade.style.backgroundColor = "black"; blockade.style.opacity = "0.95"
+        blockade.style.zIndex = "99999";
+        blockade.style.textAlign = "center";
+        blockade.style.display = "flex"; blockade.style.justifyContent = "center"; blockade.style.alignItems = "center"
 
-    are_credits_available(){
+        text.innerText = "Dziękujemy za udział w eksperymencie :)"
+        text.style.color = "whitesmoke"
+        text.style.fontSize ="24px"
+
+        blockade.appendChild(text)
+        document.body.appendChild(blockade)
+    }
+
+    async are_credits_available(){
         const outer_container = document.getElementsByClassName("nfa-pos-abs nfa-bot-6-em nfa-right-5-em nfa-d-flex")[0]
 
         //data-uia = "watch-credits-seamless-button"
         // data-uia="next-episode-seamless-button"
 
-        // Remove "see credits"/"next episode" buttons
+
         if(outer_container){
+            // Click watch credits button
             const credits_button = document.querySelectorAll('[data-uia="watch-credits-seamless-button"]')[0]
             console.log(credits_button)
             credits_button.click()
             outer_container.remove() // remove container
+
+            // Stop analyzing
+            clearInterval(this.interval)
+
+            // Pause the video
+            document.getElementsByTagName("video")[0].pause()
+
+            // Insert screen blockade
+            this.insert_blockade()
+
+            // Send CREDITS signal to the BackgroundScript
+            await chrome.runtime.sendMessage({
+                [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.CREDITS,
+                [MESSAGE_TEMPLATE]: true
+            })
+
+            // Get data to save after response is received
+            const res = await chrome.storage.local.get([STORAGE_KEYS.DATA_TO_SAVE, STORAGE_KEYS.ARCHIVE_TO_SAVE])
+            const database = res[STORAGE_KEYS.DATA_TO_SAVE]
+            const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
+
+            // Save files
+            save_json(database, "data.json")
+            save_json(archive, "archive.json")
+
+            //TODO implement url list mechanism
+            //TODO Redirect to another video from list ! ! !! ! ! ! !
+            setTimeout(()=> {
+                window.location.href = "https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"
+            }, 2000)
         }
     }
 }

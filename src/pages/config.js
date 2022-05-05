@@ -125,9 +125,10 @@ export const MESSAGE_TEMPLATE = {
 
 export const MESSAGE_HEADERS = {
     START_ANALYZING: "start_analyzing",
-    FINISH_ANALYZING: "finish_analyzing",
     NERD_STATISTICS: "nerdstats",
-    ASSESSMENT: "assessment"
+    ASSESSMENT: "assessment",
+    FINISHED: "finished",
+    CREDITS: "credits"
 }
 
 /*

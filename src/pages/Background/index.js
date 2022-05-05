@@ -18,9 +18,10 @@ chrome.debugger.onDetach.addListener((data) => {
 // Message listeners //
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // do not use async/await within listener callback
-    receive_start_msg(message, sender, sendResponse)
+
     receive_data_msg(message, sender, sendResponse)
-    receive_finish_msg(message, sender, sendResponse)
+    receive_finished_signal(message, sender, sendResponse)
+    receive_credits_signal(message, sender, sendResponse)
 
     return true     // return true is essential
 })
@@ -34,18 +35,6 @@ controller.init()
 
 
 // Utility functions
-const receive_start_msg = async (message, sender, sendResponse) => {
-    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.START_ANALYZING){
-        const tabs = await chrome.tabs.query({active: true, currentWindow:true})
-        await chrome.tabs.update(tabs[0].id, {
-            url: schedule[0].episode_url
-        })
-        console.log(`[BackgroundScript] Redirecting to the first video in schedule: ${schedule[0].episode_url}`)
-    }
-    sendResponse({msg: "OK"})
-}
-
-
 const receive_data_msg = async (message, sender, sendResponse) => {
     if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.NERD_STATISTICS){
 
@@ -63,14 +52,19 @@ const receive_data_msg = async (message, sender, sendResponse) => {
             archive[key].push(_archive[key])
         }
         console.log(archive)
+
+        // Save database and archive in chrome.storage
+        //await chrome.storage.local.set({
+        //    [STORAGE_KEYS.DATA_TO_SAVE]: database,
+        //    [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
+        //})
     }
     sendResponse({msg: "OK"})
 }
 
 
-const receive_finish_msg = async (message, sender, sendResponse) => {
-    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.FINISH_ANALYZING){
-
+const receive_finished_signal = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.FINISHED){
 
         await chrome.storage.local.set({
             [STORAGE_KEYS.DATA_TO_SAVE]: database,
@@ -90,6 +84,22 @@ const receive_finish_msg = async (message, sender, sendResponse) => {
     }
     sendResponse({msg: "OK"})
 }
+
+const receive_credits_signal = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.CREDITS){
+
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.DATA_TO_SAVE]: database,
+            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
+        })
+
+        // Reset local database
+        reset_database()
+        reset_archive()
+    }
+    sendResponse({msg: "OK"})
+}
+
 
 
 const reset_database = () => {
