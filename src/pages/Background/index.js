@@ -1,38 +1,109 @@
+import {MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS, ARCHIVE_DEFAULT} from "../config"
 import {Controller} from "./modules/Controller"
-import {Messenger} from "./modules/Messenger"
+import { DATABASE_KEYS, DATABASE_DEFAULT, ASSESSMENTS_DEFAULT, STORAGE_DEFAULT } from "../config"
 
-const experiment_data = {
-    //TODO DEFINE THE EXPERIMENT_DATA OBJECT KEYS AND HOW IT WILL BE FILLED 
-    experiment_data: {// This should be filled on controller init maybe or on signal received from popup --> when experiment starts!!!
-        user_one_id: undefined,
-        user_two_id: undefined,
-        device_id: undefined, //etc..
-    },
-    playback_data: {
-        first_type_data: [],
-        second_type_data: [],
-        third_type_data: [],
-        timestamp: []
-    },
-    assessments: {
-        value: [],
-        timestamp: []
+let database = DATABASE_DEFAULT                     // for storing processed data from video playback (nerd stats)
+let archive = ARCHIVE_DEFAULT                          // for storing unprocessed (raw) data from video playback (nerd stats raw string)
+let assessments = ASSESSMENTS_DEFAULT         // for storing user assessments
+
+// Initialize local storage
+chrome.storage.local.set(STORAGE_DEFAULT)
+
+// Chrome debugger listeners
+chrome.debugger.onDetach.addListener((data) => {
+    console.log(`[BackgroundScript] Debugger detached!!!!`)
+    console.log(data)
+})
+
+// Message listeners //
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    // do not use async/await within listener callback
+    receive_start_msg(message, sender, sendResponse)
+    receive_data_msg(message, sender, sendResponse)
+    receive_finish_msg(message, sender, sendResponse)
+
+    return true     // return true is essential
+})
+
+// Initialize Controller instance
+const controller = new Controller()
+controller.init()
+
+
+
+
+
+// Utility functions
+const receive_start_msg = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.START_ANALYZING){
+        const tabs = await chrome.tabs.query({active: true, currentWindow:true})
+        await chrome.tabs.update(tabs[0].id, {
+            url: schedule[0].episode_url
+        })
+        console.log(`[BackgroundScript] Redirecting to the first video in schedule: ${schedule[0].episode_url}`)
+    }
+    sendResponse({msg: "OK"})
+}
+
+
+const receive_data_msg = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.NERD_STATISTICS){
+
+        const data = message[MESSAGE_TEMPLATE.DATA]
+        const _archive = message[MESSAGE_TEMPLATE.ARCHIVE]
+
+        // Store playback data
+        for(const key in data){
+            database[key].push(data[key])
+        }
+        console.log(database)
+
+        // Store archive
+        for(const key in _archive){
+            archive[key].push(_archive[key])
+        }
+        console.log(archive)
+    }
+    sendResponse({msg: "OK"})
+}
+
+
+const receive_finish_msg = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.FINISH_ANALYZING){
+
+
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.DATA_TO_SAVE]: database,
+            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
+        })
+
+        // Reset local database
+        reset_database()
+        reset_archive()
+
+        // Redirect to newtab (saving page)
+        const tabId = sender.tab.id
+        console.log(tabId)
+        await chrome.tabs.update(tabId, {
+            url: "newtab.html"
+        })
+    }
+    sendResponse({msg: "OK"})
+}
+
+
+const reset_database = () => {
+    for(const key in database){
+        database[key] = []
     }
 }
 
-console.log("[BackgroundScript] Hello World")
-const controller = new Controller(data_array)
-const messenger = new Messenger(data_array)
+const reset_archive = () => {
+    for(const key in archive){
+        archive[key] = []
+    }
+}
 
-controller.init()
-messenger.init()
-
-/*
-setInterval(()=>{
-    console.log("Checking array")
-    console.log(data_array)
-}, 1000) 
-*/
 
 
 

@@ -10,10 +10,10 @@ const EpisodesAmount = () => {
 
     useLayoutEffect(() => {
         const init = async () => {
-            const amnt = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_AMOUNT])
+            const amnt = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT])
             setAmount(amnt[STORAGE_KEYS])
 
-            console.log(await chrome.storage.local.get([STORAGE_KEYS.DEVICE_ID, STORAGE_KEYS.EPISODES_AMOUNT, STORAGE_KEYS.SESSION_TYPE]))
+            console.log(await chrome.storage.local.get([STORAGE_KEYS.DEVICE_ID, STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.SESSION_TYPE]))
         }
 
         init()
@@ -26,7 +26,7 @@ const EpisodesAmount = () => {
         setAmount(value)
 
         await chrome.storage.local.set({
-            [STORAGE_KEYS.EPISODES_AMOUNT]: value
+            [STORAGE_KEYS.EPISODES_LIMIT]: value
         })
     }
 

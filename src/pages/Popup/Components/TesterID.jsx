@@ -6,13 +6,11 @@ import { STORAGE_KEYS } from "../../config"
 
 const TesterID = (props) => {
     
-    const key = props.index === 1 ? STORAGE_KEYS.TESTER_ONE_ID : STORAGE_KEYS.TESTER_TWO_ID
+    const key = STORAGE_KEYS.TESTER_ID
 
     const handleChange = async (e) => {
         const value = e.target.value
         props.setTesterID(value)
-        console.log(value)
-        console.log(key)
 
         await chrome.storage.local.set({
             [key]: value
@@ -21,7 +19,7 @@ const TesterID = (props) => {
 
     return(
         <div style={{width: "100%", marginBottom: "30px", display:"flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between"}}>
-            <h3 style={{color: props.deviceID === props.index ? "#E50914" : "#ffffff"}}>Tester {props.label} ID</h3>
+            <h3 style={{color: props.deviceID === props.index ? "#E50914" : "#ffffff"}}>Tester ID</h3>
             <input 
                 type="text"
                 value={props.id}

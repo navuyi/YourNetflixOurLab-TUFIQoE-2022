@@ -1,4 +1,4 @@
-import { STATS_INVISIBLE, STATS_UNCLICKABLE } from "../../config"
+import { STATS_INVISIBLE, STATS_NONCLICKABLE } from "../../config"
 
 export const get_statistics_element = () => {
     return new Promise((resolve) => {
@@ -14,14 +14,14 @@ export const get_statistics_element = () => {
             if(element && outer_element){
                 // Clear retry interval
                 clearInterval(timer)
-                // Make outer container invisible and unclickable based on config
+                // Make outer container invisible and nonclickable based on config
                 if(STATS_INVISIBLE === true){
                     outer_element.style.visibility = "hidden"
                 }
-                if(STATS_UNCLICKABLE === true){
+                if(STATS_NONCLICKABLE === true){
                     outer_element.style.pointerEvents = "none"
                 }
-                
+
                 // Return element containing data
                 resolve(element)
             }
@@ -47,4 +47,3 @@ const simulate_keyboard_events = () => {
         })
     )
 }
-
