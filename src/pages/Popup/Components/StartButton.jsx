@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import {STORAGE_KEYS} from "../../config";
 
 
 
@@ -8,13 +9,11 @@ const StartButton = (props) => {
 
     const handleClick = async (e) => {
         const decision = await window.confirm("Make sure all settings are correct!!!")
-        const url = "https://developer.chrome.com/docs/extensions/reference/tabs/"
-        
+        const start_url = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_URL]))[STORAGE_KEYS.EPISODES_URL][0]
 
         if(decision){
             const tabs = await chrome.tabs.query({active: true, currentWindow: true})
-            const netlix_url = "https://www.netflix.com/pl/"
-            await chrome.tabs.update(tabs[0].id, {url: netlix_url})
+            await chrome.tabs.update(tabs[0].id, {url: start_url})
         }
 
     }

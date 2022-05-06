@@ -111,7 +111,11 @@ export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.SESSION_TYPE]: "alone",       // alone and together are correct values, alone by default
     [STORAGE_KEYS.EPISODES_LIMIT]: 1,          // Most likely it will be set to 1 or 2
 
-    [STORAGE_KEYS.EPISODES_URL]: ["https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"]
+    [STORAGE_KEYS.EPISODES_URL]: [
+        "https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
+        "https://www.netflix.com/watch/80025317?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
+        "https://www.netflix.com/watch/80025318?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"
+    ]
 
     //[STORAGE_KEYS.SESSION_INDEX]: 0,            // Session index is responsible for tracking sessions iterations, DEFAULTS TO 0
 }

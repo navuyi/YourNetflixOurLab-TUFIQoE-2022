@@ -21,9 +21,9 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     receive_data_msg(message, sender, sendResponse)
     receive_finished_signal(message, sender, sendResponse)
-    receive_credits_signal(message, sender, sendResponse)
+    //receive_credits_signal(message, sender, sendResponse)
 
-    return true     // return true is essential
+    return true     // return true is essential to indicate that response will be sent asynchronously
 })
 
 // Initialize Controller instance
@@ -52,14 +52,8 @@ const receive_data_msg = async (message, sender, sendResponse) => {
             archive[key].push(_archive[key])
         }
         console.log(archive)
-
-        // Save database and archive in chrome.storage
-        //await chrome.storage.local.set({
-        //    [STORAGE_KEYS.DATA_TO_SAVE]: database,
-        //    [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
-        //})
+        sendResponse({msg: "NerdStats data received"})
     }
-    sendResponse({msg: "OK"})
 }
 
 
@@ -77,12 +71,11 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
 
         // Redirect to newtab (saving page)
         const tabId = sender.tab.id
-        console.log(tabId)
         await chrome.tabs.update(tabId, {
             url: "newtab.html"
         })
+        sendResponse({msg: "Finish signal received"})
     }
-    sendResponse({msg: "OK"})
 }
 
 const receive_credits_signal = async (message, sender, sendResponse) => {
@@ -96,8 +89,13 @@ const receive_credits_signal = async (message, sender, sendResponse) => {
         // Reset local database
         reset_database()
         reset_archive()
+
+        for(let i=0; i<5000; i++){
+            console.log("ABLABLA")
+        }
+
+        sendResponse({msg: "Credits signal received"})
     }
-    sendResponse({msg: "OK"})
 }
 
 

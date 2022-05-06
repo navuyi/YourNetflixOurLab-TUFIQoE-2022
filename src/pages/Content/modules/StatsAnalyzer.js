@@ -118,11 +118,11 @@ export class StatsAnalyzer{
             [MESSAGE_TEMPLATE.DATA]: data,
             [MESSAGE_TEMPLATE.ARCHIVE]: archive
         }, res => {
-            console.log(res)
+            //console.log(res)
         })
     }
 
-    insert_blockade(){
+    insert_blockade(finished = false){
         const blockade = window.document.createElement("div")
         const text = window.document.createElement("h1")
         /*const style = {
@@ -139,7 +139,12 @@ export class StatsAnalyzer{
         blockade.style.textAlign = "center";
         blockade.style.display = "flex"; blockade.style.justifyContent = "center"; blockade.style.alignItems = "center"
 
-        text.innerText = "Dziękujemy za udział w eksperymencie :)"
+
+        text.innerText = finished === true ? "Eksperyment zakończony. Proszę zawiadomić administratora eksperymentu. Dziękujemy :)" : "Trwa synchronizacja. Za chwilę przekierowanie do następnego odcinka."
+
+
+
+
         text.style.color = "whitesmoke"
         text.style.fontSize ="24px"
 
@@ -167,29 +172,42 @@ export class StatsAnalyzer{
             // Pause the video
             document.getElementsByTagName("video")[0].pause()
 
-            // Insert screen blockade
-            this.insert_blockade()
-
-            // Send CREDITS signal to the BackgroundScript
+            // Send FINISHED signal to the BackgroundScript
             await chrome.runtime.sendMessage({
-                [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.CREDITS,
+                [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
                 [MESSAGE_TEMPLATE]: true
             })
 
-            // Get data to save after response is received
-            const res = await chrome.storage.local.get([STORAGE_KEYS.DATA_TO_SAVE, STORAGE_KEYS.ARCHIVE_TO_SAVE])
-            const database = res[STORAGE_KEYS.DATA_TO_SAVE]
-            const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
 
-            // Save files
-            save_json(database, "data.json")
-            save_json(archive, "archive.json")
 
-            //TODO implement url list mechanism
-            //TODO Redirect to another video from list ! ! !! ! ! ! !
-            setTimeout(()=> {
-                window.location.href = "https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"
-            }, 2000)
+            /*
+            setTimeout(async () => {
+                // Get data to save after response is received
+                const res = await chrome.storage.local.get([STORAGE_KEYS.DATA_TO_SAVE, STORAGE_KEYS.ARCHIVE_TO_SAVE])
+                const database = res[STORAGE_KEYS.DATA_TO_SAVE]
+                const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
+
+                // Save files
+                this.print("Saving files")
+                save_json(database, "data.json")
+                save_json(archive, "archive.json")
+            }, 5000)
+
+            const _res = (await chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_LIMIT]))
+            const episode_count = _res[STORAGE_KEYS.EPISODE_COUNT]
+            const episodes_limit =_res[STORAGE_KEYS.EPISODES_LIMIT]
+            const episode_index = episode_count - 1
+
+            // Insert screen blockade
+            const finished = episode_count === episodes_limit
+            this.insert_blockade(finished)
+            if(finished === false){
+                const next_url = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_URL]))[STORAGE_KEYS.EPISODES_URL][episode_index+1]
+                setTimeout(() => {
+                    window.location.href = next_url
+                }, 10000)
+            }
+             */
         }
     }
 }

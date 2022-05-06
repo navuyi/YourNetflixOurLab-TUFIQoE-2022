@@ -19,7 +19,7 @@ const EpisodesAmount = (props) => {
 
 
     const handleChange = async (e) => {
-        const value = e.target.value
+        const value = parseInt(e.target.value)
         props.setEpisodesAmount(value)
 
         await chrome.storage.local.set({
