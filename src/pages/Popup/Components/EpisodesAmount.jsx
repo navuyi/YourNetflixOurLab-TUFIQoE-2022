@@ -5,25 +5,22 @@ import { STORAGE_KEYS } from "../../config";
 
 
 
-const EpisodesAmount = () => {
-    const [amount, setAmount] = useState(1)
+const EpisodesAmount = (props) => {
+
 
     useLayoutEffect(() => {
         const init = async () => {
-            const amnt = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT])
-            setAmount(amnt[STORAGE_KEYS])
-
-            console.log(await chrome.storage.local.get([STORAGE_KEYS.DEVICE_ID, STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.SESSION_TYPE]))
+            // Initialize episode amount
+            const limit = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT]))[STORAGE_KEYS.EPISODES_LIMIT]
+            props.setEpisodesAmount(limit)
         }
-
         init()
     }, [])
 
 
     const handleChange = async (e) => {
         const value = e.target.value
-        console.log(value)
-        setAmount(value)
+        props.setEpisodesAmount(value)
 
         await chrome.storage.local.set({
             [STORAGE_KEYS.EPISODES_LIMIT]: value
@@ -44,11 +41,13 @@ const EpisodesAmount = () => {
                 outline: "none", 
                 border: "none", borderRadius: "3px", 
                 fontWeight: "bold", fontFamily: "Ubuntu, sans-serif", textAlign: "center"}}
-
+                value={props.episodesAmount}
                 onChange={handleChange}
             >
                 <option style={option_style} value={1} label="One" />
                 <option style={option_style} value={2} label="Two" />
+                <option style={option_style} value={3} label="Three" />
+                <option style={option_style} value={4} label="Four" />
             </select>
         </div>
     )

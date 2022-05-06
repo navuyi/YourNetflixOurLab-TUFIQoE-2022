@@ -48,22 +48,11 @@ export class StatsAnalyzer{
                 const archive = this.compile_archive(this.element.value.toString(), timestamp)
 
                 // Check if credits are available and remove container
-                this.are_credits_available()
+                await this.are_credits_available()
 
-                // Check if video has ended, if not send data to background script
-                if(parseInt(data["position"]) >= parseInt(data["duration"])-10){
-                    this.print("Finished")
-                    chrome.runtime.sendMessage({
-                        [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
-                        [MESSAGE_TEMPLATE.DATA]: true
-                    })
-                    clearInterval(this.interval)
-                    return
-                }
-                else{
-                    // Send data to background
-                    this.send_data_to_background(data, archive)
-                }
+                // Send data to background
+                this.send_data_to_background(data, archive)
+
             })
         }, STATS_RECORD_INTERVAL_MS)
     }
