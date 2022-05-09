@@ -1,7 +1,19 @@
 import { StatsAnalyzer } from "./modules/StatsAnalyzer"
+import {BitrateManager} from "./modules/BitrateManager";
 
-const statsAnalyzer = new StatsAnalyzer()
-statsAnalyzer.init()
+const init = async () => {
+    const statsAnalyzer = new StatsAnalyzer()
+    await statsAnalyzer.init()
+
+    const bitrateManager = new BitrateManager()
+    await bitrateManager.init()
+}
+
+
+init()
+
+
+
 
 
 

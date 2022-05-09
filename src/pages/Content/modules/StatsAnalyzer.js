@@ -1,5 +1,5 @@
 import {ARCHIVE_KEYS, MESSAGE_TEMPLATE, MESSAGE_HEADERS, STORAGE_KEYS} from "../../config"
-import { get_statistics_element } from "./get_statistics_element"
+import {get_statistics_element} from "../utils/get_statistics_element";
 import { STATS_RECORD_INTERVAL_MS } from "../../config"
 import {get_local_datetime} from "../../../utils/time_utils"
 import { DATABASE_KEYS } from "../../config"

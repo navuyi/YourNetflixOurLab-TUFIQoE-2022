@@ -42,6 +42,9 @@ const Newtab = () => {
 
         if(episode_limit === episode_count){
           setFinished(true)
+          setTimeout(() => {
+            chrome.runtime.reload()
+          }, 5000)
         }
         else{
           setTimeout(async () => {
@@ -63,7 +66,7 @@ const Newtab = () => {
   const start_countdown = () => {
     let interval = undefined
     interval = setInterval(() => {
-      console.log("ASDADAS")
+
       if(seconds === 1){
         clearInterval(interval)
         return
