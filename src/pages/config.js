@@ -1,6 +1,6 @@
 export const STATS_RECORD_INTERVAL_MS = 1000
 export const STATS_NONCLICKABLE = true
-export const STATS_INVISIBLE = true
+export const STATS_INVISIBLE = false
 
 
 export const DATABASE_KEYS = {
