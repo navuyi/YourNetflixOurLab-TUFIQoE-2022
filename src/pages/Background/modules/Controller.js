@@ -24,6 +24,7 @@ export class Controller{
             [STORAGE_KEYS.EPISODE_COUNT]: count+1
         })
 
+
         await chrome.scripting.executeScript({
            target: {
                 tabId: tabId

@@ -12,17 +12,17 @@ export class BitrateManager{
     async init(){
         await this.bitrate_menu_init()
 
-
+        // Start regular bitrate changes
         setInterval(async () => {
             console.log("Changing bitrate")
             return new Promise((resolve) => {
                 let timer = undefined
 
+                simulate_bitrate_menu_hotkey()
                 timer = setInterval(() => {
-                    simulate_bitrate_menu_hotkey()
-
                     try{
                         const {bitrate_values, select, override_button} = this.get_html_elements()
+                        console.log(`Available bitrate values: ${bitrate_values}`)
                         if(bitrate_values.length > 0){
                             clearInterval(timer)
                             const random_bitrate = bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
@@ -37,7 +37,7 @@ export class BitrateManager{
                     }
                 }, 500)
             })
-        }, 60000)
+        }, 120000)
     }
 
 

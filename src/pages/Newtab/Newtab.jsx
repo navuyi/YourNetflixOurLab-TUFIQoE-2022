@@ -16,9 +16,9 @@ const Newtab = () => {
     const init = async () => {
 
       // Make it fullscreen (F11 to exit)
-      chrome.windows.getCurrent(window => {
-        chrome.windows.update(window.id, {state: "fullscreen"})
-      })
+      //chrome.windows.getCurrent(window => {
+      //  chrome.windows.update(window.id, {state: "fullscreen"})
+      //})
 
       // Save data as json file
       const res = await chrome.storage.local.get([
