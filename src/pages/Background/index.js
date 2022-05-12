@@ -21,7 +21,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     receive_data_msg(message, sender, sendResponse)
     receive_finished_signal(message, sender, sendResponse)
-    //receive_credits_signal(message, sender, sendResponse)
+    receive_assessment(message, sender, sendResponse)
 
     return true     // return true is essential to indicate that response will be sent asynchronously
 })
@@ -62,12 +62,14 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
 
         await chrome.storage.local.set({
             [STORAGE_KEYS.DATA_TO_SAVE]: database,
-            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
+            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive,
+            [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: assessments
         })
 
         // Reset local database
         reset_database()
         reset_archive()
+        reset_assessments()
 
         // Redirect to newtab (saving page)
         const tabId = sender.tab.id
@@ -78,26 +80,17 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
     }
 }
 
-const receive_credits_signal = async (message, sender, sendResponse) => {
-    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.CREDITS){
 
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.DATA_TO_SAVE]: database,
-            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: archive
-        })
-
-        // Reset local database
-        reset_database()
-        reset_archive()
-
-        for(let i=0; i<5000; i++){
-            console.log("ABLABLA")
+const receive_assessment = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.ASSESSMENT){
+        const data = message[MESSAGE_TEMPLATE.DATA]
+        for(const key in data){
+            assessments[key].push(data[key])
         }
-
-        sendResponse({msg: "Credits signal received"})
+        console.log(assessments)
+        sendResponse({msg: "Received assessment data"})
     }
 }
-
 
 
 const reset_database = () => {
@@ -112,6 +105,11 @@ const reset_archive = () => {
     }
 }
 
+const reset_assessments = () => {
+    for(const key in assessments){
+        assessments[key] = []
+    }
+}
 
 
 

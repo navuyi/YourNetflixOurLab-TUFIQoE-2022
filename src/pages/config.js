@@ -72,18 +72,23 @@ export const ARCHIVE_DEFAULT = {
     [ARCHIVE_KEYS.TIMESTAMP]: []
 }
 
+
+
 export const ASSESSMENTS_KEYS = {
     VALUE: "value",
+    DESCRIPTION: "description",
     TIMESTAMP: "timestamp"
 }
 export const ASSESSMENTS_DEFAULT = {
     [ASSESSMENTS_KEYS.VALUE]: [],
+    [ASSESSMENTS_KEYS.DESCRIPTION]: [],
     [ASSESSMENTS_KEYS.TIMESTAMP]: []
 }
 
 export const STORAGE_KEYS = {
     DATA_TO_SAVE: "data_to_save",
     ARCHIVE_TO_SAVE: "archive_to_save",
+    ASSESSMENTS_TO_SAVE: "assessments_to_save",
 
     CURRENT_BANDWIDTH: "current_bandwidth",
 
@@ -101,6 +106,7 @@ export const STORAGE_KEYS = {
 export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.DATA_TO_SAVE]: [],
     [STORAGE_KEYS.ARCHIVE_TO_SAVE]: [],
+    [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: [],
 
     [STORAGE_KEYS.EPISODE_COUNT]: 0,
     [STORAGE_KEYS.CURRENT_BANDWIDTH]: null,

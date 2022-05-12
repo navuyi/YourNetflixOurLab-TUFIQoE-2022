@@ -1,34 +1,65 @@
+import { get_local_datetime, get_local_datetime_and_timezone } from "../../../utils/time_utils"
+import { MESSAGE_HEADERS, MESSAGE_TEMPLATE } from "../../config"
+
+
 export class AssessmentManager{
     constructor() {
         this.interval = undefined
     }
 
 
+
     async init(){
-        setTimeout(() => {
-            this.init_popup()
-        }, 6000)
-        //TODO delete this timeout when init_popup is made a promise
+        await this.init_popup()
+        this.start_assessment_process()
     }
 
+    print(text){
+        console.log(`[AssessmentManager] ${text}`)
+    }
 
+    start_assessment_process(){
+        this.interval = setInterval(() => {
+            const popup = document.getElementById("assessment-popup")
+            popup.style.display = "unset"
 
-   init_popup(){
-        const popup = document.createElement("div")
-        const background = this.create_background()
-        const buttons = this.create_buttons()
+        },10000) // <-- to be changed, value from config
+    }
 
-       buttons.forEach(btn => {
-           background.appendChild(btn)
-       })
+    init_popup(){
+        return new Promise(resolve => {
+            const popup = document.createElement("div")
+            const background = this.create_background()
+            const buttons = this.create_buttons()
 
-        popup.id = "assessment-popup"
-        popup.style.zIndex = "10000"
-        popup.appendChild(background)
+            buttons.forEach(btn => {
+            background.appendChild(btn)
+            })
 
-       //TODO Make it promise to wait for the video to be available, html elements are loading
-       document.getElementsByTagName("video")[0].parentElement.appendChild(popup)
-   }
+            popup.id = "assessment-popup"
+            popup.style.display = "none"
+            popup.appendChild(background)
+
+            let interval = undefined
+            interval = setInterval(async () => {
+                try{
+                    const video = document.getElementsByTagName("video")[0]
+                    const video_div = video.parentElement
+                    const ltr_element = document.getElementsByClassName(" ltr-op8orf")[0]
+    
+                    if(video && video_div && ltr_element){
+                        clearInterval(interval) // stop the retrying process
+                        video_div.appendChild(popup)    // add popup to the DOM
+                        ltr_element.style.willChange = "unset"  // make popup clickable
+                        resolve(true)
+                    }
+                }
+                catch(err){
+                    this.print(err)
+                }
+            }, 500)
+        })
+    }
 
     create_background(){
         const background = document.createElement("div")
@@ -37,7 +68,11 @@ export class AssessmentManager{
         background.style.backgroundColor = "#222222";
         background.style.opacity = "0.8";
         background.style.display = "flex"; background.style.justifyContent = "center"; background.style.alignItems = "center"; background.style.flexDirection = "column"
+        background.style.zIndex = "10000"
 
+        background.onclick = (e) => {
+            e.stopPropagation()
+        }
 
         return background
     }
@@ -47,18 +82,77 @@ export class AssessmentManager{
         const buttons = []
         descriptions.forEach((text, index) => {
             const button = document.createElement("button")
-            button.innerText = `${5-index} ${text}`
+            const value = 5 - index
+            button.innerText = `${value}.  ${text}`
 
-            button.style.width = "60%"; button.style.padding = "1em 1.5em"; button.style.margin = "0.5em 0em";
+            // CSS configuration of assessment button
+            button.style.width = "30%"; button.style.padding = "1em 1.5em"; button.style.margin = "0.5em 0em";
             button.style.fontWeight = "bold"; button.style.fontSize = "1.5rem"
             button.style.border = "none"; button.style.textAlign = "left"
             button.style.borderRadius = "0.5em"; button.style.cursor = "pointer";
+            button.style.color = "#222222";
+            button.style.zIndex = "10001"
+            
 
+            button.onmouseenter = (e) => {
+                e.target.style.backgroundColor = "#458df5"
+                e.target.style.color = "whitesmoke"
+            }
+            button.onmouseleave = (e) => {
+                e.target.style.backgroundColor = "white"
+                e.target.style.color = "black"
+            }
+            button.onmousedown = (e) => {
+                e.target.style.backgroundColor = "#1b75f7"
+            }
+            button.onmouseup = (e) => {
+                e.target.style.backgroundColor = "#458df5"
+            }
+
+            // JS configuration of assessment button
+            button.onclick = this.handle_button_click
+            button.setAttribute("value", value.toString())
+            button.setAttribute("description", text)
+            
             buttons.push(button)
         })
-        console.log(buttons)
+        
         return buttons
     }
+
+    send_assessment_to_background(data){
+        chrome.runtime.sendMessage({
+            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.ASSESSMENT,
+            [MESSAGE_TEMPLATE.DATA]: data,
+            [MESSAGE_TEMPLATE.ARCHIVE]: false
+        }, (res) => {
+            console.log(res)
+        })
+    }
+
+    handle_button_click(e){
+        document.getElementById("assessment-popup").style.display = "none"
+        const value = e.target.getAttribute("value")
+        const description = e.target.getAttribute("description")
+        
+        const data = {
+            value: value,
+            description: description,
+            timestamp: get_local_datetime(new Date())
+        }
+        
+
+        // Send data to background
+        chrome.runtime.sendMessage({
+            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.ASSESSMENT,
+            [MESSAGE_TEMPLATE.DATA]: data,
+            [MESSAGE_TEMPLATE.ARCHIVE]: false
+        }, (res) => {
+            console.log(res)
+        })
+    }
+
+   
 }
 
 

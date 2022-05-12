@@ -6,6 +6,7 @@ import {save_json} from "../../utils/save_json";
 import {useEffect} from "react";
 import {STORAGE_KEYS} from "../config";
 
+import {get_local_datetime} from "../../utils/time_utils"
 
 const Newtab = () => {
   const [seconds, setSeconds] = useState(10)  // Change this value !! !! !! not timeout below
@@ -23,18 +24,42 @@ const Newtab = () => {
       // Save data as json file
       const res = await chrome.storage.local.get([
         STORAGE_KEYS.DATA_TO_SAVE,
-        STORAGE_KEYS.ARCHIVE_TO_SAVE
+        STORAGE_KEYS.ARCHIVE_TO_SAVE,
+        STORAGE_KEYS.ASSESSMENTS_TO_SAVE,
+        STORAGE_KEYS.DEVICE_ID,
+        STORAGE_KEYS.SESSION_TYPE,
+        STORAGE_KEYS.EPISODES_LIMIT,
+        STORAGE_KEYS.EPISODES_URL,
+        STORAGE_KEYS.TESTER_ID
       ])
       const data = res[STORAGE_KEYS.DATA_TO_SAVE]
       const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
+      const assessments = res[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
 
-      const data_filename = "data.json" // make it more informative
-      const archive_filename = "archive.json" // make it more informative
+      // Complete data
+      const results = {
+        info: {
+          device_id: res[STORAGE_KEYS.DEVICE_ID],
+          session_type: res[STORAGE_KEYS.SESSION_TYPE],
+          episodes_limit: res[STORAGE_KEYS.EPISODES_LIMIT],
+          episodes_url: res[STORAGE_KEYS.EPISODES_URL],
+          tester_id: res[STORAGE_KEYS.TESTER_ID]
+        },
+        assessments: assessments,
+        data: data
+      }
 
-      const saved_01 = save_json(data, data_filename)
-      const saved_02 = save_json(archive, archive_filename)
 
-      if(saved_01 && saved_02){
+
+      // Save files
+      const timestamp = get_local_datetime(new Date())
+      const results_filename = `results_${results.info.tester_id}_${results.info.session_type}_${timestamp}.json`;  
+      const archive_filename = `archive_${results.info.tester_id}_${results.info.session_type}_${timestamp}.json`;  
+     
+      const results_json = save_json(results, results_filename)
+      const archive_json = save_json(archive, archive_filename)
+
+      if(results_json && archive_json){
         const data = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_URL])
         const episode_limit = data[STORAGE_KEYS.EPISODES_LIMIT]
         const episode_count = data[STORAGE_KEYS.EPISODE_COUNT]

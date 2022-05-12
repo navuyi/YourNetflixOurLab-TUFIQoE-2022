@@ -11,8 +11,6 @@ const init = async () => {
 
     const assessmentManager = new AssessmentManager()
     await assessmentManager.init()
-
-
 }
 
 
