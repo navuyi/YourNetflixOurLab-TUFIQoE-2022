@@ -37,7 +37,7 @@ export class BitrateManager{
                     }
                 }, 500)
             })
-        }, 120000)
+        }, 300000)
     }
 
 

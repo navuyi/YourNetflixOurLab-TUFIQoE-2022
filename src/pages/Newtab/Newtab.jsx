@@ -15,12 +15,6 @@ const Newtab = () => {
 
   useEffect(() => {
     const init = async () => {
-
-      // Make it fullscreen (F11 to exit)
-      //chrome.windows.getCurrent(window => {
-      //  chrome.windows.update(window.id, {state: "fullscreen"})
-      //})
-
       // Save data as json file
       const res = await chrome.storage.local.get([
         STORAGE_KEYS.DATA_TO_SAVE,
@@ -30,11 +24,16 @@ const Newtab = () => {
         STORAGE_KEYS.SESSION_TYPE,
         STORAGE_KEYS.EPISODES_LIMIT,
         STORAGE_KEYS.EPISODES_URL,
-        STORAGE_KEYS.TESTER_ID
+        STORAGE_KEYS.TESTER_ID,
+        STORAGE_KEYS.EPISODE_COUNT
       ])
       const data = res[STORAGE_KEYS.DATA_TO_SAVE]
       const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
       const assessments = res[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
+      
+      const episode_limit = res[STORAGE_KEYS.EPISODES_LIMIT]
+      const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
+      const episode_index = episode_count - 1
 
       // Complete data
       const results = {
@@ -42,7 +41,8 @@ const Newtab = () => {
           device_id: res[STORAGE_KEYS.DEVICE_ID],
           session_type: res[STORAGE_KEYS.SESSION_TYPE],
           episodes_limit: res[STORAGE_KEYS.EPISODES_LIMIT],
-          episodes_url: res[STORAGE_KEYS.EPISODES_URL],
+          episode_index: episode_index,
+          episode_url: res[STORAGE_KEYS.EPISODES_URL][episode_index],
           tester_id: res[STORAGE_KEYS.TESTER_ID]
         },
         assessments: assessments,
@@ -61,9 +61,7 @@ const Newtab = () => {
 
       if(results_json && archive_json){
         const data = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_URL])
-        const episode_limit = data[STORAGE_KEYS.EPISODES_LIMIT]
-        const episode_count = data[STORAGE_KEYS.EPISODE_COUNT]
-        const episode_index = episode_count - 1
+        
 
         if(episode_limit === episode_count){
           setFinished(true)

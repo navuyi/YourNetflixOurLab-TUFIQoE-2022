@@ -23,10 +23,10 @@ export class AssessmentManager{
             const popup = document.getElementById("assessment-popup")
             popup.style.display = "unset"
 
-        },10000) // <-- to be changed, value from config
+        }, 150000) // <-- to be changed, value from config
     }
 
-    init_popup(){
+    async init_popup(){
         return new Promise(resolve => {
             const popup = document.createElement("div")
             const background = this.create_background()
@@ -41,12 +41,16 @@ export class AssessmentManager{
             popup.appendChild(background)
 
             let interval = undefined
-            interval = setInterval(async () => {
+            interval = setInterval(() => {
                 try{
                     const video = document.getElementsByTagName("video")[0]
                     const video_div = video.parentElement
-                    const ltr_element = document.getElementsByClassName(" ltr-op8orf")[0]
-    
+                    const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
+
+                    console.log(video)
+                    console.log(video_div)
+                    console.log(ltr_element)
+
                     if(video && video_div && ltr_element){
                         clearInterval(interval) // stop the retrying process
                         video_div.appendChild(popup)    // add popup to the DOM
@@ -55,7 +59,7 @@ export class AssessmentManager{
                     }
                 }
                 catch(err){
-                    this.print(err)
+                    console.log(err)
                 }
             }, 500)
         })
