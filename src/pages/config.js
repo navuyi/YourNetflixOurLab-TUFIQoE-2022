@@ -111,8 +111,8 @@ export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.EPISODE_COUNT]: 0,
     [STORAGE_KEYS.CURRENT_BANDWIDTH]: null,
 
-    [STORAGE_KEYS.DEVICE_ID]: 106,                // 1 or 2 is correct, 1 set by default,
-    [STORAGE_KEYS.TESTER_ID]: "123",        // tester's ID
+    [STORAGE_KEYS.DEVICE_ID]: 106,                // 106 or 107 is correct, 106 set by default,
+    [STORAGE_KEYS.TESTER_ID]: "123",                // tester's ID
 
     [STORAGE_KEYS.SESSION_TYPE]: "alone",       // alone and together are correct values, alone by default
     [STORAGE_KEYS.EPISODES_LIMIT]: 1,          // Most likely it will be set to 1 or 2

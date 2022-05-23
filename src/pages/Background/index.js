@@ -2,7 +2,9 @@ import {MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS, ARCHIVE_DEFAULT} from "
 import {Controller} from "./modules/Controller"
 import { DATABASE_KEYS, DATABASE_DEFAULT, ASSESSMENTS_DEFAULT, STORAGE_DEFAULT } from "../config"
 import { test_chrome_storage } from "../../../test/test_chrome_storage"
+import { get_local_datetime } from "../../utils/time_utils"
 
+console.log("[BackgroundScript] Initializing all ")
 let database = DATABASE_DEFAULT                     // for storing processed data from video playback (nerd stats)
 let archive = ARCHIVE_DEFAULT                          // for storing unprocessed (raw) data from video playback (nerd stats raw string)
 let assessments = ASSESSMENTS_DEFAULT         // for storing user assessments
@@ -11,10 +13,13 @@ let assessments = ASSESSMENTS_DEFAULT         // for storing user assessments
 chrome.storage.local.set(STORAGE_DEFAULT)
 
 // Chrome debugger listeners
+/*
 chrome.debugger.onDetach.addListener((data) => {
     console.log(`[BackgroundScript] Debugger detached!!!!`)
     console.log(data)
 })
+*/
+
 
 // Message listeners //
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -44,14 +49,15 @@ const receive_data_msg = async (message, sender, sendResponse) => {
         for(const key in data){
             database[key].push(data[key])
         }
+        
         console.log(database)
 
         // Store archive
         for(const key in _archive){
             archive[key].push(_archive[key])
         }
+       
         console.log(archive)
-        sendResponse({msg: "NerdStats data received"})
     }
 }
 
@@ -109,6 +115,9 @@ const reset_assessments = () => {
         assessments[key] = []
     }
 }
+
+
+
 
 
 
