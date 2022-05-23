@@ -1,6 +1,7 @@
 import {MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS, ARCHIVE_DEFAULT} from "../config"
 import {Controller} from "./modules/Controller"
 import { DATABASE_KEYS, DATABASE_DEFAULT, ASSESSMENTS_DEFAULT, STORAGE_DEFAULT } from "../config"
+import { test_chrome_storage } from "../../../test/test_chrome_storage"
 
 let database = DATABASE_DEFAULT                     // for storing processed data from video playback (nerd stats)
 let archive = ARCHIVE_DEFAULT                          // for storing unprocessed (raw) data from video playback (nerd stats raw string)
@@ -29,8 +30,6 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 // Initialize Controller instance
 const controller = new Controller()
 controller.init()
-
-
 
 
 

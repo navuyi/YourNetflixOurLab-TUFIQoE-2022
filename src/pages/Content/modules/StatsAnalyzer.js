@@ -32,15 +32,20 @@ export class StatsAnalyzer{
         // Start interval that will be killed in case of switching video to another
         this.interval = setInterval(() => {
             chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]).then(async res => {
-                const currentIndex = res[STORAGE_KEYS.EPISODE_COUNT]
-                this.print(`${this.episodeIndex} vs ${currentIndex}`)
+                const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
+                const episode_index = episode_count - 1
+                this.print(`Current episode count: ${episode_count} || Current episode index: ${episode_index}`)
 
                 // Check if script should still be working, if not clear interval and stop sending
-                if(this.episodeIndex !== currentIndex){
-                    this.print(`Killing interval. Not my session anymore: ${this.episodeIndex} vs ${currentIndex}`)
-                    clearInterval(this.interval)
-                    return
-                }
+                /*
+                    if(this.episodeIndex !== currentIndex){
+                        //this.print(`Killing interval. Not my session anymore: ${this.episodeIndex} vs ${currentIndex}`)
+                        //clearInterval(this.interval)
+                        this.print(`Detected change in episode index but taking no action: ${this.episodeIndex} vs ${currentIndex}`)
+                        //return
+                    }
+                */
+                
 
                 // Analyze data
                 const timestamp = get_local_datetime(new Date())

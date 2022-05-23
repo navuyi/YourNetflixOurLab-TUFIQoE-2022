@@ -8,6 +8,7 @@ import DeviceID from "./Components/DeviceID";
 import TesterIDContainer from './Components/TesterIDContainer';
 import StartButton from './Components/StartButton';
 import EpisodesURL from "./Components/EpisodesURL";
+import { STORAGE_KEYS } from '../config';
 
 
 const Popup = () => {
@@ -18,6 +19,7 @@ const Popup = () => {
         console.log(episodesAmount)
     }, [episodesAmount])
 
+  
     return (
         <div className="App" >
             <h1 >Watching with Friends</h1>

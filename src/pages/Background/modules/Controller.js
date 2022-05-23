@@ -1,5 +1,3 @@
-
-
 import {STORAGE_KEYS} from "../../config"
 import { STORAGE_DEFAULT} from "../../config"
 
@@ -19,6 +17,7 @@ export class Controller{
 
     async injectScript(tabId){
         // Increment EPISODE_COUNT
+        this.print('Increasing episode count and incjecting content script!!!')
         const count = (await chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]))[STORAGE_KEYS.EPISODE_COUNT]
         await chrome.storage.local.set({
             [STORAGE_KEYS.EPISODE_COUNT]: count+1

@@ -82,7 +82,7 @@ export class AssessmentManager{
     }
 
     create_buttons(){
-        const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła"]
+        const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła", "Nie zwróciłem/am uwagi"]
         const buttons = []
         descriptions.forEach((text, index) => {
             const button = document.createElement("button")
@@ -113,6 +113,7 @@ export class AssessmentManager{
                 e.target.style.backgroundColor = "#458df5"
             }
 
+
             // JS configuration of assessment button
             button.onclick = this.handle_button_click
             button.setAttribute("value", value.toString())
@@ -120,7 +121,13 @@ export class AssessmentManager{
             
             buttons.push(button)
         })
-        
+
+        // Last button reconfiguration
+        const btn = buttons[buttons.length-1]
+        btn.setAttribute("value", "DID_NOT_PAY_ATTENTION")
+        btn.innerText = descriptions[buttons.length-1]
+        btn.style.marginTop = "20px"
+
         return buttons
     }
 

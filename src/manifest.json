@@ -29,6 +29,7 @@
     "activeTab",
     "storage",
     "debugger",
-    "webNavigation"
+    "webNavigation",
+    "unlimitedStorage"
   ]
 }

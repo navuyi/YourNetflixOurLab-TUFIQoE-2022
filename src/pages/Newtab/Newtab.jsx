@@ -31,8 +31,8 @@ const Newtab = () => {
       const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
       const assessments = res[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
       
-      const episode_limit = res[STORAGE_KEYS.EPISODES_LIMIT]
-      const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
+      const episode_limit = parseInt(res[STORAGE_KEYS.EPISODES_LIMIT])
+      const episode_count = parseInt(res[STORAGE_KEYS.EPISODE_COUNT])
       const episode_index = episode_count - 1
 
       // Complete data
@@ -62,7 +62,7 @@ const Newtab = () => {
       if(results_json && archive_json){
         const data = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_URL])
         
-
+        console.log(`Episode count: ${episode_count}     Episode limit: ${episode_limit}`)
         if(episode_limit === episode_count){
           setFinished(true)
           setTimeout(() => {
