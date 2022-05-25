@@ -3,6 +3,7 @@ import {Controller} from "./modules/Controller"
 import { DATABASE_KEYS, DATABASE_DEFAULT, ASSESSMENTS_DEFAULT, STORAGE_DEFAULT } from "../config"
 import { test_chrome_storage } from "../../../test/test_chrome_storage"
 import { get_local_datetime } from "../../utils/time_utils"
+import { test_storage_with_buffor } from "../../../test/storage_buffor_test"
 
 
 
@@ -57,3 +58,4 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
     }
 }
 
+//test_storage_with_buffor()

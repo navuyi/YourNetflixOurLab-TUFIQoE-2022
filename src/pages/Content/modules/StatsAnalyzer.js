@@ -15,6 +15,7 @@ export class StatsAnalyzer{
 
         this.local_database = DATABASE_DEFAULT
         this.local_archive = ARCHIVE_DEFAULT
+        this.record_count = 0
     }
 
     print(text){
@@ -35,7 +36,6 @@ export class StatsAnalyzer{
         // Start interval that will be killed in case of switching video to another
         this.interval = setInterval(() => {
             chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]).then(async res => {
-                const start = new Date()
                 const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
                 const episode_index = episode_count - 1
                 this.print(`Current episode count: ${episode_count} || Current episode index: ${episode_index}`)
@@ -56,12 +56,19 @@ export class StatsAnalyzer{
                 const data = await this.analyze_data(this.element.value.toString(), timestamp)
                 const archive = this.compile_archive(this.element.value.toString(), timestamp)
 
+                // Save data to local variables - always!!!
+                this.save_data_to_local_variable(data, archive)
+
                 // Check if credits are available and remove container
                 await this.are_credits_available()
+                
+                this.record_count += 1
 
-                // Send data to background
-                await this.save_data_to_storage(data, archive) 
-                this.print(`Time elapsed: ${new Date() - start}ms`)
+                // Save data to chrome.storage
+                if(this.record_count >= 10){
+                    await this.save_data_to_storage() 
+                    this.record_count = 0
+                }
             })
         }, STATS_RECORD_INTERVAL_MS)
     }
@@ -134,21 +141,25 @@ export class StatsAnalyzer{
     }
     */
     
-
-    async save_data_to_storage(data, archive){
-        // Collect data to local variable
+    save_data_to_local_variable(data, archive){
+        // Save data to local variable
         for(const key in data){
             this.local_database[key].push(data[key])
         }
         for(const key in archive){
             this.local_archive[key].push(archive[key])
         }
+    }
 
+    async save_data_to_storage(){
         // Overwrite chrome.storage datasets
+        this.print(`Saving data to chrome.storage`)
+        const start = new Date()
         await chrome.storage.local.set({
             [STORAGE_KEYS.DATA_TO_SAVE]: this.local_database,
             [STORAGE_KEYS.ARCHIVE_TO_SAVE]: this.local_archive
         })
+        console.log(`Elapsed: ${new Date()-start} ms`)
         console.log(this.local_database)
         console.log(this.local_archive)
     }
@@ -197,6 +208,9 @@ export class StatsAnalyzer{
 
             // Pause the video
             document.getElementsByTagName("video")[0].pause()
+
+            // Save collected data to chrome.storage || to avoid missing data when video finishes
+            await this.save_data_to_storage()
 
             // Send FINISHED signal to the BackgroundScript
             await chrome.runtime.sendMessage({

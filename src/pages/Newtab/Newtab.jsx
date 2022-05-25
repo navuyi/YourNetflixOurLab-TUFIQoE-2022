@@ -5,7 +5,7 @@ import {save_json} from "../../utils/save_json";
 
 import {useEffect} from "react";
 import {STORAGE_KEYS} from "../config";
-
+import { STORAGE_DEFAULT } from '../config';
 import {get_local_datetime} from "../../utils/time_utils"
 
 const Newtab = () => {
