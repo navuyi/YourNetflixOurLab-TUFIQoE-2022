@@ -1,5 +1,5 @@
 import { get_local_datetime, get_local_datetime_and_timezone } from "../../../utils/time_utils"
-import { MESSAGE_HEADERS, MESSAGE_TEMPLATE } from "../../config"
+import { ASSESSMENTS_DEFAULT, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../config"
 
 
 export class AssessmentManager{
@@ -23,7 +23,7 @@ export class AssessmentManager{
             const popup = document.getElementById("assessment-popup")
             popup.style.display = "unset"
 
-        }, 150000) // <-- to be changed, value from config
+        }, 150000) // <-- to be changed, value from config 150000
     }
 
     async init_popup(){
@@ -131,17 +131,9 @@ export class AssessmentManager{
         return buttons
     }
 
-    send_assessment_to_background(data){
-        chrome.runtime.sendMessage({
-            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.ASSESSMENT,
-            [MESSAGE_TEMPLATE.DATA]: data,
-            [MESSAGE_TEMPLATE.ARCHIVE]: false
-        }, (res) => {
-            console.log(res)
-        })
-    }
+   
 
-    handle_button_click(e){
+    async handle_button_click(e){
         document.getElementById("assessment-popup").style.display = "none"
         const value = e.target.getAttribute("value")
         const description = e.target.getAttribute("description")
@@ -151,19 +143,20 @@ export class AssessmentManager{
             description: description,
             timestamp: get_local_datetime(new Date())
         }
-        
 
-        // Send data to background
-        chrome.runtime.sendMessage({
-            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.ASSESSMENT,
-            [MESSAGE_TEMPLATE.DATA]: data,
-            [MESSAGE_TEMPLATE.ARCHIVE]: false
-        }, (res) => {
-            console.log(res)
+        // Get assessments from chrome.storage first
+        const assessments = (await chrome.storage.local.get([STORAGE_KEYS.ASSESSMENTS_TO_SAVE]))[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
+        
+        // Push new assessments
+        for(const key in data){
+            assessments[key].push(data[key])
+        }
+
+        // Set chrome.storage with updated assessments
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: assessments
         })
     }
-
-   
 }
 
 

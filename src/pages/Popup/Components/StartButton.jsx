@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { test_chrome_storage } from "../../../../test/test_chrome_storage";
 import {STORAGE_KEYS} from "../../config";
 
 
@@ -8,6 +9,7 @@ const StartButton = (props) => {
 
 
     const handleClick = async (e) => {
+        
         const decision = await window.confirm("Make sure all settings are correct!!!")
         const start_url = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_URL]))[STORAGE_KEYS.EPISODES_URL][0]
 

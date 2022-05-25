@@ -8,7 +8,7 @@ export class Controller{
     }
 
     async init(){
-        console.log("[Controller] Initializing...")
+        console.log("[Controller] Initializing..." + get_local_datetime(new Date()))
         this.listenForVideoStart()
     }
 

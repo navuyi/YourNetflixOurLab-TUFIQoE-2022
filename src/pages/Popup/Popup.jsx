@@ -9,6 +9,7 @@ import TesterIDContainer from './Components/TesterIDContainer';
 import StartButton from './Components/StartButton';
 import EpisodesURL from "./Components/EpisodesURL";
 import { STORAGE_KEYS } from '../config';
+import EmergencySaveButton from './Components/EmergencySaveButton';
 
 
 const Popup = () => {
@@ -42,6 +43,7 @@ const Popup = () => {
             <TesterIDContainer 
                 deviceID={deviceID}
             />
+            <EmergencySaveButton />
         </div>
         );
     };

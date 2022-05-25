@@ -1,4 +1,4 @@
-import {ARCHIVE_KEYS, MESSAGE_TEMPLATE, MESSAGE_HEADERS, STORAGE_KEYS} from "../../config"
+import {ARCHIVE_KEYS, MESSAGE_TEMPLATE, MESSAGE_HEADERS, STORAGE_KEYS, DATABASE_DEFAULT, ARCHIVE_DEFAULT} from "../../config"
 import {get_statistics_element} from "../utils/get_statistics_element";
 import { STATS_RECORD_INTERVAL_MS } from "../../config"
 import {get_local_datetime} from "../../../utils/time_utils"
@@ -12,6 +12,9 @@ export class StatsAnalyzer{
         this.element = undefined
         this.interval = undefined
         this.episodeIndex = undefined
+
+        this.local_database = DATABASE_DEFAULT
+        this.local_archive = ARCHIVE_DEFAULT
     }
 
     print(text){
@@ -32,6 +35,7 @@ export class StatsAnalyzer{
         // Start interval that will be killed in case of switching video to another
         this.interval = setInterval(() => {
             chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]).then(async res => {
+                const start = new Date()
                 const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
                 const episode_index = episode_count - 1
                 this.print(`Current episode count: ${episode_count} || Current episode index: ${episode_index}`)
@@ -56,8 +60,8 @@ export class StatsAnalyzer{
                 await this.are_credits_available()
 
                 // Send data to background
-                this.send_data_to_background(data, archive)
-
+                await this.save_data_to_storage(data, archive) 
+                this.print(`Time elapsed: ${new Date() - start}ms`)
             })
         }, STATS_RECORD_INTERVAL_MS)
     }
@@ -117,6 +121,8 @@ export class StatsAnalyzer{
         }
     }
 
+
+    /*
     send_data_to_background(data, archive){
         chrome.runtime.sendMessage({
             [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.NERD_STATISTICS,
@@ -126,16 +132,31 @@ export class StatsAnalyzer{
             //console.log(res)
         })
     }
+    */
+    
+
+    async save_data_to_storage(data, archive){
+        // Collect data to local variable
+        for(const key in data){
+            this.local_database[key].push(data[key])
+        }
+        for(const key in archive){
+            this.local_archive[key].push(archive[key])
+        }
+
+        // Overwrite chrome.storage datasets
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.DATA_TO_SAVE]: this.local_database,
+            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: this.local_archive
+        })
+        console.log(this.local_database)
+        console.log(this.local_archive)
+    }
 
     insert_blockade(finished = false){
         const blockade = window.document.createElement("div")
         const text = window.document.createElement("h1")
-        /*const style = {
-            width: "100vw", height: "100vh",
-            top: "0", left: "0", position: "absolute",
-            backgroundColor: "black", opacity: "0.5"
-        }
-         */
+       
         blockade.style.width = "100vw"; blockade.style.height = "100vh";
         blockade.style.top = "0"; blockade. style.left = "0";
         blockade.style.position = "absolute";
@@ -182,37 +203,6 @@ export class StatsAnalyzer{
                 [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
                 [MESSAGE_TEMPLATE]: true
             })
-
-
-
-            /*
-            setTimeout(async () => {
-                // Get data to save after response is received
-                const res = await chrome.storage.local.get([STORAGE_KEYS.DATA_TO_SAVE, STORAGE_KEYS.ARCHIVE_TO_SAVE])
-                const database = res[STORAGE_KEYS.DATA_TO_SAVE]
-                const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
-
-                // Save files
-                this.print("Saving files")
-                save_json(database, "data.json")
-                save_json(archive, "archive.json")
-            }, 5000)
-
-            const _res = (await chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_LIMIT]))
-            const episode_count = _res[STORAGE_KEYS.EPISODE_COUNT]
-            const episodes_limit =_res[STORAGE_KEYS.EPISODES_LIMIT]
-            const episode_index = episode_count - 1
-
-            // Insert screen blockade
-            const finished = episode_count === episodes_limit
-            this.insert_blockade(finished)
-            if(finished === false){
-                const next_url = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_URL]))[STORAGE_KEYS.EPISODES_URL][episode_index+1]
-                setTimeout(() => {
-                    window.location.href = next_url
-                }, 10000)
-            }
-             */
         }
     }
 }

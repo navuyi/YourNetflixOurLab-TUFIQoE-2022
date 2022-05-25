@@ -9,7 +9,7 @@ import {STORAGE_KEYS} from "../config";
 import {get_local_datetime} from "../../utils/time_utils"
 
 const Newtab = () => {
-  const [seconds, setSeconds] = useState(10)  // Change this value !! !! !! not timeout below
+  const [seconds, setSeconds] = useState(30)  // Change this value !! !! !! not timeout below
   const timeout = seconds * 1000
   const [finished, setFinished] = useState(false)
 
@@ -30,6 +30,10 @@ const Newtab = () => {
       const data = res[STORAGE_KEYS.DATA_TO_SAVE]
       const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
       const assessments = res[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
+
+      console.log(data)
+      console.log(archive)
+      console.log(assessments)
       
       const episode_limit = parseInt(res[STORAGE_KEYS.EPISODES_LIMIT])
       const episode_count = parseInt(res[STORAGE_KEYS.EPISODE_COUNT])
@@ -67,7 +71,7 @@ const Newtab = () => {
           setFinished(true)
           setTimeout(() => {
             chrome.runtime.reload()
-          }, 5000)
+          }, 30000)
         }
         else{
           setTimeout(async () => {
