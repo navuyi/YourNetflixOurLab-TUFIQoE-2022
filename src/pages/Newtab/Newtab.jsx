@@ -69,9 +69,10 @@ const Newtab = () => {
         console.log(`Episode count: ${episode_count}     Episode limit: ${episode_limit}`)
         if(episode_limit === episode_count){
           setFinished(true)
-          setTimeout(() => {
+          setTimeout(async () => {
+            await chrome.storage.local.set(STORAGE_DEFAULT) // Set storage to default (includes reseting all the collected data)
             chrome.runtime.reload()
-          }, 30000)
+          }, 10000)
         }
         else{
           setTimeout(async () => {

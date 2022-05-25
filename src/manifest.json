@@ -30,6 +30,7 @@
     "storage",
     "debugger",
     "webNavigation",
-    "unlimitedStorage"
+    "unlimitedStorage",
+    "background"
   ]
 }
