@@ -5,6 +5,8 @@ import { ASSESSMENTS_DEFAULT, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } 
 export class AssessmentManager{
     constructor() {
         this.interval = undefined
+        this.started = undefined
+        this.ended = undefined
     }
 
 
@@ -21,9 +23,10 @@ export class AssessmentManager{
     start_assessment_process(){
         this.interval = setInterval(() => {
             const popup = document.getElementById("assessment-popup")
+            this.started = new Date()
             popup.style.display = "unset"
 
-        }, 150000) // <-- to be changed, value from config 150000
+        }, 5000) // <-- to be changed, value from config 150000
     }
 
     async init_popup(){
@@ -115,7 +118,7 @@ export class AssessmentManager{
 
 
             // JS configuration of assessment button
-            button.onclick = this.handle_button_click
+            button.onclick = this.handle_button_click.bind(this) // Essential binding (so that function sees attributes of the class)
             button.setAttribute("value", value.toString())
             button.setAttribute("description", text)
             
@@ -134,6 +137,7 @@ export class AssessmentManager{
    
 
     async handle_button_click(e){
+        this.ended = new Date()
         document.getElementById("assessment-popup").style.display = "none"
         const value = e.target.getAttribute("value")
         const description = e.target.getAttribute("description")
@@ -141,8 +145,11 @@ export class AssessmentManager{
         const data = {
             value: value,
             description: description,
-            timestamp: get_local_datetime(new Date())
+            started: get_local_datetime(this.started),
+            timestamp: get_local_datetime(new Date()),
+            duration: this.ended - this.started
         }
+        
 
         // Get assessments from chrome.storage first
         const assessments = (await chrome.storage.local.get([STORAGE_KEYS.ASSESSMENTS_TO_SAVE]))[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
@@ -156,6 +163,7 @@ export class AssessmentManager{
         await chrome.storage.local.set({
             [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: assessments
         })
+        console.log(assessments)
     }
 }
 

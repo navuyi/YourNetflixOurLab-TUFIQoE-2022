@@ -77,12 +77,16 @@ export const ARCHIVE_DEFAULT = {
 export const ASSESSMENTS_KEYS = {
     VALUE: "value",
     DESCRIPTION: "description",
-    TIMESTAMP: "timestamp"
+    TIMESTAMP: "timestamp",
+    STARTED: "started",
+    DURATION: "duration"
 }
 export const ASSESSMENTS_DEFAULT = {
     [ASSESSMENTS_KEYS.VALUE]: [],
     [ASSESSMENTS_KEYS.DESCRIPTION]: [],
-    [ASSESSMENTS_KEYS.TIMESTAMP]: []
+    [ASSESSMENTS_KEYS.TIMESTAMP]: [],
+    [ASSESSMENTS_KEYS.STARTED]: [],
+    [ASSESSMENTS_KEYS.DURATION]: []
 }
 
 export const STORAGE_KEYS = {
