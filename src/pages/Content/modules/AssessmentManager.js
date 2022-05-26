@@ -7,6 +7,7 @@ export class AssessmentManager{
         this.interval = undefined
         this.started = undefined
         this.ended = undefined
+        this.panel_visible = false
     }
 
 
@@ -22,10 +23,12 @@ export class AssessmentManager{
 
     start_assessment_process(){
         this.interval = setInterval(() => {
-            const popup = document.getElementById("assessment-popup")
-            this.started = new Date()
-            popup.style.display = "unset"
-
+            if(this.panel_visible === false){
+                const popup = document.getElementById("assessment-popup")
+                this.started = new Date()
+                popup.style.display = "unset"
+                this.panel_visible = true
+            }
         }, 5000) // <-- to be changed, value from config 150000
     }
 
@@ -138,6 +141,7 @@ export class AssessmentManager{
 
     async handle_button_click(e){
         this.ended = new Date()
+        this.panel_visible = false
         document.getElementById("assessment-popup").style.display = "none"
         const value = e.target.getAttribute("value")
         const description = e.target.getAttribute("description")
