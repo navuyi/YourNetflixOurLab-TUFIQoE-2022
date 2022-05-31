@@ -13,14 +13,14 @@ const EpisodesURL = (props) => {
                 array.push("")
             }
 
-            const urls = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_URL]))[STORAGE_KEYS.EPISODES_URL]
+            const urls = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_URLS]))[STORAGE_KEYS.VIDEO_URLS]
             for(let i=0; i<props.episodesAmount; i++){
                 array[i] = urls[i] ?? ""
             }
 
             setUrlArray(array)
             await chrome.storage.local.set({
-                [STORAGE_KEYS.EPISODES_URL]: array
+                [STORAGE_KEYS.VIDEO_URLS]: array
             })
         }
 
@@ -35,7 +35,7 @@ const EpisodesURL = (props) => {
 
         setUrlArray(tmp)
         await chrome.storage.local.set({
-            [STORAGE_KEYS.EPISODES_URL]: tmp
+            [STORAGE_KEYS.VIDEO_URLS]: tmp
         })
     }
 

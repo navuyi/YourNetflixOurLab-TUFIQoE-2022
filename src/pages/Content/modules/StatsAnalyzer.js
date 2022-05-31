@@ -26,7 +26,7 @@ export class StatsAnalyzer{
         this.print(`Initializing...`)
 
         // Assigning episode index
-        this.episodeIndex = (await chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]))[STORAGE_KEYS.EPISODE_COUNT]
+        this.episodeIndex = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
 
         // Get statistics element to be analyzed
         this.element = await get_statistics_element()
@@ -35,10 +35,10 @@ export class StatsAnalyzer{
 
         // Start interval that will be killed in case of switching video to another
         this.interval = setInterval(() => {
-            chrome.storage.local.get([STORAGE_KEYS.EPISODE_COUNT]).then(async res => {
-                const episode_count = res[STORAGE_KEYS.EPISODE_COUNT]
-                const episode_index = episode_count - 1
-                this.print(`Current episode count: ${episode_count} || Current episode index: ${episode_index}`)
+            chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]).then(async res => {
+                const video_count = res[STORAGE_KEYS.VIDEO_COUNT]
+                const episode_index = video_count - 1
+                this.print(`Current episode count: ${video_count} || Current episode index: ${episode_index}`)
 
                 // Check if script should still be working, if not clear interval and stop sending
                 /*

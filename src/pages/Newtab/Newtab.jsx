@@ -21,11 +21,11 @@ const Newtab = () => {
         STORAGE_KEYS.ARCHIVE_TO_SAVE,
         STORAGE_KEYS.ASSESSMENTS_TO_SAVE,
         STORAGE_KEYS.DEVICE_ID,
-        STORAGE_KEYS.SESSION_TYPE,
-        STORAGE_KEYS.EPISODES_LIMIT,
-        STORAGE_KEYS.EPISODES_URL,
+        STORAGE_KEYS.EXPERIMENT_TYPE,
+        STORAGE_KEYS.VIDEO_LIMIT,
+        STORAGE_KEYS.VIDEO_URLS,
         STORAGE_KEYS.TESTER_ID,
-        STORAGE_KEYS.EPISODE_COUNT
+        STORAGE_KEYS.VIDEO_COUNT
       ])
       const data = res[STORAGE_KEYS.DATA_TO_SAVE]
       const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
@@ -35,18 +35,18 @@ const Newtab = () => {
       console.log(archive)
       console.log(assessments)
       
-      const episode_limit = parseInt(res[STORAGE_KEYS.EPISODES_LIMIT])
-      const episode_count = parseInt(res[STORAGE_KEYS.EPISODE_COUNT])
-      const episode_index = episode_count - 1
+      const episode_limit = parseInt(res[STORAGE_KEYS.VIDEO_LIMIT])
+      const video_count = parseInt(res[STORAGE_KEYS.VIDEO_COUNT])
+      const episode_index = video_count - 1
 
       // Complete data
       const results = {
         info: {
           device_id: res[STORAGE_KEYS.DEVICE_ID],
-          session_type: res[STORAGE_KEYS.SESSION_TYPE],
-          episodes_limit: res[STORAGE_KEYS.EPISODES_LIMIT],
+          experiment_type: res[STORAGE_KEYS.EXPERIMENT_TYPE],
+          video_limit: res[STORAGE_KEYS.VIDEO_LIMIT],
           episode_index: episode_index,
-          episode_url: res[STORAGE_KEYS.EPISODES_URL][episode_index],
+          video_url: res[STORAGE_KEYS.VIDEO_URLS][episode_index],
           tester_id: res[STORAGE_KEYS.TESTER_ID]
         },
         assessments: assessments,
@@ -57,17 +57,17 @@ const Newtab = () => {
 
       // Save files
       const timestamp = get_local_datetime(new Date())
-      const results_filename = `results_${results.info.tester_id}_${results.info.session_type}_${timestamp}.json`;  
-      const archive_filename = `archive_${results.info.tester_id}_${results.info.session_type}_${timestamp}.json`;  
+      const results_filename = `results_${results.info.tester_id}_${results.info.experiment_type}_${timestamp}.json`;  
+      const archive_filename = `archive_${results.info.tester_id}_${results.info.experiment_type}_${timestamp}.json`;  
      
       const results_json = save_json(results, results_filename)
       const archive_json = save_json(archive, archive_filename)
 
       if(results_json && archive_json){
-        const data = await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT, STORAGE_KEYS.EPISODE_COUNT, STORAGE_KEYS.EPISODES_URL])
+        const data = await chrome.storage.local.get([STORAGE_KEYS.VIDEO_LIMIT, STORAGE_KEYS.VIDEO_COUNT, STORAGE_KEYS.VIDEO_URLS])
         
-        console.log(`Episode count: ${episode_count}     Episode limit: ${episode_limit}`)
-        if(episode_limit === episode_count){
+        console.log(`Episode count: ${video_count}     Episode limit: ${episode_limit}`)
+        if(episode_limit === video_count){
           setFinished(true)
           setTimeout(async () => {
             await chrome.storage.local.set(STORAGE_DEFAULT) // Set storage to default (includes reseting all the collected data)
@@ -77,7 +77,7 @@ const Newtab = () => {
         else{
           setTimeout(async () => {
             const tabs = await chrome.tabs.query({active: true, currentWindow: true})
-            const next_url = data[STORAGE_KEYS.EPISODES_URL][episode_index + 1]
+            const next_url = data[STORAGE_KEYS.VIDEO_URLS][episode_index + 1]
             await chrome.tabs.update(tabs[0].id, {
               url: next_url
             })

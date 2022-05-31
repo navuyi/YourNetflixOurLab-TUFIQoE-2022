@@ -100,11 +100,11 @@ export const STORAGE_KEYS = {
     TESTER_ID: "tester_id",
     PAIR_ID: "pair_id",
 
-    SESSION_TYPE: "session_type",
-    EPISODE_COUNT: "episode_count",
-    EPISODES_LIMIT: "episodes_limit",
+    EXPERIMENT_TYPE: "experiment_type",
+    VIDEO_COUNT: "video_count",
+    VIDEO_LIMIT: "video_limit",
 
-    EPISODES_URL: "episodes_url"
+    VIDEO_URLS: "video_urls"
 }
 
 export const STORAGE_DEFAULT = {
@@ -112,16 +112,16 @@ export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.ARCHIVE_TO_SAVE]: ARCHIVE_DEFAULT,
     [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: ASSESSMENTS_DEFAULT,
 
-    [STORAGE_KEYS.EPISODE_COUNT]: 0,
+    [STORAGE_KEYS.VIDEO_COUNT]: 0,
     [STORAGE_KEYS.CURRENT_BANDWIDTH]: null,
 
     [STORAGE_KEYS.DEVICE_ID]: 106,                // 106 or 107 is correct, 106 set by default,
     [STORAGE_KEYS.TESTER_ID]: "123",                // tester's ID
 
-    [STORAGE_KEYS.SESSION_TYPE]: "alone",       // alone and together are correct values, alone by default
-    [STORAGE_KEYS.EPISODES_LIMIT]: 1,          // Most likely it will be set to 1 or 2
+    [STORAGE_KEYS.EXPERIMENT_TYPE]: "alone",       // alone and together are correct values, alone by default
+    [STORAGE_KEYS.VIDEO_LIMIT]: 1,          // Most likely it will be set to 1 or 2
 
-    [STORAGE_KEYS.EPISODES_URL]: [
+    [STORAGE_KEYS.VIDEO_URLS]: [
         "https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
         "https://www.netflix.com/watch/80025317?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
         "https://www.netflix.com/watch/80025318?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"

@@ -11,7 +11,7 @@ const EpisodesAmount = (props) => {
     useLayoutEffect(() => {
         const init = async () => {
             // Initialize episode amount
-            const limit = (await chrome.storage.local.get([STORAGE_KEYS.EPISODES_LIMIT]))[STORAGE_KEYS.EPISODES_LIMIT]
+            const limit = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_LIMIT]))[STORAGE_KEYS.VIDEO_LIMIT]
             props.setEpisodesAmount(limit)
         }
         init()
@@ -23,7 +23,7 @@ const EpisodesAmount = (props) => {
         props.setEpisodesAmount(value)
 
         await chrome.storage.local.set({
-            [STORAGE_KEYS.EPISODES_LIMIT]: value
+            [STORAGE_KEYS.VIDEO_LIMIT]: value
         })
     }
 

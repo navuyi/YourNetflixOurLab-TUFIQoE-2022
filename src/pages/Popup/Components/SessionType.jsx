@@ -10,8 +10,8 @@ const SessionType = () => {
 
     useLayoutEffect(() => {
         const init = async () => {
-            const res = await chrome.storage.local.get([STORAGE_KEYS.SESSION_TYPE])
-            setSession(res[STORAGE_KEYS.SESSION_TYPE])
+            const res = await chrome.storage.local.get([STORAGE_KEYS.EXPERIMENT_TYPE])
+            setSession(res[STORAGE_KEYS.EXPERIMENT_TYPE])
         }
 
         init()
@@ -21,7 +21,7 @@ const SessionType = () => {
         const ses = e.target.getAttribute("session")
         setSession(ses)
         await chrome.storage.local.set({
-            [STORAGE_KEYS.SESSION_TYPE]: ses
+            [STORAGE_KEYS.EXPERIMENT_TYPE]: ses
         })
     }
 
