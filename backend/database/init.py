@@ -1,9 +1,13 @@
 import sqlite3
 import shutil
 
+
 def create_files():
-    f = open("database.db", "x")
-    f = open("database-backup.db", "x")
+    try:
+        f = open("database.db", "x")
+        f = open("database-backup.db", "x")
+    except FileExistsError as E:
+        print(E)
 
 
 def confirm():
@@ -15,12 +19,14 @@ def confirm():
     try:
         answer = ""
         while answer not in ["y", "n"]:
-            answer = input("Are you sure to overwirte database file [Y/N]? ").lower()
+            answer = input(
+                "Are you sure to overwirte database file [Y/N]? ").lower()
         return answer == "y"
     except:
         print("")
         print("Aborting...")
         exit()
+
 
 def backup_database(src_path, dst_path):
     # Create database file backup before making changes
@@ -43,11 +49,10 @@ def init_database(db_path):
         print("Error while connecting to sqlite", error)
 
 
-
 def main():
     DATABASE_FILE = "./database.db"
     confirmed = confirm()
-    if confirmed==False:
+    if confirmed == False:
         print("Aborting...")
         return
 
@@ -56,8 +61,6 @@ def main():
     init_database(DATABASE_FILE)
     print("Database modified")
 
+
 if __name__ == "__main__":
     main()
-
-
-

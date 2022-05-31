@@ -16,7 +16,8 @@ CREATE TABLE IF NOT EXISTS experiment(
     device_id TEXT NOT NULL,        /* 106 or 107 */
     experiment_type TEXT NOT NULL,  /* alone or together */
     video_limit INTEGER NOT NULL,
-    tester_id TEXT NOT NULL
+    tester_id TEXT NOT NULL,
+    urls TEXT NOT NULL        /*stringified json array with urls*/
 );
 
 
