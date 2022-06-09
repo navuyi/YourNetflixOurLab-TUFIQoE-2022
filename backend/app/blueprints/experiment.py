@@ -3,6 +3,8 @@ from flask import Blueprint, request, jsonify
 from app.db import cursor
 import json
 
+from app.db import lastrowid
+
 bp = Blueprint("experiment", __name__, url_prefix="/experiment")
 
 # Configure test path
@@ -12,10 +14,6 @@ bp = Blueprint("experiment", __name__, url_prefix="/experiment")
 def set_experiment():
     data = request.json
 
-    s = json.dumps(data["urls"])
-    print(s)
-    print(type(s))
-
     insert = dict(
         started=data["started"],
         device_id=data["device_id"],
@@ -24,9 +22,12 @@ def set_experiment():
         tester_id=data["tester_id"],
         urls=json.dumps(data["urls"])
     )
-    cursor().execute(f"INSERT INTO experiment (started, device_id, experiment_type, video_limit, tester_id, urls) VALUES (:started, :device_id, :experiment_type, :video_limit, :tester_id, :urls)", insert)
+    # Create experiment
+    cursor().execute(f"""INSERT INTO experiment (started, device_id, experiment_type, video_limit, tester_id, urls) 
+    VALUES (:started, :device_id, :experiment_type, :video_limit, :tester_id, :urls)""", insert)
 
-    return jsonify(data), 201
+    experiment_id = lastrowid()
+    return jsonify(dict(experiment_id=experiment_id)), 201
 
 
 @bp.route("/", methods=["GET"])

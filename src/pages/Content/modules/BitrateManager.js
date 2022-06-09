@@ -1,3 +1,4 @@
+import { STORAGE_KEYS } from "../../config";
 import {simulate_bitrate_menu_hotkey} from "../utils/bitrate_menu_hotkey";
 import {get_statistics_element} from "../utils/get_statistics_element";
 
@@ -5,9 +6,6 @@ export class BitrateManager{
     constructor() {
         this.bitrate_menu = undefined
     }
-
-
-
 
     async init(){
         await this.bitrate_menu_init()
@@ -63,8 +61,9 @@ export class BitrateManager{
 
                     if(bitrate_values.length > 0){
                         clearInterval(timer)
-                        setTimeout(() => {
-                            this.set_bitrate(select, override_button, bitrate_values[bitrate_values.length-1])
+                        setTimeout(async () => {
+                            const value = bitrate_values[bitrate_values.length-1]
+                            this.set_bitrate(select, override_button, value)
                         }, 2000)
                         resolve(bitrate_values)
                     }
@@ -128,10 +127,15 @@ export class BitrateManager{
 
 
     async set_bitrate(select, button, value) {
-        setTimeout(()=> {
+        setTimeout(async ()=> {
             console.log(`Setting bitrate to ${value} kbps`)
             select.value = value
             button.click()
+
+            // Save selected bitrate value to chrome.storage
+            await chrome.storage.local.set({
+                [STORAGE_KEYS.CURRENT_BITRATE]: value
+            })
         }, 1000)
     }
 }

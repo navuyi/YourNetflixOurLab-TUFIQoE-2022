@@ -5,6 +5,7 @@ import {STORAGE_KEYS} from "../../config";
 import axios from "axios";
 import { create_experiment } from "../../../http_requests/create_experiment";
 import { get_local_datetime } from "../../../utils/time_utils";
+import { create_video } from "../../../http_requests/create_video";
 
 
 const StartButton = (props) => {
@@ -34,13 +35,26 @@ const StartButton = (props) => {
         }
 
         
-        
-
 
         if(decision){
             const tabs = await chrome.tabs.query({active: true, currentWindow: true})
-            // Post data to the backend
+            // Create experiment in database
             await create_experiment(data)
+
+            // Create video in database
+            const res = await chrome.storage.local.get([
+                STORAGE_KEYS.DATABASE_EXPERIMENT_ID,
+                STORAGE_KEYS.VIDEO_URLS,
+                STORAGE_KEYS.VIDEO_COUNT
+            ])
+            const _data = {
+                started: get_local_datetime(new Date()),
+                experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
+                video_index: parseInt(res[STORAGE_KEYS.VIDEO_COUNT]) - 1,
+                url: res[STORAGE_KEYS.VIDEO_URLS][0]
+            }
+            await create_video(_data)
+
             // Redirect to the first video
             await chrome.tabs.update(tabs[0].id, {url: start_url})
         }

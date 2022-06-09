@@ -7,6 +7,8 @@ import {useEffect} from "react";
 import {STORAGE_KEYS} from "../config";
 import { STORAGE_DEFAULT } from '../config';
 import {get_local_datetime} from "../../utils/time_utils"
+import { update_video } from '../../http_requests/update_video';
+import { create_video } from '../../http_requests/create_video';
 
 const Newtab = () => {
   const [seconds, setSeconds] = useState(30)  // Change this value !! !! !! not timeout below
@@ -15,75 +17,55 @@ const Newtab = () => {
 
   useEffect(() => {
     const init = async () => {
-      // Save data as json file
       const res = await chrome.storage.local.get([
-        STORAGE_KEYS.DATA_TO_SAVE,
-        STORAGE_KEYS.ARCHIVE_TO_SAVE,
-        STORAGE_KEYS.ASSESSMENTS_TO_SAVE,
-        STORAGE_KEYS.DEVICE_ID,
-        STORAGE_KEYS.EXPERIMENT_TYPE,
+        STORAGE_KEYS.DATABASE_VIDEO_ID,
+        STORAGE_KEYS.DATABASE_EXPERIMENT_ID,
         STORAGE_KEYS.VIDEO_LIMIT,
-        STORAGE_KEYS.VIDEO_URLS,
-        STORAGE_KEYS.TESTER_ID,
-        STORAGE_KEYS.VIDEO_COUNT
+        STORAGE_KEYS.VIDEO_COUNT,
+        STORAGE_KEYS.VIDEO_URLS
       ])
-      const data = res[STORAGE_KEYS.DATA_TO_SAVE]
-      const archive = res[STORAGE_KEYS.ARCHIVE_TO_SAVE]
-      const assessments = res[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
-
-      console.log(data)
-      console.log(archive)
-      console.log(assessments)
-      
-      const episode_limit = parseInt(res[STORAGE_KEYS.VIDEO_LIMIT])
+      const video_limit = parseInt(res[STORAGE_KEYS.VIDEO_LIMIT])
       const video_count = parseInt(res[STORAGE_KEYS.VIDEO_COUNT])
-      const episode_index = video_count - 1
+      const video_index = video_count - 1
 
-      // Complete data
-      const results = {
-        info: {
-          device_id: res[STORAGE_KEYS.DEVICE_ID],
-          experiment_type: res[STORAGE_KEYS.EXPERIMENT_TYPE],
-          video_limit: res[STORAGE_KEYS.VIDEO_LIMIT],
-          episode_index: episode_index,
-          video_url: res[STORAGE_KEYS.VIDEO_URLS][episode_index],
-          tester_id: res[STORAGE_KEYS.TESTER_ID]
-        },
-        assessments: assessments,
-        data: data
+
+      //Update current video information --> updating video end time
+      const update_data = {
+        timestamp: get_local_datetime(new Date()),
+        video_id: res[STORAGE_KEYS.DATABASE_VIDEO_ID]
       }
+      await update_video(update_data)
 
-
-
-      // Save files
-      const timestamp = get_local_datetime(new Date())
-      const results_filename = `results_${results.info.tester_id}_${results.info.experiment_type}_${timestamp}.json`;  
-      const archive_filename = `archive_${results.info.tester_id}_${results.info.experiment_type}_${timestamp}.json`;  
-     
-      const results_json = save_json(results, results_filename)
-      const archive_json = save_json(archive, archive_filename)
-
-      if(results_json && archive_json){
-        const data = await chrome.storage.local.get([STORAGE_KEYS.VIDEO_LIMIT, STORAGE_KEYS.VIDEO_COUNT, STORAGE_KEYS.VIDEO_URLS])
-        
-        console.log(`Episode count: ${video_count}     Episode limit: ${episode_limit}`)
-        if(episode_limit === video_count){
-          setFinished(true)
-          setTimeout(async () => {
-            await chrome.storage.local.set(STORAGE_DEFAULT) // Set storage to default (includes reseting all the collected data)
-            chrome.runtime.reload()
-          }, 10000)
+    
+      
+      console.log(`Episode count: ${video_count}     Episode limit: ${video_limit}`)
+      if(video_limit === video_count){
+        // Experiment is finished
+        setFinished(true)
+        setTimeout(async () => {
+          await chrome.storage.local.set(STORAGE_DEFAULT) // Set storage to default (includes reseting all the collected data)
+          chrome.runtime.reload()
+        }, 10000)
+      }
+      else{
+        // Proceed to next video
+        const next_video_index = video_index + 1
+        const next_url = res[STORAGE_KEYS.VIDEO_URLS][next_video_index]
+        const next_video_data = {
+          started: get_local_datetime(new Date()),
+          experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
+          video_index: next_video_index, // Next video index
+          url: next_url
         }
-        else{
-          setTimeout(async () => {
-            const tabs = await chrome.tabs.query({active: true, currentWindow: true})
-            const next_url = data[STORAGE_KEYS.VIDEO_URLS][episode_index + 1]
-            await chrome.tabs.update(tabs[0].id, {
-              url: next_url
-            })
-          }, timeout)
-          start_countdown()
-        }
+        await create_video(next_video_data)
+
+        setTimeout(async () => {
+          const tabs = await chrome.tabs.query({active: true, currentWindow: true})
+          await chrome.tabs.update(tabs[0].id, {
+            url: next_url
+          })
+        }, timeout)
+        start_countdown()
       }
     }
 

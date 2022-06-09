@@ -94,7 +94,10 @@ export const STORAGE_KEYS = {
     ARCHIVE_TO_SAVE: "archive_to_save",
     ASSESSMENTS_TO_SAVE: "assessments_to_save",
 
-    CURRENT_BANDWIDTH: "current_bandwidth",
+    DATABASE_EXPERIMENT_ID: "database_experiment_index",
+    DATABASE_VIDEO_ID: "database_video_index",
+
+    CURRENT_BITRATE: "current_bitrate",
 
     DEVICE_ID: "device_id",
     TESTER_ID: "tester_id",
@@ -112,9 +115,13 @@ export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.ARCHIVE_TO_SAVE]: ARCHIVE_DEFAULT,
     [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: ASSESSMENTS_DEFAULT,
 
-    [STORAGE_KEYS.VIDEO_COUNT]: 0,
-    [STORAGE_KEYS.CURRENT_BANDWIDTH]: null,
+    [STORAGE_KEYS.DATABASE_EXPERIMENT_ID]: null,
+    [STORAGE_KEYS.DATABASE_VIDEO_ID]: null,
 
+    [STORAGE_KEYS.CURRENT_BITRATE]: null,
+
+    [STORAGE_KEYS.VIDEO_COUNT]: 0,
+    
     [STORAGE_KEYS.DEVICE_ID]: 106,                // 106 or 107 is correct, 106 set by default,
     [STORAGE_KEYS.TESTER_ID]: "123",                // tester's ID
 

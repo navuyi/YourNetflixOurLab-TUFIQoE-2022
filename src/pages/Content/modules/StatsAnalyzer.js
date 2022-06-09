@@ -4,7 +4,7 @@ import { STATS_RECORD_INTERVAL_MS } from "../../config"
 import {get_local_datetime} from "../../../utils/time_utils"
 import { DATABASE_KEYS } from "../../config"
 import {save_json} from "../../../utils/save_json";
-
+import {send_playback_data} from "../../../http_requests/send_playback_data"
 
 
 export class StatsAnalyzer{
@@ -38,37 +38,18 @@ export class StatsAnalyzer{
             chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]).then(async res => {
                 const video_count = res[STORAGE_KEYS.VIDEO_COUNT]
                 const episode_index = video_count - 1
-                this.print(`Current episode count: ${video_count} || Current episode index: ${episode_index}`)
-
-                // Check if script should still be working, if not clear interval and stop sending
-                /*
-                    if(this.episodeIndex !== currentIndex){
-                        //this.print(`Killing interval. Not my session anymore: ${this.episodeIndex} vs ${currentIndex}`)
-                        //clearInterval(this.interval)
-                        this.print(`Detected change in episode index but taking no action: ${this.episodeIndex} vs ${currentIndex}`)
-                        //return
-                    }
-                */
                 
-
                 // Analyze data
                 const timestamp = get_local_datetime(new Date())
                 const data = await this.analyze_data(this.element.value.toString(), timestamp)
                 const archive = this.compile_archive(this.element.value.toString(), timestamp)
 
-                // Save data to local variables - always!!!
-                this.save_data_to_local_variable(data, archive)
+                // Send playback data to backend
+                /*not using await-->not waiting for response*/send_playback_data(data)
+                
 
                 // Check if credits are available and remove container
                 await this.are_credits_available()
-                
-                this.record_count += 1
-
-                // Save data to chrome.storage
-                if(this.record_count >= 10){
-                    await this.save_data_to_storage() 
-                    this.record_count = 0
-                }
             })
         }, STATS_RECORD_INTERVAL_MS)
     }
