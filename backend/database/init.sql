@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS bitrate;
 DROP TABLE IF EXISTS experiment;
 DROP TABLE IF EXISTS video;
 DROP TABLE IF EXISTS playback_data;
+DROP TABLE IF EXISTS assessment;
 
 
 CREATE TABLE IF NOT EXISTS experiment(
@@ -74,11 +75,13 @@ CREATE TABLE IF NOT EXISTS playback_data(
 
 CREATE TABLE IF NOT EXISTS assessment(
     id INTEGER NOT NULL PRIMARY KEY,
-    experiment_id INTEGER NOT NULL,
+    video_id INTEGER NOT NULL,
 
+    value INTEGER NO NULL,
     description TEXT NOT NULL,
-    value TEXT NO NULL,
+    started TEXT NOT NULL,
     timestamp TEXT NOT NULL,
+    duration REAL NOT NULL,
 
-    FOREIGN KEY(experiment_id) REFERENCES video(id)
+    FOREIGN KEY(video_id) REFERENCES video(id)
 );

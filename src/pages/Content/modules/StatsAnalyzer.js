@@ -3,7 +3,6 @@ import {get_statistics_element} from "../utils/get_statistics_element";
 import { STATS_RECORD_INTERVAL_MS } from "../../config"
 import {get_local_datetime} from "../../../utils/time_utils"
 import { DATABASE_KEYS } from "../../config"
-import {save_json} from "../../../utils/save_json";
 import {send_playback_data} from "../../../http_requests/send_playback_data"
 
 
@@ -45,7 +44,8 @@ export class StatsAnalyzer{
                 const archive = this.compile_archive(this.element.value.toString(), timestamp)
 
                 // Send playback data to backend
-                /*not using await-->not waiting for response*/send_playback_data(data)
+                // Not using await --> not waiting for response
+                /*await*/send_playback_data(data)
                 
 
                 // Check if credits are available and remove container
@@ -110,40 +110,6 @@ export class StatsAnalyzer{
     }
 
 
-    /*
-    send_data_to_background(data, archive){
-        chrome.runtime.sendMessage({
-            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.NERD_STATISTICS,
-            [MESSAGE_TEMPLATE.DATA]: data,
-            [MESSAGE_TEMPLATE.ARCHIVE]: archive
-        }, res => {
-            //console.log(res)
-        })
-    }
-    */
-    
-    save_data_to_local_variable(data, archive){
-        // Save data to local variable
-        for(const key in data){
-            this.local_database[key].push(data[key])
-        }
-        for(const key in archive){
-            this.local_archive[key].push(archive[key])
-        }
-    }
-
-    async save_data_to_storage(){
-        // Overwrite chrome.storage datasets
-        this.print(`Saving data to chrome.storage`)
-        const start = new Date()
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.DATA_TO_SAVE]: this.local_database,
-            [STORAGE_KEYS.ARCHIVE_TO_SAVE]: this.local_archive
-        })
-        console.log(`Elapsed: ${new Date()-start} ms`)
-        console.log(this.local_database)
-        console.log(this.local_archive)
-    }
 
     insert_blockade(finished = false){
         const blockade = window.document.createElement("div")
@@ -157,11 +123,7 @@ export class StatsAnalyzer{
         blockade.style.textAlign = "center";
         blockade.style.display = "flex"; blockade.style.justifyContent = "center"; blockade.style.alignItems = "center"
 
-
         text.innerText = finished === true ? "Eksperyment zakończony. Proszę zawiadomić administratora eksperymentu. Dziękujemy :)" : "Trwa synchronizacja. Za chwilę przekierowanie do następnego odcinka."
-
-
-
 
         text.style.color = "whitesmoke"
         text.style.fontSize ="24px"
@@ -171,12 +133,15 @@ export class StatsAnalyzer{
     }
 
     async are_credits_available(){
+        // TODO
+        // Extend this method so that it can detect end of movies as well as episodes of series
+        // Provide emergency check 5-10 seconds before end of the video (duration time) in case detecting credits does not work.
+        
         const outer_container = document.getElementsByClassName("nfa-pos-abs nfa-bot-6-em nfa-right-5-em nfa-d-flex")[0]
 
         //data-uia = "watch-credits-seamless-button"
         // data-uia="next-episode-seamless-button"
-
-
+        
         if(outer_container){
             // Click watch credits button
             const credits_button = document.querySelectorAll('[data-uia="watch-credits-seamless-button"]')[0]
@@ -189,9 +154,6 @@ export class StatsAnalyzer{
 
             // Pause the video
             document.getElementsByTagName("video")[0].pause()
-
-            // Save collected data to chrome.storage || to avoid missing data when video finishes
-            await this.save_data_to_storage()
 
             // Send FINISHED signal to the BackgroundScript
             await chrome.runtime.sendMessage({

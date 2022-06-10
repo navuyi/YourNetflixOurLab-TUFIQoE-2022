@@ -1,3 +1,4 @@
+import { send_assessment } from "../../../http_requests/send_assessment"
 import { get_local_datetime, get_local_datetime_and_timezone } from "../../../utils/time_utils"
 import { ASSESSMENTS_DEFAULT, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../config"
 
@@ -147,6 +148,7 @@ export class AssessmentManager{
         const description = e.target.getAttribute("description")
         
         const data = {
+            video_id: (await chrome.storage.local.get([STORAGE_KEYS.DATABASE_VIDEO_ID]))[STORAGE_KEYS.DATABASE_VIDEO_ID],
             value: value,
             description: description,
             started: get_local_datetime(this.started),
@@ -154,20 +156,9 @@ export class AssessmentManager{
             duration: this.ended - this.started
         }
         
-
-        // Get assessments from chrome.storage first
-        const assessments = (await chrome.storage.local.get([STORAGE_KEYS.ASSESSMENTS_TO_SAVE]))[STORAGE_KEYS.ASSESSMENTS_TO_SAVE]
+        //TODO Send Assessment to backend
+        /*await*/ send_assessment(data)
         
-        // Push new assessments
-        for(const key in data){
-            assessments[key].push(data[key])
-        }
-
-        // Set chrome.storage with updated assessments
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: assessments
-        })
-        console.log(assessments)
     }
 }
 

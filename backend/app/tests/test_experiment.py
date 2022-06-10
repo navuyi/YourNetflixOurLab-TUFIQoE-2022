@@ -1,4 +1,5 @@
 import json
+from tkinter import N
 from .utils import headers
 
 
@@ -18,5 +19,8 @@ def test_experiment_post(client):
 
     # This works fine, just like the javascript object
     res = client.post("/experiment/", data=json.dumps(data), headers=headers)
-    print(json.loads(res.data))
+    data = json.loads(res.data)
+    print(data)
+
     assert res.status_code == 201
+    assert data["experiment_id"]
