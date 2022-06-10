@@ -12,19 +12,19 @@ CREATE TABLE IF NOT EXISTS experiment(
     started TEXT NOT NULL,
     ended TEXT DEFAUL NULL,
     
-    device_id TEXT NOT NULL,        /* 106 or 107 */
-    experiment_type TEXT NOT NULL,  /* alone or together */
+    device_id TEXT NOT NULL,        
+    experiment_type TEXT NOT NULL,  
     video_limit INTEGER NOT NULL,
     tester_id TEXT NOT NULL,
-    urls TEXT NOT NULL        /*stringified json array with urls*/
+    urls TEXT NOT NULL        
 );
 
 
 CREATE TABLE IF NOT EXISTS bitrate(
     id INTEGER NOT NULL PRIMARY KEY,
     video_id INTEGER NOT NULL,
-    value INTEGER NOT NULL,     /*new bitrate value*/
-    previous INTEGER NOT NULL,  /*previus bitrate value*/
+    value INTEGER NOT NULL,     
+    previous INTEGER DEFAULT NULL,  
     timestamp TEXT NOT NULL,
 
     FOREIGN KEY(video_id) REFERENCES video(id)

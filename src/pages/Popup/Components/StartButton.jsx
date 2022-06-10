@@ -50,7 +50,7 @@ const StartButton = (props) => {
             const _data = {
                 started: get_local_datetime(new Date()),
                 experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
-                video_index: parseInt(res[STORAGE_KEYS.VIDEO_COUNT]) - 1,
+                video_index: 0, //<-- simply 0 or parseInt(res[STORAGE_KEYS.VIDEO_COUNT]),
                 url: res[STORAGE_KEYS.VIDEO_URLS][0]
             }
             await create_video(_data)

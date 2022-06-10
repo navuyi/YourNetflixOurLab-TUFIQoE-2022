@@ -1,10 +1,14 @@
 import { STORAGE_KEYS } from "../../config";
+import { BITRATE_CHANGE_INTERVAL } from "../../config";
 import {simulate_bitrate_menu_hotkey} from "../utils/bitrate_menu_hotkey";
 import {get_statistics_element} from "../utils/get_statistics_element";
+import {get_local_datetime} from "../../../utils/time_utils";
+import { send_bitrate } from "../../../http_requests/send_bitrate";
 
 export class BitrateManager{
     constructor() {
         this.bitrate_menu = undefined
+        this.retry_interval = 500
     }
 
     async init(){
@@ -33,9 +37,9 @@ export class BitrateManager{
                     catch (err){
                         console.log(err)
                     }
-                }, 500)
+                }, this.retry_interval)
             })
-        }, 300000)
+        }, BITRATE_CHANGE_INTERVAL)
     }
 
 
@@ -71,7 +75,7 @@ export class BitrateManager{
                 catch (err){
                     console.log(err)
                 }
-            }, 500)
+            }, this.retry_interval)
         })
     }
 
@@ -126,13 +130,23 @@ export class BitrateManager{
     }
 
 
-    async set_bitrate(select, button, value) {
+    set_bitrate(select, button, value) {
         setTimeout(async ()=> {
             console.log(`Setting bitrate to ${value} kbps`)
             select.value = value
-            button.click()
+            button.click()  // <-- the change happens after click event is dispatched
 
-            // Save selected bitrate value to chrome.storage
+            // Get previous bitrate and send update
+            const res = await chrome.storage.local.get([STORAGE_KEYS.CURRENT_BITRATE, STORAGE_KEYS.DATABASE_VIDEO_ID])
+            const bitrate_data = {
+                video_id: res[STORAGE_KEYS.DATABASE_VIDEO_ID],
+                previous: res[STORAGE_KEYS.CURRENT_BITRATE],
+                timestamp: get_local_datetime(new Date()),
+                value: value
+            }
+            send_bitrate(bitrate_data)
+
+            // Save new current bitrate value to chrome.storage
             await chrome.storage.local.set({
                 [STORAGE_KEYS.CURRENT_BITRATE]: value
             })

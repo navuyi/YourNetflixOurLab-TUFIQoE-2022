@@ -1,7 +1,7 @@
 import { send_assessment } from "../../../http_requests/send_assessment"
-import { get_local_datetime, get_local_datetime_and_timezone } from "../../../utils/time_utils"
-import { ASSESSMENTS_DEFAULT, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../config"
-
+import { get_local_datetime } from "../../../utils/time_utils"
+import { STORAGE_KEYS } from "../../config"
+import { ASSESSMENT_INTERVAL } from "../../config"
 
 export class AssessmentManager{
     constructor() {
@@ -30,7 +30,7 @@ export class AssessmentManager{
                 popup.style.display = "unset"
                 this.panel_visible = true
             }
-        }, 5000) // <-- to be changed, value from config 150000
+        }, ASSESSMENT_INTERVAL) 
     }
 
     async init_popup(){

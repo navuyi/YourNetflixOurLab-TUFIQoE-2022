@@ -48,18 +48,22 @@ const Newtab = () => {
         }, 10000)
       }
       else{
-        // Proceed to next video
-        const next_video_index = video_index + 1
-        const next_url = res[STORAGE_KEYS.VIDEO_URLS][next_video_index]
-        const next_video_data = {
-          started: get_local_datetime(new Date()),
-          experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
-          video_index: next_video_index, // Next video index
-          url: next_url
-        }
-        await create_video(next_video_data)
-
+       
+        
+    
         setTimeout(async () => {
+          // Create new video in database
+          const next_video_index = video_index + 1
+          const next_url = res[STORAGE_KEYS.VIDEO_URLS][next_video_index]
+          const next_video_data = {
+            started: get_local_datetime(new Date()),
+            experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
+            video_index: next_video_index, // Next video index
+            url: next_url
+          }
+          await create_video(next_video_data)
+
+          // Redirect to the next url
           const tabs = await chrome.tabs.query({active: true, currentWindow: true})
           await chrome.tabs.update(tabs[0].id, {
             url: next_url

@@ -3,5 +3,6 @@ export const backend_urls = {
     experiment: `${BASE_URL}/experiment/`,
     video: `${BASE_URL}/video/`,
     playback_data: `${BASE_URL}/playback_data/`,
-    assessment: `${BASE_URL}/assessment/`
+    assessment: `${BASE_URL}/assessment/`,
+    bitrate: `${BASE_URL}/bitrate/`
 }
