@@ -36,10 +36,15 @@ const StartButton = (props) => {
 
         
 
-        if(decision){
+        if(decision === true){
             const tabs = await chrome.tabs.query({active: true, currentWindow: true})
             // Create experiment in database
             await create_experiment(data)
+
+            // Make extension running <-- ESSENTIAL
+            await chrome.storage.local.set({
+                [STORAGE_KEYS.RUNNING]: true
+            })
 
             // Create video in database
             const res = await chrome.storage.local.get([

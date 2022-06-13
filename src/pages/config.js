@@ -1,8 +1,8 @@
 export const STATS_RECORD_INTERVAL_MS = 1000 //1000 <---
 export const STATS_NONCLICKABLE = true
 export const STATS_INVISIBLE = false
-export const BITRATE_CHANGE_INTERVAL = 30*1000 // <--- 5 minutes = 5*60*1000
-export const ASSESSMENT_INTERVAL = 20*1000      // <--- 2.5*60*1000
+export const BITRATE_CHANGE_INTERVAL = 10*60*1000 // <--- 5 minutes = 5*60*1000
+export const ASSESSMENT_INTERVAL = 2.5*60*1000      // <--- 2.5*60*1000
 
 export const DATABASE_KEYS = {
     POSITION: "position",
@@ -108,7 +108,9 @@ export const STORAGE_KEYS = {
     VIDEO_COUNT: "video_count",
     VIDEO_LIMIT: "video_limit",
 
-    VIDEO_URLS: "video_urls"
+    VIDEO_URLS: "video_urls",
+
+    RUNNING: "running"
 }
 
 export const STORAGE_DEFAULT = {
@@ -130,10 +132,10 @@ export const STORAGE_DEFAULT = {
     [STORAGE_KEYS.VIDEO_LIMIT]: 1,          // Most likely it will be set to 1 or 2
 
     [STORAGE_KEYS.VIDEO_URLS]: [
-        "https://www.netflix.com/watch/80025316?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
-        "https://www.netflix.com/watch/80025317?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C",
-        "https://www.netflix.com/watch/80025318?trackId=14170289&tctx=1%2C0%2Ce686a090-656c-4b05-8246-72e28d655c28-771746%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_2930186X3XX1651766627275%2C0a0d6676-6f4f-4a03-9ddd-7e955392b675_ROOT%2C%2C%2C"
-    ]
+        "https://www.netflix.com/watch/18171022?trackId=254015180&tctx=0%2C0%2C29b4aa37-7c93-416f-9237-13ee39ea7101-547612207%2CGPS_5E6CC854B0220F2612B7D8B3B9A6C1-332B50E1F27340-4EE6786939_p_1654944563145%2CGPS_5E6CC854B0220F2612B7D8B3B9A6C1_p_1654944563145%2C%2C%2C%2C"
+    ],
+
+    [STORAGE_KEYS.RUNNING]: false
 }
 
 

@@ -17,6 +17,11 @@ export class Controller{
     }
 
     async injectScript(tabId){
+        const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
+        if(running === false){
+            this.print("Extension is not running. Use popup in order to start experiment.")
+            return
+        }
         // Increment VIDEO_COUNT
         this.print('Increasing episode count and incjecting content script!!!')
         const count = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]

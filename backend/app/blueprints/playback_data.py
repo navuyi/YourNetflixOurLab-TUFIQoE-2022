@@ -14,6 +14,8 @@ def add_playback_data():
     data = request.json
     video_id = request.json["video_id"]
 
+    
+
     insert = dict(
         video_id=data["video_id"], buffering_bitrate_audio=data["buffering_bitrate_audio"], buffering_bitrate_video=data["buffering_bitrate_video"],
         buffering_state=data["buffering_state"], buffering_vmaf=data["buffering_vmaf"], duration=data["duration"],
