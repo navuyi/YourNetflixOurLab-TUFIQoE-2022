@@ -1,2 +1,0 @@
-id,video_id,buffering_bitrate_audio,buffering_bitrate_video,buffering_state,buffering_vmaf,duration,framerate,player_state,playing_bitrate_video,playing_bitrate_audio,playing_vmaf,position,rendering_state,resolution,segment_position,timestamp,total_corrupted_frames,total_dropped_frames,total_frames,volume,bitrate
-14346,6,96,632,Normal,87,5925.920,23.976,Normal,632,96,87,3.001,Waiting for decoder,960x540,3.001,2022-06-14T18:10:52.410,0,0,0,100,
