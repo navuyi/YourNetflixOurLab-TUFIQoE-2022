@@ -54,23 +54,19 @@ def create_app(test_config=None):
         """
         # Regex for ANSI colour codes
         ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
-        DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S"
+        DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
         def format(self, record):
             """Return logger message with terminal escapes removed."""
-            if record.msg and record.args:
+            msg_or_message = record.message if (record.msg and record.args) else record.msg
 
-                return "%s %s %s" % (
-                    datetime.datetime.now().strftime(self.DATETIME_FORMAT),
-                    re.sub(self.ANSI_RE, "", record.levelname),
-                    re.sub(self.ANSI_RE, "", record.message),
-                )
-            else:
-                return "%s %s %s" % (
-                    datetime.datetime.now().strftime(self.DATETIME_FORMAT),
-                    re.sub(self.ANSI_RE, "", record.levelname),
-                    record.msg,
-                )
+            print(f"MSG:{record.msg}")
+            print(f"ARGS:{record.args}")
+            return "%s | %s | %s" % (
+                datetime.datetime.now().strftime(self.DATETIME_FORMAT),
+                re.sub(self.ANSI_RE, "", record.levelname),
+                re.sub(self.ANSI_RE, "", msg_or_message)
+            )
 
     no_color_formatter = NoColorFormatter()
 

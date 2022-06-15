@@ -7,6 +7,9 @@ CSV_DIR = "./csv"
 FILENAMES = os.listdir(CSV_DIR)
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
 
+MAX_TIMEDELTA = 1.5
+MIN_TIMEDELTA = 0.5
+
 
 def load_timestamps(filename):
     data_frame = pd.read_csv(os.path.join(CSV_DIR, filename))
@@ -26,7 +29,7 @@ def validate_timestamps(tstps):
 
         #print(f"{next} - {current} = {delta}")
         # print(delta.total_seconds())
-        if(delta.total_seconds() > 2 or delta.total_seconds() < 0.5):
+        if(delta.total_seconds() > MAX_TIMEDELTA or delta.total_seconds() < MIN_TIMEDELTA):
             print(f"{next} - {current} = {delta}")
             pass
 
@@ -34,7 +37,8 @@ def validate_timestamps(tstps):
 
     arr = np.array(deltas)
     #print(f"{np.max(arr)} at index {np.argmax(arr)}")
-    print(np.where(arr > 2))
+    #print(np.where(arr > MAX_TIMEDELTA))
+    #print(np.where(arr < MIN_TIMEDELTA))
 
 
 def main():
