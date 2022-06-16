@@ -11,7 +11,7 @@ export class AssessmentManager{
         this.panel_visible = false
     }
 
-
+    
 
     async init(){
         await this.init_popup()

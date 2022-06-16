@@ -1,7 +1,6 @@
 import { BITRATE_MODE, STORAGE_KEYS } from "../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../config";
 import {simulate_bitrate_menu_hotkey} from "../utils/bitrate_menu_hotkey";
-import {get_statistics_element} from "../utils/get_statistics_element";
 import {get_local_datetime} from "../../../utils/time_utils";
 import { send_bitrate } from "../../../http_requests/send_bitrate";
 
@@ -15,50 +14,69 @@ export class BitrateManager{
         this.max_bitrate_index = undefined
     }
 
+    
     async init(){
         await this.bitrate_menu_init()
+        await this.start_bitrate_changes()
+    }
 
+
+    /**
+     *  This function is executed on BitrateManager init, only once
+     *  It sets initial bitrate value.
+    */
+    async bitrate_menu_init(){
+        const {bitrate_values, select, override_button} = await this.get_bitrate_menu_elements()
+           
+        const last_index = bitrate_values.length-1
+        this.current_bitrate_index = last_index
+        this.max_bitrate_index = last_index
+        const value = bitrate_values[last_index]
+
+        this.set_bitrate(select, override_button, value)
+    }
+
+
+    /**
+     * Starts bitrate changes in intervals
+     * Way of setting bitrate deppends on config file
+     * Watch BITRATE_MODE in config.js --> random or sequential are available for now
+    */
+    start_bitrate_changes(){
         // Start regular bitrate changes
-        setInterval(async () => {
-            console.log("Changing bitrate")
-            return new Promise((resolve) => {
-                let timer = undefined
-
-                simulate_bitrate_menu_hotkey()
-                timer = setInterval(() => {
-                    try{
-                        const {bitrate_values, select, override_button} = this.get_html_elements()
-                        console.log(`Available bitrate values: ${bitrate_values}`)
-                        if(bitrate_values.length > 0){
-                            clearInterval(timer)
-                            let bitrate_to_be_set = undefined
-                            if(BITRATE_MODE === "random"){
-                              bitrate_to_be_set = this.set_bitrate_random(bitrate_values)
-                            }
-                            else if(BITRATE_MODE === "sequential"){
-                               bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values)
-                            }
-                            
-                            setTimeout(() => {
-                                this.set_bitrate(select, override_button, bitrate_to_be_set)
-                            }, 2000)
-                            resolve(true)
-                        }
-                    }
-                    catch (err){
-                        console.log(err)
-                    }
-                }, this.retry_interval)
-            })
+        setInterval(async () => {  
+            const {bitrate_values, select, override_button} = await this.get_bitrate_menu_elements()
+            console.log(`Available bitrate values: ${bitrate_values}`)
+                        
+            let bitrate_to_be_set = undefined
+            if(BITRATE_MODE === "random"){
+                bitrate_to_be_set = this.set_bitrate_random(bitrate_values)
+            }
+            else if(BITRATE_MODE === "sequential"){
+                bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values)
+            }
+            
+                                    
+            this.set_bitrate(select, override_button, bitrate_to_be_set)
         }, BITRATE_CHANGE_INTERVAL)
     }
 
 
-    set_bitrate_random(bitrate_values){
-        bitrate_to_be_set = bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
-        return bitrate_to_be_set
+    /** 
+     * Sets next bitrate value in random manner 
+     * @param {Array} bitrate_values 
+     * @returns {number}
+     */
+     set_bitrate_random(bitrate_values){
+        return bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
     }
 
+    /**
+     * Selects next bitrate value in sequential manner
+     * Keeps track of current index of available bitrate values
+     * @param {Array} bitrate_values 
+     * @returns {number}
+     */
     set_bitrate_sequential(bitrate_values){
         const next_index = this.current_bitrate_index + 1
         if(next_index > this.max_bitrate_index){
@@ -67,39 +85,31 @@ export class BitrateManager{
         else{
             this.current_bitrate_index = next_index
         }
-        bitrate_to_be_set = bitrate_values[this.current_bitrate_index]
-        return bitrate_to_be_set
+
+        return bitrate_values[this.current_bitrate_index]
     }
 
 
     /**
-     *  This function is executed on BitrateManager init, only once, it prepares bitrate
-     *  menu for work and returns available bitrate values to the BackgroundScript
+     * Method executes subfunction in intervals until bitrate menu elements are retrieved 
+     * and HTML elements are extracted using extract_html_elements method
     */
-    async bitrate_menu_init(){
+    get_bitrate_menu_elements(){
         return new Promise((resolve) => {
             let timer = undefined
 
             timer = setInterval(() => {
                 // Simulate bitrate menu hotkey
                 simulate_bitrate_menu_hotkey()
-
                 try{
-                    const {container, bitrate_values, select, override_button} = this.get_html_elements()
+                    const  {container, override_button, select, options, bitrate_values} = this.extract_html_elements()
 
                     // Set opacity of the element to required value
                     container.style.opacity = "0.5" //TODO change it later to 0
 
                     if(bitrate_values.length > 0){
                         clearInterval(timer)
-                        setTimeout(async () => {
-                            const last_index = bitrate_values.length-1
-                            this.current_bitrate_index = last_index
-                            this.max_bitrate_index = last_index
-                            const value = bitrate_values[last_index]
-                            this.set_bitrate(select, override_button, value)
-                        }, 2000)
-                        resolve(bitrate_values)
+                        resolve({container, override_button, select, options, bitrate_values})
                     }
                 }
                 catch (err){
@@ -109,7 +119,12 @@ export class BitrateManager{
         })
     }
 
-    get_html_elements(){
+    /**
+     * Helper method used to extract HTML elemnets from DOM tree 
+     * @returns{object} Object of key:values where values are HTML elements, possible to unpack
+     * 
+    */
+    extract_html_elements(){
         // Get outter menu container
         const container = [...document.querySelectorAll("div")].filter(item => item.textContent.match("Video Bitrate"))[1]
         const override_button = [...document.querySelectorAll("button")].filter(button => button.innerText.match("Override"))[0]
@@ -127,39 +142,16 @@ export class BitrateManager{
             options: options,
             bitrate_values: bitrate_values
         }
-    }
+   }
+
+   
 
     /**
-     * This method returns <option> elements responsible for
-     * changing current bitrate value
-     */
-    async get_bitrate_options(){
-        return new Promise((resolve) => {
-            let timer = undefined
-            timer = setInterval(() => {
-                simulate_bitrate_menu_hotkey()
-                try{
-                    // Get outter menu container
-                    const container = [...document.querySelectorAll("div")].filter(item => item.textContent.match("Video Bitrate"))[1]
-
-                    // Get bitrate menu container
-                    const bitrate_menu_div = container.childNodes[1]
-                    const options = Array.from(bitrate_menu_div.childNodes[1].childNodes)
-
-                    if(options.length > 0){
-                        clearInterval(timer)
-                        resolve(options)
-                    }
-                }catch (err){
-                    console.log(err)
-                }
-
-            }, 1000)
-        })
-        return [1,2,3,4]
-    }
-
-
+     * Sets actual bitrate value by simulating click event on proper HTML element
+     * @param {HTMLElement} select 
+     * @param {HTMLElement} button 
+     * @param {number} value 
+    */
     set_bitrate(select, button, value) {
         setTimeout(async ()=> {
             console.log(`Setting bitrate to ${value} kbps`)
