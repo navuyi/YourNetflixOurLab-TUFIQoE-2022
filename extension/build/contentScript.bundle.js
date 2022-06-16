@@ -3019,7 +3019,10 @@ var __signature__ = typeof reactHotLoaderGlobal !== 'undefined' ? reactHotLoader
 class BitrateManager {
   constructor() {
     this.bitrate_menu = undefined;
-    this.retry_interval = 500;
+    this.retry_interval = 500; // Variables used in sequential change mode
+
+    this.current_bitrate_index = undefined;
+    this.max_bitrate_index = undefined;
   }
 
   async init() {
@@ -3041,9 +3044,16 @@ class BitrateManager {
 
             if (bitrate_values.length > 0) {
               clearInterval(timer);
-              const random_bitrate = bitrate_values[Math.floor(Math.random() * bitrate_values.length)];
+              let bitrate_to_be_set = undefined;
+
+              if (_config__WEBPACK_IMPORTED_MODULE_0__.BITRATE_MODE === "random") {
+                bitrate_to_be_set = this.set_bitrate_random(bitrate_values);
+              } else if (_config__WEBPACK_IMPORTED_MODULE_0__.BITRATE_MODE === "sequential") {
+                bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values);
+              }
+
               setTimeout(() => {
-                this.set_bitrate(select, override_button, random_bitrate);
+                this.set_bitrate(select, override_button, bitrate_to_be_set);
               }, 2000);
               resolve(true);
             }
@@ -3053,6 +3063,24 @@ class BitrateManager {
         }, this.retry_interval);
       });
     }, _config__WEBPACK_IMPORTED_MODULE_0__.BITRATE_CHANGE_INTERVAL);
+  }
+
+  set_bitrate_random(bitrate_values) {
+    bitrate_to_be_set = bitrate_values[Math.floor(Math.random() * bitrate_values.length)];
+    return bitrate_to_be_set;
+  }
+
+  set_bitrate_sequential(bitrate_values) {
+    const next_index = this.current_bitrate_index + 1;
+
+    if (next_index > this.max_bitrate_index) {
+      this.current_bitrate_index = 0;
+    } else {
+      this.current_bitrate_index = next_index;
+    }
+
+    bitrate_to_be_set = bitrate_values[this.current_bitrate_index];
+    return bitrate_to_be_set;
   }
   /**
    *  This function is executed on BitrateManager init, only once, it prepares bitrate
@@ -3080,7 +3108,10 @@ class BitrateManager {
           if (bitrate_values.length > 0) {
             clearInterval(timer);
             setTimeout(async () => {
-              const value = bitrate_values[bitrate_values.length - 1];
+              const last_index = bitrate_values.length - 1;
+              this.current_bitrate_index = last_index;
+              this.max_bitrate_index = last_index;
+              const value = bitrate_values[last_index];
               this.set_bitrate(select, override_button, value);
             }, 2000);
             resolve(bitrate_values);
@@ -3544,6 +3575,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "STATS_INVISIBLE": () => (/* binding */ STATS_INVISIBLE),
 /* harmony export */   "BITRATE_CHANGE_INTERVAL": () => (/* binding */ BITRATE_CHANGE_INTERVAL),
 /* harmony export */   "ASSESSMENT_INTERVAL": () => (/* binding */ ASSESSMENT_INTERVAL),
+/* harmony export */   "BITRATE_MODE": () => (/* binding */ BITRATE_MODE),
 /* harmony export */   "DATABASE_KEYS": () => (/* binding */ DATABASE_KEYS),
 /* harmony export */   "DATABASE_DEFAULT": () => (/* binding */ DATABASE_DEFAULT),
 /* harmony export */   "ARCHIVE_KEYS": () => (/* binding */ ARCHIVE_KEYS),
@@ -3569,9 +3601,11 @@ const STATS_RECORD_INTERVAL_MS = 1000; //1000 <---
 
 const STATS_NONCLICKABLE = true;
 const STATS_INVISIBLE = false;
-const BITRATE_CHANGE_INTERVAL = 10 * 60 * 1000; // <--- 5 minutes = 5*60*1000
+const BITRATE_CHANGE_INTERVAL = 10000; // <--- 5 minutes = 5*60*1000
 
-const ASSESSMENT_INTERVAL = 5000; // <--- 2.5*60*1000
+const ASSESSMENT_INTERVAL = 2.5 * 60 * 1000; // <--- 2.5*60*1000
+
+const BITRATE_MODE = "sequential"; // <-- random or sequential are available
 
 const DATABASE_KEYS = {
   POSITION: "position",
@@ -3699,6 +3733,7 @@ const MESSAGE_HEADERS = {
   reactHotLoader.register(STATS_INVISIBLE, "STATS_INVISIBLE", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
   reactHotLoader.register(BITRATE_CHANGE_INTERVAL, "BITRATE_CHANGE_INTERVAL", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
   reactHotLoader.register(ASSESSMENT_INTERVAL, "ASSESSMENT_INTERVAL", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
+  reactHotLoader.register(BITRATE_MODE, "BITRATE_MODE", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
   reactHotLoader.register(DATABASE_KEYS, "DATABASE_KEYS", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
   reactHotLoader.register(DATABASE_DEFAULT, "DATABASE_DEFAULT", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
   reactHotLoader.register(ARCHIVE_KEYS, "ARCHIVE_KEYS", "C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\extension\\src\\pages\\config.js");
@@ -3893,7 +3928,7 @@ const get_local_datetime_and_timezone = object => {
 /******/ 	
 /******/ 	/* webpack/runtime/getFullHash */
 /******/ 	(() => {
-/******/ 		__webpack_require__.h = () => ("c265caaa9b1664252e3b")
+/******/ 		__webpack_require__.h = () => ("e33332da195966872feb")
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/harmony module decorator */

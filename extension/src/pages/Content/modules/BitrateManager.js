@@ -1,4 +1,4 @@
-import { STORAGE_KEYS } from "../../config";
+import { BITRATE_MODE, STORAGE_KEYS } from "../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../config";
 import {simulate_bitrate_menu_hotkey} from "../utils/bitrate_menu_hotkey";
 import {get_statistics_element} from "../utils/get_statistics_element";
@@ -9,6 +9,10 @@ export class BitrateManager{
     constructor() {
         this.bitrate_menu = undefined
         this.retry_interval = 500
+
+        // Variables used in sequential change mode
+        this.current_bitrate_index = undefined
+        this.max_bitrate_index = undefined
     }
 
     async init(){
@@ -27,9 +31,16 @@ export class BitrateManager{
                         console.log(`Available bitrate values: ${bitrate_values}`)
                         if(bitrate_values.length > 0){
                             clearInterval(timer)
-                            const random_bitrate = bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
+                            let bitrate_to_be_set = undefined
+                            if(BITRATE_MODE === "random"){
+                              bitrate_to_be_set = this.set_bitrate_random(bitrate_values)
+                            }
+                            else if(BITRATE_MODE === "sequential"){
+                               bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values)
+                            }
+                            
                             setTimeout(() => {
-                                this.set_bitrate(select, override_button, random_bitrate)
+                                this.set_bitrate(select, override_button, bitrate_to_be_set)
                             }, 2000)
                             resolve(true)
                         }
@@ -43,6 +54,22 @@ export class BitrateManager{
     }
 
 
+    set_bitrate_random(bitrate_values){
+        bitrate_to_be_set = bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
+        return bitrate_to_be_set
+    }
+
+    set_bitrate_sequential(bitrate_values){
+        const next_index = this.current_bitrate_index + 1
+        if(next_index > this.max_bitrate_index){
+            this.current_bitrate_index = 0
+        }
+        else{
+            this.current_bitrate_index = next_index
+        }
+        bitrate_to_be_set = bitrate_values[this.current_bitrate_index]
+        return bitrate_to_be_set
+    }
 
 
     /**
@@ -66,7 +93,10 @@ export class BitrateManager{
                     if(bitrate_values.length > 0){
                         clearInterval(timer)
                         setTimeout(async () => {
-                            const value = bitrate_values[bitrate_values.length-1]
+                            const last_index = bitrate_values.length-1
+                            this.current_bitrate_index = last_index
+                            this.max_bitrate_index = last_index
+                            const value = bitrate_values[last_index]
                             this.set_bitrate(select, override_button, value)
                         }, 2000)
                         resolve(bitrate_values)
