@@ -60,8 +60,6 @@ def create_app(test_config=None):
             """Return logger message with terminal escapes removed."""
             msg_or_message = record.message if (record.msg and record.args) else record.msg
 
-            print(f"MSG:{record.msg}")
-            print(f"ARGS:{record.args}")
             return "%s | %s | %s" % (
                 datetime.datetime.now().strftime(self.DATETIME_FORMAT),
                 re.sub(self.ANSI_RE, "", record.levelname),
