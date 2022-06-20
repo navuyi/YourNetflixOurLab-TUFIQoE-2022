@@ -26,6 +26,6 @@ backend/database/database.db
 backend/database/database-backup.db
 
 
-wwf_package/
-./wwf_package
-wwf_package/*
+software/
+./software
+software/*

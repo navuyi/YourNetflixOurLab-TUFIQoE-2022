@@ -4,8 +4,7 @@ import shutil
 
 BACKEND_DIR_PATH = "./backend"
 BUILD_DIR_PATH = "./extension/build"
-
-PACKAGE_PATH = "./wwf_package"
+PACKAGE_PATH = "./software"
 
 
 def delete_package_directory():
@@ -31,6 +30,7 @@ def main():
     elif os.path.exists(path=PACKAGE_PATH) == False:
         create_package_directory()
         fill_package()
+    print("Done...")
 
 
 if __name__ == "__main__":
