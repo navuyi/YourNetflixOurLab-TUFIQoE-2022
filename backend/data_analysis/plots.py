@@ -1,4 +1,4 @@
-from cv2 import line
+
 import matplotlib.pyplot as plt
 import os
 import csv
@@ -48,7 +48,7 @@ def plot_02(bitrate, playing_vmaf, buffering_vmaf, video_id):
     figure, axis = plt.subplots(3, 1)
     figure.tight_layout(pad=2.0)
     axis[0].plot(bitrate, color='red')
-    axis[0].set_title("Bitrate")
+    axis[0].set_title(f"Bitrate | Video ID: {video_id}")
 
     axis[1].plot(playing_vmaf, color='blue')
     axis[1].set_title("Playing vmaf")

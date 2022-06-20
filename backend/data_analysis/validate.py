@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import os
 import datetime
-
+import matplotlib.pyplot as plt
 CSV_DIR = "./csv"
 FILENAMES = os.listdir(CSV_DIR)
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f"
@@ -36,16 +36,24 @@ def validate_timestamps(tstps):
         deltas.append(delta.total_seconds())
 
     arr = np.array(deltas)
+    return arr
     #print(f"{np.max(arr)} at index {np.argmax(arr)}")
     #print(np.where(arr > MAX_TIMEDELTA))
     #print(np.where(arr < MIN_TIMEDELTA))
+
+
+def plot_deltas(arr):
+    plt.plot(arr)
+    plt.ylabel('N')
+    plt.show()
 
 
 def main():
     for filename in FILENAMES:
         timestamps, filename = load_timestamps(filename)
         print(f"Validating file {filename}")
-        validate_timestamps(timestamps)
+        arr = validate_timestamps(timestamps)
+        plot_deltas(arr)
 
 
 if __name__ == "__main__":

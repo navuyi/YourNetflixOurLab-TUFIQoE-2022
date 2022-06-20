@@ -56,10 +56,6 @@ export class AssessmentManager{
                     const video_div = video.parentElement
                     const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
 
-                    console.log(video)
-                    console.log(video_div)
-                    console.log(ltr_element)
-
                     if(video && video_div && ltr_element){
                         clearInterval(interval) // stop the retrying process
                         video_div.appendChild(popup)    // add popup to the DOM
@@ -73,6 +69,9 @@ export class AssessmentManager{
             }, 500)
         })
     }
+
+    
+
 
     create_background(){
         const background = document.createElement("div")
