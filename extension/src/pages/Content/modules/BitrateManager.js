@@ -105,9 +105,8 @@ export class BitrateManager{
                     const  {container, override_button, select, options, bitrate_values} = this.extract_html_elements()
 
                     // Set opacity of the element to required value
-                    container.style.opacity = "0.5" //TODO change it later to 0
-
                     if(bitrate_values.length > 0){
+                        container.style.opacity = "0.5" //TODO change it later to 0
                         clearInterval(timer)
                         resolve({container, override_button, select, options, bitrate_values})
                     }

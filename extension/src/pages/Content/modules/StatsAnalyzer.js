@@ -54,7 +54,12 @@ export class StatsAnalyzer{
         }, STATS_RECORD_INTERVAL_MS)
     }
 
-
+    /**
+     * Utility method creates object with all data to be extracted from nerd stats (long) string
+     * @param {string} data 
+     * @param {string} timestamp 
+     * @returns {object} result
+     */
     async analyze_data(data, timestamp){
         const result = {
             [DATABASE_KEYS.POSITION]: this.get_value("(Position:) ([0-9]+.[0-9]+)", 2, data),
@@ -93,6 +98,13 @@ export class StatsAnalyzer{
         }
     }
 
+    /**
+     * Utility method --> extracts useful data from nerds stats (long) string
+     * @param {string} regex 
+     * @param {number} group 
+     * @param {string} data 
+     * @returns {object|null}
+     */
     get_value = (regex, group, data) => {
         try{
             let value = data.match(regex) ?? null
@@ -110,31 +122,12 @@ export class StatsAnalyzer{
     }
 
 
-
-    insert_blockade(finished = false){
-        const blockade = window.document.createElement("div")
-        const text = window.document.createElement("h1")
-       
-        blockade.style.width = "100vw"; blockade.style.height = "100vh";
-        blockade.style.top = "0"; blockade. style.left = "0";
-        blockade.style.position = "absolute";
-        blockade.style.backgroundColor = "black"; blockade.style.opacity = "0.95"
-        blockade.style.zIndex = "99999";
-        blockade.style.textAlign = "center";
-        blockade.style.display = "flex"; blockade.style.justifyContent = "center"; blockade.style.alignItems = "center"
-
-        text.innerText = finished === true ? "Eksperyment zakończony. Proszę zawiadomić administratora eksperymentu. Dziękujemy :)" : "Trwa synchronizacja. Za chwilę przekierowanie do następnego odcinka."
-
-        text.style.color = "whitesmoke"
-        text.style.fontSize ="24px"
-
-        blockade.appendChild(text)
-        document.body.appendChild(blockade)
-    }
-
+    /**
+     * This method checks if certain HTML elements are available in DOM tree.
+     * Their availability indicates that serie's video is about to end and credits are present.
+     * If elements are detected video playback ends and subject is redirected to custom extension's web page
+    */
     async are_credits_available(){
-        // TODO
-        // Extend this method so that it can detect end of movies as well as episodes of series
         // Provide emergency check 5-10 seconds before end of the video (duration time) in case detecting credits does not work.
         
         const outer_container = document.getElementsByClassName("nfa-pos-abs nfa-bot-6-em nfa-right-5-em nfa-d-flex")[0]

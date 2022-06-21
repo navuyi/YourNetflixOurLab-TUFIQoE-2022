@@ -12,16 +12,28 @@ export class AssessmentManager{
     }
 
     
-
+    /**
+     * Initialize method. Executed once after creating instance of the class.
+    */
     async init(){
         await this.init_popup()
         this.start_assessment_process()
     }
 
+    /**
+     * Custom console.log method
+     * @param {string} text 
+    */
     print(text){
         console.log(`[AssessmentManager] ${text}`)
     }
 
+
+    /**
+     * Method starting assessment process.
+     * It will show assessment to the subject in defined time intervals 
+     * by setting it's style.display from "none" to "unset"
+    */
     start_assessment_process(){
         this.interval = setInterval(() => {
             if(this.panel_visible === false){
@@ -32,6 +44,8 @@ export class AssessmentManager{
             }
         }, ASSESSMENT_INTERVAL) 
     }
+
+    
 
     async init_popup(){
         return new Promise(resolve => {
@@ -72,7 +86,10 @@ export class AssessmentManager{
 
     
 
-
+    /**
+     * Creates background html element
+     * @returns {HTMLElement}
+    */
     create_background(){
         const background = document.createElement("div")
         background.style.width = "100vw"; background.style.height = "100vh";
@@ -90,6 +107,10 @@ export class AssessmentManager{
         return background
     }
 
+    /**
+     * Creates header HTML element
+     * @returns {HTMLElement}
+    */
     create_header(){
         const header = document.createElement("h1")
         header.innerText = "Oceń jakość usługi od strony audiowizualnej"
@@ -101,6 +122,10 @@ export class AssessmentManager{
         return header
     }
 
+    /**
+     * Creates and styles buttons and assigns them proper description and value
+     * @returns {Array.HTMLElement}
+     */
     create_buttons(){
         const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła", "Nie zwróciłem/am uwagi"]
         const buttons = []
@@ -152,7 +177,11 @@ export class AssessmentManager{
     }
 
    
-
+    /**
+     * Function handling assessment button clicks.
+     * Reads data - assessment value/description, assessment time and timestamps and sends them to backend server
+     * @param {Event} e 
+    */
     async handle_button_click(e){
         this.ended = new Date()
         this.panel_visible = false
@@ -169,9 +198,7 @@ export class AssessmentManager{
             duration: this.ended - this.started
         }
         
-        //TODO Send Assessment to backend
         /*await*/ send_assessment(data)
-        
     }
 }
 
