@@ -29,3 +29,7 @@ backend/database/database-backup.db
 software/
 ./software
 software/*
+
+
+
+backend/logs.log
