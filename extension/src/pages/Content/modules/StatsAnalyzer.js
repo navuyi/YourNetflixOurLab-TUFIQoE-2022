@@ -45,7 +45,7 @@ export class StatsAnalyzer{
 
                 // Send playback data to backend
                 // Not using await --> not waiting for response
-                /*await*/send_playback_data(data)
+                /*await*/send_playback_data(data, archive)
                 
 
                 // Check if credits are available and remove container

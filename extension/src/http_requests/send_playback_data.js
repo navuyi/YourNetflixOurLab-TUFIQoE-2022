@@ -6,18 +6,21 @@ import { get_local_datetime } from "../utils/time_utils"
 
 
 
-export const send_playback_data = async (playback_data) => {
+export const send_playback_data = async (playback_data, archive) => {
     const res = await chrome.storage.local.get([
         STORAGE_KEYS.DATABASE_VIDEO_ID,
         STORAGE_KEYS.CURRENT_BITRATE
     ])
 
-    // Update playback data with more info
-    playback_data.video_id = res[STORAGE_KEYS.DATABASE_VIDEO_ID]    // Current video ID (relational database)
-    playback_data.bitrate = res[STORAGE_KEYS.CURRENT_BITRATE]       // Current bitrate set in bitrate menu
 
+    const data = {
+        playback_data: {...playback_data, bitrate: res[STORAGE_KEYS.CURRENT_BITRATE]},
+        archive: archive,
+        video_id: res[STORAGE_KEYS.DATABASE_VIDEO_ID]
+    }
+    
     try{
-        const response = await axios.post(backend_urls.playback_data, playback_data)
+        const response = await axios.post(backend_urls.playback_data, data)
         if(response.status === 201){
             console.log("Playback data submitted successfully")
         }

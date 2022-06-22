@@ -2,7 +2,6 @@
   "manifest_version": 3,
   "name": "Watching With Friends",
   "description": "AGH-TUFIQoE-2022 Netflix Experiment || Chrome Extension by Rafal Figlus",
-  "options_page": "options.html",
   "background": {
     "service_worker": "background.bundle.js"
   },
@@ -13,7 +12,6 @@
   "icons": {
     "128": "128.png"
   },
-  "devtools_page": "devtools.html",
   "web_accessible_resources": [
     {
       "resources": ["content.styles.css", "icon-128.png", "icon-34.png", "32.png", "64.png", "logo.png"],
