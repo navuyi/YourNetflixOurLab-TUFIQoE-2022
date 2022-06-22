@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS experiment;
 DROP TABLE IF EXISTS video;
 DROP TABLE IF EXISTS playback_data;
 DROP TABLE IF EXISTS assessment;
+DROP TABLE IF EXISTS archive;
 
 
 CREATE TABLE IF NOT EXISTS experiment(
@@ -69,6 +70,16 @@ CREATE TABLE IF NOT EXISTS playback_data(
     total_frames TEXT,
     volume TEXT,
     bitrate TEXT,
+
+    FOREIGN KEY(video_id) REFERENCES video(id)
+);
+
+CREATE TABLE IF NOT EXISTS archive(
+    id INTEGER NOT NULL PRIMARY KEY,
+    video_id INTEGER NOT NULL,
+
+    data TEXT NOT NULL,
+    timestamp TEXT NOT NULL,
 
     FOREIGN KEY(video_id) REFERENCES video(id)
 );

@@ -28202,3 +28202,599 @@
 2022-06-20T15:57:17.285968 | INFO | 127.0.0.1 - - [20/Jun/2022 15:57:17] "POST /playback_data/ HTTP/1.1" 201 -
 2022-06-20T15:57:18.279373 | INFO | 127.0.0.1 - - [20/Jun/2022 15:57:18] "OPTIONS /playback_data/ HTTP/1.1" 200 -
 2022-06-20T15:57:18.301470 | INFO | 127.0.0.1 - - [20/Jun/2022 15:57:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:06.936115 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-06-22T10:02:06.942115 | INFO |  * Restarting with stat
+2022-06-22T10:02:07.422298 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:02:09.752418 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:09] "GET /connection_test/ HTTP/1.1" 200 -
+2022-06-22T10:02:11.363113 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:11] "OPTIONS /experiment/ HTTP/1.1" 200 -
+2022-06-22T10:02:11.385471 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:11] "POST /experiment/ HTTP/1.1" 201 -
+2022-06-22T10:02:11.393208 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:11] "OPTIONS /video/ HTTP/1.1" 200 -
+2022-06-22T10:02:11.415013 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:11] "POST /video/ HTTP/1.1" 201 -
+2022-06-22T10:02:14.039001 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:14] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:14.065115 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:14.631308 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:14] "OPTIONS /bitrate/ HTTP/1.1" 200 -
+2022-06-22T10:02:14.666228 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:14] "POST /bitrate/ HTTP/1.1" 201 -
+2022-06-22T10:02:15.066149 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:16.056405 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:17.072931 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:18.061934 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:19.074888 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:20.035921 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:20] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:20.073411 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:21.064592 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:22.072335 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:23.067940 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:24.061333 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:25.051469 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:25] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:25.087745 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:26.074395 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:27.055715 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:28.052744 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:29.067500 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:30.072660 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:31.035994 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:31.056251 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:32.056818 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:33.054724 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:34.061421 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:35.057475 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:36.058752 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:37.043698 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:37.071548 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:38.048772 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:39.066680 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:40.069607 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:41.052711 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:42.048966 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:43.038897 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:43.065496 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:44.061269 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:45.055580 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:46.052450 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:47.061507 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:48.047766 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:48] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:48.078076 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:49.062397 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:50.061784 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:51.069497 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:52.055832 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:53.059223 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:54.043395 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:54] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:54.069114 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:55.059037 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:56.057136 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:57.045600 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:58.059531 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:02:59.047085 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:59] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:02:59.071575 | INFO | 127.0.0.1 - - [22/Jun/2022 10:02:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:00.063523 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:01.048241 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:02.068793 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:03.052455 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:04.054757 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:05.037715 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:05] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:05.070364 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:06.066442 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:07.058880 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:08.056655 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:09.063177 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:10.050518 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:10] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:10.079590 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:11.067980 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:12.059703 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:13.071545 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:14.070831 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:15.059012 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:16.045510 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:16] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:16.061611 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:17.056512 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:18.060711 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:19.054224 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:20.060807 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:21.051721 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:22.051192 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:22] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:22.080126 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:23.051899 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:24.057063 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:25.055611 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:26.061221 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:27.058600 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:28.041428 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:28] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:28.056384 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:29.060425 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:30.064643 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:31.049226 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:32.056938 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:33.045994 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:33] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:33.074357 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:34.072724 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:35.055499 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:36.058930 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:37.066631 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:38.046706 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:39.049000 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:39] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:39.073510 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:40.058795 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:41.056846 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:42.059909 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:43.066390 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:44.055342 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:45.047804 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:45] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:45.074916 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:46.053292 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:47.065778 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:48.061100 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:49.056064 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:50.062270 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:51.036803 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:51] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:51.063191 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:52.065317 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:53.050011 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:54.059827 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:55.065639 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:56.048186 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:56] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:03:56.078320 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:57.057913 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:58.061060 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:03:59.068905 | INFO | 127.0.0.1 - - [22/Jun/2022 10:03:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:00.062430 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:01.052558 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:01.070304 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:02.062027 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:03.070609 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:04.064050 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:05.070887 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:06.058605 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:07.036256 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:07] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:07.064826 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:08.054080 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:09.058714 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:10.059267 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:11.071940 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:12.044211 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:12] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:12.063219 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:13.055552 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:14.064510 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:15.064088 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:16.048624 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:17.064914 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:18.036179 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:18] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:18.062484 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:19.068417 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:20.056698 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:21.052252 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:22.073066 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:23.043417 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:23] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:23.069197 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:24.061778 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:25.067512 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:26.046406 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:27.048158 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:28.052229 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:28] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:04:28.080128 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:04:28.408899 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:28] "OPTIONS /video/ HTTP/1.1" 200 -
+2022-06-22T10:04:28.424862 | INFO | 127.0.0.1 - - [22/Jun/2022 10:04:28] "PATCH /video/ HTTP/1.1" 201 -
+2022-06-22T10:09:00.984361 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\archive.py', reloading
+2022-06-22T10:09:01.060853 | INFO |  * Restarting with stat
+2022-06-22T10:09:01.650019 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:11.921152 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:11.964670 | INFO |  * Restarting with stat
+2022-06-22T10:09:12.399434 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:16.510602 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:16.549142 | INFO |  * Restarting with stat
+2022-06-22T10:09:16.995158 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:34.360823 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:34.403981 | INFO |  * Restarting with stat
+2022-06-22T10:09:34.920383 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:39.023975 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:39.075315 | INFO |  * Restarting with stat
+2022-06-22T10:09:39.531853 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:45.683699 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:45.731693 | INFO |  * Restarting with stat
+2022-06-22T10:09:46.171527 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:50.302275 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:50.348275 | INFO |  * Restarting with stat
+2022-06-22T10:09:50.781063 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:52.873974 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:52.940030 | INFO |  * Restarting with stat
+2022-06-22T10:09:53.483010 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:55.579533 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:55.634258 | INFO |  * Restarting with stat
+2022-06-22T10:09:56.129833 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:58.208718 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:58.275078 | INFO |  * Restarting with stat
+2022-06-22T10:09:58.752110 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:09:59.821594 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:09:59.875775 | INFO |  * Restarting with stat
+2022-06-22T10:10:00.489087 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:10.768714 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:10.813079 | INFO |  * Restarting with stat
+2022-06-22T10:10:11.251865 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:15.383668 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:15.443362 | INFO |  * Restarting with stat
+2022-06-22T10:10:15.998945 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:30.326791 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:30.381909 | INFO |  * Restarting with stat
+2022-06-22T10:10:30.967393 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:35.079815 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:35.163092 | INFO |  * Restarting with stat
+2022-06-22T10:10:35.624137 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:36.693562 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:36.740298 | INFO |  * Restarting with stat
+2022-06-22T10:10:37.179518 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:39.262273 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:39.308270 | INFO |  * Restarting with stat
+2022-06-22T10:10:39.749552 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:54.082850 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:54.165444 | INFO |  * Restarting with stat
+2022-06-22T10:10:54.787722 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:10:59.916026 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:10:59.965830 | INFO |  * Restarting with stat
+2022-06-22T10:11:00.523870 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:13.780092 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:13.825560 | INFO |  * Restarting with stat
+2022-06-22T10:11:14.295977 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:18.442805 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:18.481690 | INFO |  * Restarting with stat
+2022-06-22T10:11:18.973119 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:21.048605 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:21.099084 | INFO |  * Restarting with stat
+2022-06-22T10:11:21.538657 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:23.616146 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:23.662770 | INFO |  * Restarting with stat
+2022-06-22T10:11:24.092994 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:27.186254 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:27.238276 | INFO |  * Restarting with stat
+2022-06-22T10:11:27.740480 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:30.830827 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:30.881329 | INFO |  * Restarting with stat
+2022-06-22T10:11:31.376616 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:33.479141 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:33.528062 | INFO |  * Restarting with stat
+2022-06-22T10:11:34.003888 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:40.152619 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:40.230885 | INFO |  * Restarting with stat
+2022-06-22T10:11:40.668961 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:44.763880 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:44.838331 | INFO |  * Restarting with stat
+2022-06-22T10:11:45.290863 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:46.351061 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:46.397412 | INFO |  * Restarting with stat
+2022-06-22T10:11:46.879487 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:47.925407 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:47.973903 | INFO |  * Restarting with stat
+2022-06-22T10:11:48.416100 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:11:53.604380 | INFO |  * Detected change in 'C:\\Users\\rafal\\Desktop\\TUFIQoE\\WatchingWithFriends-TUFIQoE-2022\\backend\\app\\blueprints\\playback_data.py', reloading
+2022-06-22T10:11:53.658846 | INFO |  * Restarting with stat
+2022-06-22T10:11:54.181674 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:31:20.293063 | INFO |  * Running on http://127.0.0.1:5000 (Press CTRL+C to quit)
+2022-06-22T10:31:20.297052 | INFO |  * Restarting with stat
+2022-06-22T10:31:20.715662 | INFO |  * Debugger PIN: 697-978-947
+2022-06-22T10:31:26.459137 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:26] "GET /connection_test/ HTTP/1.1" 200 -
+2022-06-22T10:31:27.959375 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:27] "OPTIONS /experiment/ HTTP/1.1" 200 -
+2022-06-22T10:31:27.988725 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:27] "POST /experiment/ HTTP/1.1" 201 -
+2022-06-22T10:31:27.996710 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:27] "OPTIONS /video/ HTTP/1.1" 200 -
+2022-06-22T10:31:28.014638 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:28] "POST /video/ HTTP/1.1" 201 -
+2022-06-22T10:31:31.042686 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:31:31.084950 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:31.544358 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:31] "OPTIONS /bitrate/ HTTP/1.1" 200 -
+2022-06-22T10:31:31.568816 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:31] "POST /bitrate/ HTTP/1.1" 201 -
+2022-06-22T10:31:32.059188 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:33.096904 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:34.048550 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:35.050752 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:36.046019 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:37.032012 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:31:37.131778 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:38.064914 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:39.051703 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:40.054194 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:41.051469 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:42.054197 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:43.030835 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:31:43.059247 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:44.045305 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:45.058619 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:46.047461 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:47.043724 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:48.050942 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:49.031009 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:49] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:31:49.046622 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:50.058194 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:51.058427 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:52.053403 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:53.063192 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:54.057384 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:55.029577 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:55] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:31:55.050062 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:56.055313 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:57.043798 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:58.055909 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:31:59.053671 | INFO | 127.0.0.1 - - [22/Jun/2022 10:31:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:00.078572 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:01.031635 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:01.063138 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:02.058326 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:03.054823 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:04.053875 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:05.052654 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:06.043326 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:07.028199 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:07] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:07.055569 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:08.044053 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:09.056029 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:10.054387 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:11.052517 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:12.041812 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:13.028776 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:13] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:13.056797 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:14.051754 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:15.055535 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:16.111437 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:17.052627 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:18.052717 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:19.028130 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:19] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:19.042430 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:20.055090 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:21.052795 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:22.042295 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:23.041870 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:24.049697 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:25.029585 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:25] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:25.061805 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:26.053171 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:27.041861 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:28.044850 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:29.064486 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:30.041757 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:31.031589 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:31.061442 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:32.063807 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:33.052727 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:34.042588 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:35.055972 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:36.052638 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:37.029057 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:37.056526 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:38.042414 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:39.053062 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:40.050972 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:41.042342 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:42.054393 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:43.028503 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:43.056401 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:44.046218 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:45.053193 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:46.053010 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:47.052897 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:48.052834 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:49.029429 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:49] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:49.046438 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:50.052400 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:51.052487 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:52.050580 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:53.041066 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:54.050510 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:55.028912 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:55] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:32:55.057902 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:56.041385 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:57.040652 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:58.054469 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:32:59.042108 | INFO | 127.0.0.1 - - [22/Jun/2022 10:32:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:00.050469 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:01.028664 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:01.054367 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:02.048346 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:03.048220 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:04.041946 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:05.050804 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:06.049855 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:07.030541 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:07] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:07.056679 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:08.043353 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:09.052303 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:10.039822 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:11.050866 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:12.041426 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:13.029637 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:13] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:13.046995 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:15.373646 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:15.396584 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:16.042318 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:17.042477 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:18.054007 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:19.028545 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:19] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:19.044690 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:20.040709 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:21.051699 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:22.052442 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:23.044231 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:24.051661 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:25.031450 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:25] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:25.062139 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:26.050783 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:27.046272 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:28.054331 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:29.041995 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:30.043811 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:31.028366 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:31.054375 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:32.039908 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:33.052329 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:34.043278 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:35.054378 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:36.052587 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:37.028502 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:37.056586 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:38.041452 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:39.050517 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:40.048415 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:41.049658 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:42.039313 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:43.028857 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:43.044835 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:44.052778 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:45.051667 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:46.049012 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:47.051185 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:48.042294 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:49.029466 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:49] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:49.054041 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:50.049140 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:51.051315 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:52.052333 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:53.040858 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:54.051801 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:55.028956 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:55] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:33:55.053857 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:56.051680 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:57.044282 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:58.053156 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:33:59.051854 | INFO | 127.0.0.1 - - [22/Jun/2022 10:33:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:00.055429 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:01.029273 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:01.044030 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:02.052278 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:03.054590 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:04.042138 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:05.051200 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:06.042100 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:07.029610 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:07] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:07.057542 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:08.040685 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:09.056341 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:10.051920 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:11.044219 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:12.045022 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:13.029607 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:13] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:13.053583 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:14.051135 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:15.051966 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:16.045957 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:17.050433 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:18.052182 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:19.029173 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:19] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:19.056334 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:20.056268 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:21.042622 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:22.054149 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:23.042215 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:24.051999 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:25.030567 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:25] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:25.046967 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:26.042308 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:27.041024 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:28.054087 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:29.054420 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:30.045920 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:31.029895 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:31.044259 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:32.043051 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:33.052392 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:34.054770 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:35.054302 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:36.044199 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:37.029349 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:37.055069 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:38.044430 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:39.042055 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:40.052183 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:41.044523 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:42.042251 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:43.028720 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:43.053599 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:44.056434 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:45.051596 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:46.046333 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:47.054502 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:48.050834 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:49.029751 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:49] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:49.045136 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:50.052022 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:51.044980 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:52.053387 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:53.043301 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:54.052146 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:55.029126 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:55] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:34:55.046033 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:56.039849 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:57.044990 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:58.050770 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:34:59.052930 | INFO | 127.0.0.1 - - [22/Jun/2022 10:34:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:00.043659 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:01.028776 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:01.044001 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:02.041084 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:02] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:03.040064 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:03] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:04.054890 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:04] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:05.050707 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:05] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:06.040179 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:06] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:07.030157 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:07] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:07.056096 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:07] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:08.041129 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:08] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:09.052761 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:09] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:10.052889 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:10] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:11.051744 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:11] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:12.041532 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:12] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:13.029544 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:13] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:13.055857 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:13] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:14.040643 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:14] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:15.051880 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:15] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:16.043278 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:16] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:17.053168 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:17] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:18.052911 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:18] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:19.029811 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:19] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:19.056349 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:19] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:20.052617 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:20] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:21.052840 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:21] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:22.054928 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:22] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:23.043777 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:23] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:24.053427 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:24] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:25.031108 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:25] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:25.059281 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:25] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:26.052940 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:26] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:27.041653 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:27] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:28.052796 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:28] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:29.055801 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:29] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:30.043035 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:30] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:31.029105 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:31] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:31.056237 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:31] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:32.050823 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:32] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:33.052834 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:33] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:33.947295 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:33] "OPTIONS /assessment/ HTTP/1.1" 200 -
+2022-06-22T10:35:33.969221 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:33] "POST /assessment/ HTTP/1.1" 201 -
+2022-06-22T10:35:34.045389 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:34] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:35.050643 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:35] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:36.043017 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:36] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:37.027611 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:37] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:37.054635 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:37] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:38.040093 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:38] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:39.063083 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:39] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:40.052749 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:40] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:41.057836 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:41] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:42.042962 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:42] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:43.028879 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:43] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:43.057033 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:43] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:44.052782 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:44] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:45.052076 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:45] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:46.041785 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:46] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:47.050336 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:47] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:48.056674 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:48] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:49.032744 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:49] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:49.053031 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:49] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:50.051977 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:50] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:51.044773 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:51] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:52.080235 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:52] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:53.040668 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:53] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:54.052246 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:54] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:55.028859 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:55] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:35:55.055046 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:55] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:56.052242 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:56] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:57.041391 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:57] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:58.053707 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:58] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:35:59.059997 | INFO | 127.0.0.1 - - [22/Jun/2022 10:35:59] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:36:00.055308 | INFO | 127.0.0.1 - - [22/Jun/2022 10:36:00] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:36:01.078788 | INFO | 127.0.0.1 - - [22/Jun/2022 10:36:01] "OPTIONS /playback_data/ HTTP/1.1" 200 -
+2022-06-22T10:36:01.100348 | INFO | 127.0.0.1 - - [22/Jun/2022 10:36:01] "POST /playback_data/ HTTP/1.1" 201 -
+2022-06-22T10:36:01.496431 | INFO | 127.0.0.1 - - [22/Jun/2022 10:36:01] "OPTIONS /video/ HTTP/1.1" 200 -
+2022-06-22T10:36:01.512467 | INFO | 127.0.0.1 - - [22/Jun/2022 10:36:01] "PATCH /video/ HTTP/1.1" 201 -
