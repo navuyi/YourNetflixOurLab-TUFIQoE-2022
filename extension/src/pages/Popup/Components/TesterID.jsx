@@ -27,7 +27,6 @@ const TesterID = (props) => {
                 style={{
                     width: "200px",
                     height: "30px",
-                    paddingLeft: "10px",
                     fontFamily: "Ubuntu, sans-serif",
                     fontSize: "14px",
                     fontWeight: "bold",

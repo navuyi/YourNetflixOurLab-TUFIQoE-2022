@@ -12,6 +12,7 @@ import { STORAGE_KEYS } from '../config';
 import EmergencySaveButton from './Components/EmergencySaveButton';
 import axios from 'axios';
 import { backend_urls } from '../../http_requests/config';
+import BitrateModeSwitch from './Components/BitrateModeSwitch';
 
 const Popup = () => {
     const [deviceID, setDeviceID] = useState(1)
@@ -59,7 +60,7 @@ const Popup = () => {
                     <TesterIDContainer 
                         deviceID={deviceID}
                     />
-                    <EmergencySaveButton />
+                    <BitrateModeSwitch />
                 </> : 
                 <h3 style={{color: "red", marginTop: "50px"}}>Backend server is not active!</h3>
             }

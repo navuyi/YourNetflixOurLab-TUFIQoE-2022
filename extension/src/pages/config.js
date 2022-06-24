@@ -3,7 +3,7 @@ export const STATS_NONCLICKABLE = true
 export const STATS_INVISIBLE = false
 export const BITRATE_CHANGE_INTERVAL = 5*60*1000 // <--- 5 minutes = 5*60*1000
 export const ASSESSMENT_INTERVAL = 2.5*60*1000      // <--- 2.5*60*1000
-export const BITRATE_MODE = "sequential" // <-- random or sequential are available
+
 
 
 export const DATABASE_KEYS = {
@@ -112,7 +112,8 @@ export const STORAGE_KEYS = {
 
     VIDEO_URLS: "video_urls",
 
-    RUNNING: "running"
+    RUNNING: "running",
+    BITRATE_MODE: "bitrate_mode"
 }
 
 export const STORAGE_DEFAULT = {
@@ -137,7 +138,8 @@ export const STORAGE_DEFAULT = {
         "https://www.netflix.com/watch/80025316?trackId=14170286"
     ],
 
-    [STORAGE_KEYS.RUNNING]: false
+    [STORAGE_KEYS.RUNNING]: false,
+    [STORAGE_KEYS.BITRATE_MODE]: "sequential" //<-- random or sequential are available || KEEP sequential as default ! ! !
 }
 
 

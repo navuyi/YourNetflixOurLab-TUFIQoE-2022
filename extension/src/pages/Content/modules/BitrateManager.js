@@ -1,4 +1,4 @@
-import { BITRATE_MODE, STORAGE_KEYS } from "../../config";
+import { STORAGE_KEYS } from "../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../config";
 import {simulate_bitrate_menu_hotkey} from "../utils/bitrate_menu_hotkey";
 import {get_local_datetime} from "../../../utils/time_utils";
@@ -47,12 +47,16 @@ export class BitrateManager{
         setInterval(async () => {  
             const {bitrate_values, select, override_button} = await this.get_bitrate_menu_elements()
             console.log(`Available bitrate values: ${bitrate_values}`)
+
+            const bitrate_mode = (await chrome.storage.local.get([STORAGE_KEYS.BITRATE_MODE]))[STORAGE_KEYS.BITRATE_MODE]
                         
+            console.log(`[BitrateManager] Starting bitrate changes in ${bitrate_mode} mode`)
+
             let bitrate_to_be_set = undefined
-            if(BITRATE_MODE === "random"){
+            if(bitrate_mode === "random"){
                 bitrate_to_be_set = this.set_bitrate_random(bitrate_values)
             }
-            else if(BITRATE_MODE === "sequential"){
+            else if(bitrate_mode === "sequential"){
                 bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values)
             }
             
