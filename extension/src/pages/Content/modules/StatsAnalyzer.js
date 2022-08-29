@@ -139,6 +139,9 @@ export class StatsAnalyzer{
         // TODO
         // THIS WILL NOT WORK PROPERLY IN THE LAST EPISODE OF THE SERIE
         // FIX, FIND WORKAROUND ! ! !
+
+        // Check Wroc do przeglądania element! ! ! ! !!
+        // a with class="BackToBrowse"
         
         if(outer_container){
             // Click watch credits button

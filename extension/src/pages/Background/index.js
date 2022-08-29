@@ -16,6 +16,13 @@ chrome.runtime.onInstalled.addListener(() => {
      chrome.storage.local.set(STORAGE_DEFAULT)
 })
 
+chrome.action.onClicked.addListener(async (tab) => {
+    console.log(tab)
+    await chrome.tabs.update(tab.tabId, {
+        url: "setup.html"
+    })
+})
+
 
 
 /** Message listeners

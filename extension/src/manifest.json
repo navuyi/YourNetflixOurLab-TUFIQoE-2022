@@ -6,7 +6,6 @@
     "service_worker": "background.bundle.js"
   },
   "action": {
-    "default_popup": "popup.html",
     "default_icon": "32.png"
   },
   "icons": {
@@ -14,7 +13,14 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["content.styles.css", "icon-128.png", "icon-34.png", "32.png", "64.png", "logo.png"],
+      "resources": [
+        "content.styles.css",
+        "icon-128.png",
+        "icon-34.png",
+        "32.png",
+        "64.png",
+        "logo.png"
+      ],
       "matches": []
     }
   ],
