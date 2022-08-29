@@ -11,7 +11,6 @@ export class AssessmentManager{
         this.panel_visible = false
     }
 
-    
     /**
      * Initialize method. Executed once after creating instance of the class.
     */

@@ -2,86 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fa6f7e9-7ec3-4c16-beb0-1ea121590ea9" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.prettierrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/data_analysis/validate.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/data_analysis/validate.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/logs.log" beforeDir="false" afterPath="$PROJECT_DIR$/backend/logs.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/32.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/64.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/blurred.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/icon-128.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/icon-34.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/assets/img/logo.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/containers/Greetings/Greetings.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/create_experiment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/create_video.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/send_assessment.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/send_bitrate.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/send_playback_data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/http_requests/update_video.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/manifest.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Background/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Background/modules/Controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/modules/AssessmentManager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/modules/BitrateManager.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/modules/StatsAnalyzer.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/test_content_script.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/utils/bitrate_menu_hotkey.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Content/utils/get_statistics_element.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Devtools/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Devtools/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/Newtab.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/Newtab.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/Newtab.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Newtab/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Options/Options.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Options/Options.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Options/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Options/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Options/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Panel/Panel.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Panel/Panel.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Panel/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Panel/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Panel/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/DeviceID.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/EmergencySaveButton.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/EpisodesAmount.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/EpisodesURL.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/SessionType.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/StartButton.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/TesterID.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Components/TesterIDContainer.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Popup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/Popup.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/Popup/index.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pages/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/save_json.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/time_utils.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/dummy_data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/storage_buffor_test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/test_chrome_storage.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/build.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/env.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/webserver.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wwf_software.zip" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,6 +27,7 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="3fa6f7e9-7ec3-4c16-beb0-1ea121590ea9" name="Default Changelist" comment="" />
@@ -113,7 +36,12 @@
       <option name="presentableId" value="Default" />
       <updated>1655291820177</updated>
       <workItem from="1655291824637" duration="16000" />
+      <workItem from="1656680629236" duration="89000" />
+      <workItem from="1657102262519" duration="595000" />
     </task>
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
 </project>

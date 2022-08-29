@@ -20,7 +20,7 @@ chrome.runtime.onInstalled.addListener(() => {
 
 /** Message listeners
  * DO NOT USE await inside onMessage listener callback's body.
- * REMEMBER to return true at the end of the onMEssage listener callback's body.
+ * REMEMBER to return true at the end of the onMessage listener callback's body.
  * 
  * Returning true at the end tells the other side of connection to wait for response
  * that will asynchronously, that is why sendResponse is mandatory.

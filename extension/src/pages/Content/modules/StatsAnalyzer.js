@@ -135,6 +135,11 @@ export class StatsAnalyzer{
         //data-uia = "watch-credits-seamless-button"
         // data-uia="next-episode-seamless-button"
         
+
+        // TODO
+        // THIS WILL NOT WORK PROPERLY IN THE LAST EPISODE OF THE SERIE
+        // FIX, FIND WORKAROUND ! ! !
+        
         if(outer_container){
             // Click watch credits button
             const credits_button = document.querySelectorAll('[data-uia="watch-credits-seamless-button"]')[0]

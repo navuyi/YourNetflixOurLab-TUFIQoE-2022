@@ -12,16 +12,6 @@ export const get_local_datetime = (object) => {
 }
 
 
-export const shouldTrailerBePlayedToday = async () => {
-    const next_video_playback_day = new Date(JSON.parse(await AsyncStorage.getItem("next_video_playback_day")))
-
-    const today = new Date().setHours(0, 0,0, 0)
-    const toCompare = new Date(next_video_playback_day.setHours(0, 0, 0, 0))
-
-    return today >= toCompare
-}
-
-
 export const get_local_datetime_and_timezone = (object) => {
     // Get the datetime
     const year = object.getFullYear()
