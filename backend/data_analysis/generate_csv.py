@@ -30,7 +30,7 @@ def main():
 
     for video in videos:
         # Get video's experiment data
-        cursor.execute(f"SELECT tester_id, experiment_type FROM experiment WHERE id={video['id']}")
+        cursor.execute(f"SELECT tester_id, experiment_type FROM experiment WHERE id={video['experiment_id']}")
         exp_data = cursor.fetchall()[0]
 
         csv_filename = f"{exp_data['tester_id']}_{exp_data['experiment_type']}_videoID_{video['id']}.csv"
