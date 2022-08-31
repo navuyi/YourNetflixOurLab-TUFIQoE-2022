@@ -34,7 +34,7 @@ export class Controller{
            target: {
                 tabId: tabId
            },
-            files: ["contentScript.bundle.js"]
+            files: ["mainContentScript.bundle.js"]  // ContentScript filename has to match names in webpack.config.js
         })
         this.print("ContentScript has been injected")
     }

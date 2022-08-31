@@ -1,4 +1,23 @@
-import { STATS_INVISIBLE, STATS_NONCLICKABLE } from "../../config"
+import { STATS_INVISIBLE } from "../../config"
+import { STATS_NONCLICKABLE } from "../../config"
+
+
+const simulate_nerd_stats_hotkey = () => {
+    document.dispatchEvent(
+        new KeyboardEvent("keydown", {
+            key: "D",
+            altKey: true,
+            ctrlKey: true,
+            shiftKey: true,
+            bubbles: true,
+            code: "KeyD",
+            which: 68,
+            cancelable: true,
+            composed: true,
+            keyCode: 68
+        })
+    )
+}
 
 export const get_statistics_element = () => {
     return new Promise((resolve) => {
@@ -7,7 +26,7 @@ export const get_statistics_element = () => {
         let timer = undefined
 
         timer = setInterval(() => {
-            simulate_keyboard_events()
+            simulate_nerd_stats_hotkey()
             element = document.getElementsByTagName("textarea")[0]
             outer_element = document.getElementsByClassName("player-info")[0]   // This is the element that contains X (exit) button
 
@@ -31,19 +50,3 @@ export const get_statistics_element = () => {
 
 
 
-const simulate_keyboard_events = () => {
-    document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-            key: "D",
-            altKey: true,
-            ctrlKey: true,
-            shiftKey: true,
-            bubbles: true,
-            code: "KeyD",
-            which: 68,
-            cancelable: true,
-            composed: true,
-            keyCode: 68
-        })
-    )
-}

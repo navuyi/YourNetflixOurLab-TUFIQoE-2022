@@ -10,7 +10,6 @@ import StartButton from './Components/StartButton';
 import EpisodesURL from "./Components/EpisodesURL";
 import BitrateModeSwitch from './Components/BitrateModeSwitch';
 import axios from 'axios';
-import { STORAGE_KEYS } from '../config';
 import { backend_urls } from '../../http_requests/config';
 
 
@@ -18,15 +17,12 @@ import { Container, Col, Row } from "react-bootstrap"
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './Setup.scss';
-import ConfigFileInput from './Components/ConfigFileInput';
-import ConfigPreview from './Components/ConfigPreview';
+import ConfigFileMenu from './Components/ConfigFileMenu';
 
 const Setup = () => {
-
   const [deviceID, setDeviceID] = useState(1)
   const [episodesAmount, setEpisodesAmount] = useState(1)
   const [backendActive, setBackendActive] = useState(false)
-  const [config, setConfig] = useState(undefined)
 
   useEffect(() => {
     const init = async () => {
@@ -51,6 +47,9 @@ const Setup = () => {
         backendActive ?
           <Container fluid className='mt-5'>
             <Row className="justify-content-between">
+              <Col xxl={6} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}> <h1>Bitrate schedule</h1>
+                <ConfigFileMenu />
+              </Col>
               <Col xxl={4} xl={6} lg={8} md={12} style={{ alignItems: "center", justifyContent: "center" }}>
                 <h1 style={{ textAlign: "left" }}>Netflix Experiment Setup</h1>
 
@@ -80,12 +79,7 @@ const Setup = () => {
                 </Row>
               </Col>
 
-              <Col xxl={6} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}> <h1>Bitrate schedule</h1>
-                <ConfigFileInput config={config} setConfig={setConfig} />
-                <br></br><br></br><br></br>
 
-                <ConfigPreview config={config} setConfig={setConfig} />
-              </Col>
             </Row>
 
           </Container> :

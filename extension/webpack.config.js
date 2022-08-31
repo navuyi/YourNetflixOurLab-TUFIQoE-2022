@@ -44,8 +44,8 @@ var options = {
     background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
 
     // What happens here is described in README.md, content scripts require extra preparation
-    contentScript: path.join(__dirname, 'src', 'pages', 'Content', 'index.js'),
-    testScript: path.join(__dirname, 'src', 'pages', 'Content', 'test_content_script.js'),
+    mainContentScript: path.join(__dirname, 'src', 'pages', 'Content','main', 'index.js'), // ContentScript responsible for experiment execution
+    mapperContentScript: path.join(__dirname, 'src', 'pages', 'Content', 'mapper', 'index.js'),  // ContentScript responsible for bitrate->vmaf mapping
     //
     /*
     options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
@@ -54,7 +54,7 @@ var options = {
     */
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ['background', 'contentScript', "testScript"],  // Remember to include content script in notHotReload!!!
+    notHotReload: ['background', 'mainContentScript', 'mapperContentScript'],  // Remember to include content script in notHotReload!!!
   },
   output: {
     filename: '[name].bundle.js',

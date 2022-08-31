@@ -1,7 +1,9 @@
-import { send_assessment } from "../../../http_requests/send_assessment"
-import { get_local_datetime } from "../../../utils/time_utils"
-import { STORAGE_KEYS } from "../../config"
-import { ASSESSMENT_INTERVAL } from "../../config"
+import { send_assessment } from "../../../../http_requests/send_assessment"
+import { get_local_datetime } from "../../../../utils/time_utils"
+import { STORAGE_KEYS } from "../../../config"
+import { ASSESSMENT_INTERVAL } from "../../../config"
+
+
 
 export class AssessmentManager{
     constructor() {
