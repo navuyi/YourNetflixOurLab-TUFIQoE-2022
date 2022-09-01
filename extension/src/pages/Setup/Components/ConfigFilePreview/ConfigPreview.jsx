@@ -17,10 +17,10 @@ const ConfigPreview = (props) => {
                                 <h2 className={styles.summary_container_header}>Episode name: {episode?.name}</h2>
                                 <p className={styles.summary_item}>Description: {episode?.description}</p>
                                 <p className={styles.summary_item}>URL: <a href={episode?.url} className={styles.url}>{episode?.url}</a></p>
-                                <p className={styles.summary_item}>VMAF template: {JSON.stringify(episode?.vmaf_template)}</p>
+                                <p className={styles.summary_item}>vmaf_template: {JSON.stringify(episode?.vmaf_template)}</p>
 
-                                <p className={styles.summary_item}>Bitrate: {episode.bitrate ? JSON.stringify(episode.bitrate) : "[to be defined]"}</p>
-                                <p className={styles.summary_item}>VMAF-closest: {episode.vmaf_closes ? JSON.stringify(episode.vmaf_closest) : "[to be defined]"}</p>
+                                <p className={styles.summary_item}>bitrate_available: {episode.bitrate ? JSON.stringify(episode.bitrate) : "[to be defined]"}</p>
+                                <p className={styles.summary_item}>vmaf_available: {episode.vmaf_closes ? JSON.stringify(episode.vmaf_closest) : "[to be defined]"}</p>
                             </div>
                         )
                     }) : null

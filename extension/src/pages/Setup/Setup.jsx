@@ -45,12 +45,12 @@ const Setup = () => {
     <div className="App" >
       {
         backendActive ?
-          <Container fluid className='mt-5'>
+          <Container fluid className='mt-5 pt-5 pb-5'>
             <Row className="justify-content-between">
-              <Col xxl={6} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}> <h1>Bitrate schedule</h1>
+              <Col xxl={6} xl={6} lg={8} md={12} style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}> <h1>Bitrate schedule</h1>
                 <ConfigFileMenu />
               </Col>
-              <Col xxl={4} xl={6} lg={8} md={12} style={{ alignItems: "center", justifyContent: "center" }}>
+              <Col xxl={4} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ alignItems: "center", justifyContent: "center" }}>
                 <h1 style={{ textAlign: "left" }}>Netflix Experiment Setup</h1>
 
                 <h2 style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}>Device settings</h2>

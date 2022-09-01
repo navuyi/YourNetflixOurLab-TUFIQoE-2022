@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./style.module.css"
 import useStartMappingButton from "./hooks/useStartMappingButton";
+import { Button } from "react-bootstrap"
 
 const StartMappingButton = (props) => {
 
@@ -8,7 +9,7 @@ const StartMappingButton = (props) => {
 
     return (
         <>
-            <button onClick={handleClick} className={styles.start_mapping_btn} > Start VMAF--Bitrate mapping</button>
+            <Button variant="danger" onClick={handleClick} className={"mt-5 w-50"} > Start VMAF--Bitrate mapping</Button>
         </>
     )
 }

@@ -1,21 +1,12 @@
 import { STORAGE_KEYS } from "../../config"
 import {MESSAGE_HEADERS, MESSAGE_TEMPLATE} from "../../config"
-
-console.log("THIS IS BITRATE VMAF MAPPER CONTENT SCRIPT! ! ! ! !")
-console.log("HELLO WRLD")
+import Mapper from "./modules/Mapper"
 
 
 
 
-const init = () => {
-    setInterval(async () => {
-        await redirect_to_next_video()
-    }, 5000)
-}
-
-
-init()
-
+const mapper = new Mapper()
+mapper.init()
 
 
 
