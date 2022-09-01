@@ -72,6 +72,7 @@ export class Controller{
         // Code below seems to be the right solution //
 
         // onHistoryStateUpdated detects navigation within Netlifx player (next video button)
+        /*
         chrome.webNavigation.onHistoryStateUpdated.addListener((details) => {
             this.print(`ON HISTORY STATE UPDATED`)
             console.log(details)
@@ -84,6 +85,7 @@ export class Controller{
                 });
             }
         });
+        */
         // onCompleted detects navigation using chrome.tabs.update
         chrome.webNavigation.onCompleted.addListener(details => {
             this.print(`ON COMPLETED`)

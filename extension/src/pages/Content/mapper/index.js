@@ -50,7 +50,7 @@ const redirect_to_next_video = async () => {
             chrome.runtime.sendMessage({
                 [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
                 [MESSAGE_TEMPLATE.DATA]: {
-                    url: "next_url"
+                    url: next_url
                 }
             })
         }, 3000)
