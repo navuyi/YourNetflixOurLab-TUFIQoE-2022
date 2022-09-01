@@ -1,8 +1,7 @@
 import React from "react";
-import { useState } from "react";
-import { test_chrome_storage } from "../../../../test/test_chrome_storage";
+
 import {STORAGE_KEYS} from "../../config";
-import axios from "axios";
+
 import { create_experiment } from "../../../http_requests/create_experiment";
 import { get_local_datetime } from "../../../utils/time_utils";
 import { create_video } from "../../../http_requests/create_video";

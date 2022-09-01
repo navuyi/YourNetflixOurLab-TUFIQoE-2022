@@ -1,0 +1,23 @@
+.header {
+    color: whitesmoke;
+    font-size: 25px;
+}
+
+.summary_container {
+    margin-top: 30px;
+}
+
+.summary_container_header {
+    font-size: 20px;
+    color: white;
+}
+
+.url {
+    color: rgb(13, 112, 249);
+}
+
+.summary_item {
+    font-size: 16px;
+    color: whitesmoke;
+    margin: 0;
+}

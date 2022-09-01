@@ -1,3 +1,5 @@
+import { DEFAULT_EXPERIMENT_CONFIGURATION } from "./Setup/default_experiment_config";
+
 export const STATS_RECORD_INTERVAL_MS = 2000; //1000 <---
 export const STATS_NONCLICKABLE = true;
 export const STATS_INVISIBLE = false;
@@ -32,35 +34,7 @@ export const DATABASE_KEYS = {
   FRAMERATE: 'framerate',
   TIMESTAMP: 'timestamp',
 };
-// DATABASE_KEYS and DATABASE_DEFAULT should match keys
-export const DATABASE_DEFAULT = {
-  [DATABASE_KEYS.POSITION]: [],
-  [DATABASE_KEYS.DURATION]: [],
 
-  [DATABASE_KEYS.VOLUME]: [],
-  [DATABASE_KEYS.SEGMENT_POSITION]: [],
-
-  [DATABASE_KEYS.PLAYER_STATE]: [],
-  [DATABASE_KEYS.BUFFERING_STATE]: [],
-  [DATABASE_KEYS.RENDERING_STATE]: [],
-
-  [DATABASE_KEYS.PLAYING_BITRATE_AUDIO]: [],
-  [DATABASE_KEYS.PLAYING_BITRATE_VIDEO]: [],
-  [DATABASE_KEYS.RESOLUTION]: [],
-
-  [DATABASE_KEYS.PLAYING_VMAF]: [],
-  [DATABASE_KEYS.BUFFERING_VMAF]: [],
-
-  [DATABASE_KEYS.BUFFERING_BITRATE_AUDIO]: [],
-  [DATABASE_KEYS.BUFFERING_BITRATE_VIDEO]: [],
-
-  [DATABASE_KEYS.TOTAL_FRAMES]: [],
-  [DATABASE_KEYS.TOTAL_DROPPED_FRAMES]: [],
-  [DATABASE_KEYS.TOTAL_CORRUPTED_FRAMES]: [],
-
-  [DATABASE_KEYS.FRAMERATE]: [],
-  [DATABASE_KEYS.TIMESTAMP]: [],
-};
 
 export const ARCHIVE_KEYS = {
   DATA: 'data',
@@ -105,17 +79,16 @@ export const STORAGE_KEYS = {
   VIDEO_COUNT: 'video_count',
   VIDEO_LIMIT: 'video_limit',
 
-  VIDEO_URLS: 'video_urls',
+  //VIDEO_URLS: 'video_urls', // TO BE DELETED
 
   RUNNING: 'running',
   BITRATE_MODE: 'bitrate_mode',
+
+  EXTENSION_MODE: "extension_mode",
+  CONFIGURATION: "configuration"
 };
 
 export const STORAGE_DEFAULT = {
-  [STORAGE_KEYS.DATA_TO_SAVE]: DATABASE_DEFAULT,
-  [STORAGE_KEYS.ARCHIVE_TO_SAVE]: ARCHIVE_DEFAULT,
-  [STORAGE_KEYS.ASSESSMENTS_TO_SAVE]: ASSESSMENTS_DEFAULT,
-
   [STORAGE_KEYS.DATABASE_EXPERIMENT_ID]: null,
   [STORAGE_KEYS.DATABASE_VIDEO_ID]: null,
 
@@ -129,13 +102,22 @@ export const STORAGE_DEFAULT = {
   [STORAGE_KEYS.EXPERIMENT_TYPE]: 'alone', // alone and together are correct values, alone by default
   [STORAGE_KEYS.VIDEO_LIMIT]: 1, // Most likely it will be set to 1 or 2
 
-  [STORAGE_KEYS.VIDEO_URLS]: [
+  /*[STORAGE_KEYS.VIDEO_URLS]: [
     'https://www.netflix.com/watch/80025316?trackId=14170286',
-  ],
+  ],*/ //TO BE DELETED
+
+  [STORAGE_KEYS.BITRATE_MODE]: 'sequential', //<-- random or sequential are available || KEEP sequential as default ! ! !
 
   [STORAGE_KEYS.RUNNING]: false,
-  [STORAGE_KEYS.BITRATE_MODE]: 'sequential', //<-- random or sequential are available || KEEP sequential as default ! ! !
+  [STORAGE_KEYS.EXTENSION_MODE]: "experiment", // <-- experiment or mapping 
+  [STORAGE_KEYS.CONFIGURATION]: DEFAULT_EXPERIMENT_CONFIGURATION
 };
+
+
+export const EXTENSION_MODE_AVAILABLE = {
+  EXPERIMENT: "experiment",
+  MAPPING: "mapping"
+}
 
 export const MESSAGE_TEMPLATE = {
   HEADER: 'header',
@@ -149,4 +131,17 @@ export const MESSAGE_HEADERS = {
   ASSESSMENT: 'assessment',
   FINISHED: 'finished',
   CREDITS: 'credits',
+  REDIRECT: 'redirect'
 };
+
+
+
+
+
+
+
+
+
+
+
+

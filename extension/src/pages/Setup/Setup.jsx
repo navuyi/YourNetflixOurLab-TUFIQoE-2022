@@ -17,7 +17,7 @@ import { Container, Col, Row } from "react-bootstrap"
 
 import 'bootstrap/dist/css/bootstrap.css'
 import './Setup.scss';
-import ConfigFileMenu from './Components/ConfigFileMenu';
+import ConfigFileMenu from './Components/ConfigFileMenu/ConfigFileMenu';
 
 const Setup = () => {
   const [deviceID, setDeviceID] = useState(1)
@@ -60,15 +60,9 @@ const Setup = () => {
                 />
 
                 <h2 style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}>Experiment settings</h2>
+
                 <SessionType />
 
-                <EpisodesAmount
-                  episodesAmount={episodesAmount}
-                  setEpisodesAmount={setEpisodesAmount}
-                />
-                <EpisodesURL
-                  episodesAmount={episodesAmount}
-                />
                 <TesterIDContainer
                   deviceID={deviceID}
                 />

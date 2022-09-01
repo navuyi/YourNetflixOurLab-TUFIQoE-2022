@@ -1,7 +1,6 @@
 import React from "react";
 import { useLayoutEffect } from "react";
 import { useState } from "react";
-import { test_chrome_storage } from "../../../../test/test_chrome_storage";
 import { STORAGE_KEYS } from "../../config";
 
 

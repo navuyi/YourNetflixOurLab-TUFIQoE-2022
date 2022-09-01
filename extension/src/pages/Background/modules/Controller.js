@@ -1,5 +1,5 @@
 import { get_local_datetime } from "../../../utils/time_utils"
-import {STORAGE_KEYS} from "../../config"
+import {EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS} from "../../config"
 
 
 export class Controller{
@@ -18,25 +18,52 @@ export class Controller{
 
     async injectScript(tabId){
         const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
+        const mode = (await chrome.storage.local.get([STORAGE_KEYS.EXTENSION_MODE]))[STORAGE_KEYS.EXTENSION_MODE]
         if(running === false){
             this.print("Extension is not running. Use popup in order to start experiment.")
             return
         }
-        // Increment VIDEO_COUNT
-        this.print('Increasing episode count and incjecting content script!!!')
-        const count = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.VIDEO_COUNT]: count+1
-        })
+        
+        // Increase video count
+        /**
+         * 
+        */
+        await this.increaseVideoCount()
 
+        // Define conent script file
+        let content_script;
+        if(mode === EXTENSION_MODE_AVAILABLE.EXPERIMENT){
+            content_script = "mainContentScript.bundle.js"
+        }
+        else if(mode === EXTENSION_MODE_AVAILABLE.MAPPING){
+            content_script = "mapperContentScript.bundle.js"
+        }
+        else(
+            this.print("Content script is incorrect!!!")
+        )
 
         await chrome.scripting.executeScript({
            target: {
                 tabId: tabId
            },
-            files: ["mainContentScript.bundle.js"]  // ContentScript filename has to match names in webpack.config.js
+            files: [content_script]  // ContentScript filename has to match names in webpack.config.js
         })
         this.print("ContentScript has been injected")
+    }
+
+    /**
+     *  Method that keeps track of episodes order and limit.
+     *  For the first video in queue the count will be 1 but its index in an array is 0.
+     *  Video count is increased just before injecting the ContentScript.
+     *  It means that n-th video in row has the count of n for the enterity of playback. The index is n-1  
+    */
+    async increaseVideoCount(){
+        const count = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
+        const new_count = count+1
+        this.print(`Increasing video count to ${new_count}`)
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.VIDEO_COUNT]: new_count
+        })
     }
 
 

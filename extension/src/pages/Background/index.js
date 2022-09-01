@@ -37,6 +37,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     // do not use async/await within listener callback
 
     /*no await!!!*/ receive_finished_signal(message, sender, sendResponse)
+    /*no await!!!*/ receive_redirect_signal(message, sender, sendResponse) 
 
     return true     // return true is essential to indicate that response will be sent asynchronously
 })
@@ -65,3 +66,13 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
     }
 }
 
+const receive_redirect_signal = async (message, sender, sendResponse) => {
+    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.REDIRECT){
+        const tabId = sender.tab.id
+        await chrome.tabs.update(tabId, {
+            url: message.data.url
+        })
+
+        sendResponse({msg: "Redirect signal received"})
+    }
+}

@@ -7,7 +7,7 @@ import TesterID from "./TesterID"
 const TesterIDContainer = (props) => {
     const [testerID, setTesterID] = useState("")
     const [pairID, setPairID] = useState("")
-    
+
     useLayoutEffect(() => {
         const init = async () => {
             const res = await chrome.storage.local.get([STORAGE_KEYS.TESTER_ID])
@@ -20,9 +20,9 @@ const TesterIDContainer = (props) => {
 
 
 
-    return(
-        <div style={{width: "100%", marginTop: "30px", display: "flex", alignItems: "flex-start", flexDirecion: "row", justifyContent: "space-between"}}>
-            <TesterID 
+    return (
+        <div style={{ width: "100%", marginTop: "30px", display: "flex", alignItems: "flex-start", flexDirecion: "row", justifyContent: "space-between" }}>
+            <TesterID
                 index={1}
                 label={"one"}
                 id={testerID}
