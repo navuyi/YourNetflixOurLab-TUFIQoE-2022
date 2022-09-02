@@ -1,6 +1,8 @@
 import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements"
 import { get_statistics_element } from "../../utils/get_statistics_element"
 import { BitrateMenu } from "../../utils/BitrateMenu"
+import { StatisticsMenu } from "../../utils/StatisticsMenu"
+import { DATABASE_KEYS } from "../../../config"
 
 
 class Mapper{
@@ -8,12 +10,14 @@ class Mapper{
         this.interval = undefined
         this.available_bitrates = []
         this.max_bitrate_index = undefined
-        this.nerdstat_element = undefined
         this.current_bitrate_index = 0
         this.vmaf_bitrate_map = []
 
         // BitrateMenu class instance
         this.bitrate_menu = undefined
+
+        // StatisticsMenu class instance
+        this.statistics_menu = undefined
     }
 
     print(text){
@@ -26,12 +30,13 @@ class Mapper{
         this.bitrate_menu = new BitrateMenu()
         await this.bitrate_menu.init()
 
+        // Init StatisticsMenu instance
+        this.statistics_menu = new StatisticsMenu()
+        await this.statistics_menu.init()
+
         // Get available bitrate values
         this.available_bitrates = this.bitrate_menu.get_available_bitrates()
         this.max_bitrate_index = this.available_bitrates.length - 1
-
-        // Get nerd statistics element
-        this.nerdstat_element = await get_statistics_element()
 
         this.print(`Available bitrates: ${this.available_bitrates}`)
         this.print(`Max bitrate index: ${this.max_bitrate_index}`)
@@ -68,17 +73,18 @@ class Mapper{
         }
     }
 
-
-
     async wait_for_change(expected_bitrate){
         return new Promise(resolve => {
             let interval;
             interval = setInterval(async ()=>{
-                const {buffering_bitrate, buffering_vmaf} = await this.get_buffering_data(this.nerdstat_element.value.toString())
-                this.print(`Expected bitrate: ${expected_bitrate}`)
-                this.print(`Buffering bitrate: ${buffering_bitrate}`)
+                const statistic_data = this.statistics_menu.analyze_statistics_text()
+                const buffering_vmaf = statistic_data[DATABASE_KEYS.BUFFERING_VMAF]
+                const buffering_bitrate = statistic_data[DATABASE_KEYS.BUFFERING_BITRATE_VIDEO]
+
+                this.print(`Expected bitrate: ${expected_bitrate} || Buffering bitrate: ${buffering_bitrate}`)
+                
                 if(parseInt(expected_bitrate) === parseInt(buffering_bitrate)){
-                    this.print(`Found vmaf<->bitrate mapping. Resolving...`)
+                    this.print(`Found VMAF <-> bitrate mapping. Resolving...`)
                     clearInterval(interval)
                     const map_item = {
                         bitrate: expected_bitrate,
@@ -88,29 +94,6 @@ class Mapper{
                 }
             }, 1000)
         })
-    }
-
-    async get_buffering_data(data){        
-        const buffering_bitrate = this.get_value("Buffering bitrate \\(a\\/v\\):\\s*([0-9]+)\\s*\\/\\s*([0-9]+)", 2, data)
-        const buffering_vmaf = this.get_value("Playing\/Buffering vmaf: ([0-9]+)\s*\/\s*([0-9]+)", 2, data)
-
-        return {buffering_bitrate, buffering_vmaf}
-    }
-    
-    get_value = (regex, group, data) => {
-        try{
-            let value = data.match(regex) ?? null
-            if(value != null){
-                return value[group]
-            }
-            else{
-                return null
-            }
-        }
-        catch(e){
-            console.log(e)
-            return null
-        }
     }
 }
 

@@ -13,9 +13,9 @@ export class BitrateMenu{
 
 
     /**
-     *  Init method invokes bitrate menu and assings html elements and 
-     *  other information.
-     *  Bitrate menu is closed in the end.
+     *  Invokes bitrate menu and assings bitrate menu's HTML elements 
+     *  to instance attributes.
+     *  Closes bitrate menu by simulating click event on Reset button.
     */
     async init(){
         await this.invoke_bitrate_menu()
@@ -24,8 +24,9 @@ export class BitrateMenu{
 
 
     /**
-     *  Makes bitrate_menu visible and reassigns values  
-     *   
+     *  Invokes bitrate_menu and reassigns HTML elements  
+     *  Reassigning elements is important because bitrate menu is removed from DOM tree
+     *  after overriding bitrate value or reseting
     */
     async invoke_bitrate_menu(){
         // Invoke bitrate menu and get html elements
@@ -39,13 +40,27 @@ export class BitrateMenu{
         this.select = this.bitrate_menu_elements.select
     }
 
+    /**
+     * Returns array of available bitrate values
+     * @returns {Array.<number>} Available bitrate values
+    */
     get_available_bitrates(){
         return this.available_bitrates
     }
+
+    /**
+     * Returns HTML elements of bitrate menu
+     * @returns {Object.<HTMLElement>}
+    */
     get_bitrate_menu_elements(){
         return this.bitrate_menu_elements
     }
 
+    /**
+     * Overrides current bitrate with new bitrate value
+     * provided as a parameter
+     * @param {number} bitrate 
+    */
     set_bitrate(bitrate){
         console.log(`Setting bitrate to: ${bitrate}`)
         this.select.value = bitrate

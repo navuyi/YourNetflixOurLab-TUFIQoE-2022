@@ -6,6 +6,7 @@ import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitra
 
 export class BitrateManager{
     constructor() {
+        // BitrateMenu class instance
         this.bitrate_menu = undefined
         
 
