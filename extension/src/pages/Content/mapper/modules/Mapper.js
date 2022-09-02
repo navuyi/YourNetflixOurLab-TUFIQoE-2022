@@ -1,5 +1,7 @@
-import get_bitrate_menu_elements from "../../utils/get_bitrate_menu_elements"
+import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements"
 import { get_statistics_element } from "../../utils/get_statistics_element"
+import { BitrateMenu } from "../../utils/BitrateMenu"
+
 
 class Mapper{
     constructor(){
@@ -9,6 +11,9 @@ class Mapper{
         this.nerdstat_element = undefined
         this.current_bitrate_index = 0
         this.vmaf_bitrate_map = []
+
+        // BitrateMenu class instance
+        this.bitrate_menu = undefined
     }
 
     print(text){
@@ -16,10 +21,13 @@ class Mapper{
     }
 
 
-
     async init(){
+        // Init BitrateMenu instance
+        this.bitrate_menu = new BitrateMenu()
+        await this.bitrate_menu.init()
+
         // Get available bitrate values
-        this.available_bitrates = await this.get_available_bitrates()
+        this.available_bitrates = this.bitrate_menu.get_available_bitrates()
         this.max_bitrate_index = this.available_bitrates.length - 1
 
         // Get nerd statistics element
@@ -28,50 +36,39 @@ class Mapper{
         this.print(`Available bitrates: ${this.available_bitrates}`)
         this.print(`Max bitrate index: ${this.max_bitrate_index}`)
 
-        await this.start_mapping()
+        await this.map_bitrate_to_vmaf()
     }
 
-    async get_available_bitrates(){
-        const {bitrate_values, reset_button} = await get_bitrate_menu_elements()
-        try{
-            reset_button.click()
-            this.print(`Bitrate menu closed (reset_button)`)
-        }
-        catch{
-            this.print(`reset_button could not be clicked`)
-        }
-        return bitrate_values
-    }
+   
 
-    async start_mapping(){
-        const current_bitrate = this.available_bitrates[this.current_bitrate_index]
+    async map_bitrate_to_vmaf(){
+        // Define bitrate to me mapped
+        const bitrate_to_map = this.available_bitrates[this.current_bitrate_index]
 
-        const {select, override_button} = await get_bitrate_menu_elements()
-        this.set_bitrate(select,override_button, current_bitrate)
-        const map_item = await this.wait_for_change(current_bitrate)
+        // Invoke bitrate menu
+        await this.bitrate_menu.invoke_bitrate_menu()
+        // Set next bitrate to be mapped
+        this.bitrate_menu.set_bitrate(bitrate_to_map)
+
+        // Wait for buffering bitrate and vmaf to change
+        const map_item = await this.wait_for_change(bitrate_to_map)
 
         this.vmaf_bitrate_map.push(map_item)
 
         console.log(this.vmaf_bitrate_map)
         
-        this.print(`Incrementing current_bitrate_index`)
         this.current_bitrate_index += 1
-        this.print(`Current bitrate index: ${this.current_bitrate_index}`)
 
         if(this.current_bitrate_index <= this.max_bitrate_index){
-            this.start_mapping()
+            this.map_bitrate_to_vmaf()
         }
         else{
-
+            this.print(`Bitrate to vmaf mapping finished.`)
+            console.log(this.vmaf_bitrate_map)
         }
-        
     }
 
 
-    async set_bitrate(select, override_button, bitrate){
-        select.value = bitrate
-        override_button.click()  // <-- the change happens after click event is dispatched
-    }
 
     async wait_for_change(expected_bitrate){
         return new Promise(resolve => {
@@ -80,7 +77,7 @@ class Mapper{
                 const {buffering_bitrate, buffering_vmaf} = await this.get_buffering_data(this.nerdstat_element.value.toString())
                 this.print(`Expected bitrate: ${expected_bitrate}`)
                 this.print(`Buffering bitrate: ${buffering_bitrate}`)
-                if(expected_bitrate == buffering_bitrate){
+                if(parseInt(expected_bitrate) === parseInt(buffering_bitrate)){
                     this.print(`Found vmaf<->bitrate mapping. Resolving...`)
                     clearInterval(interval)
                     const map_item = {

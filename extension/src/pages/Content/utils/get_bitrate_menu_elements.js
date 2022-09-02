@@ -1,10 +1,10 @@
-import { simulate_bitrate_menu_hotkey } from "./bitrate_menu_hotkey"
+import {simulate_bitrate_menu_hotkey} from "./keyboard_hotkeys/simulate_bitrate_menu_hotkeys.js"
 
 /**
  * Function executes subfunction in intervals until bitrate menu elements are retrieved 
  * and HTML elements are extracted using extract_html_elements method
 */
-const get_bitrate_menu_elements = async () => {
+export const invoke_bitrate_menu_and_get_html_elements = async () => {
     return new Promise((resolve) => {
         let timer = undefined
 
@@ -12,13 +12,18 @@ const get_bitrate_menu_elements = async () => {
             // Simulate bitrate menu hotkey
             simulate_bitrate_menu_hotkey()
             try{
-                const  {container, override_button, reset_button, select, options, bitrate_values} = extract_html_elements()
+                const bitrate_menu_elements = extract_html_elements()
+
+                const bitrate_values = bitrate_menu_elements.bitrate_values
+                const override_button = bitrate_menu_elements.override_button
+                const reset_button = bitrate_menu_elements.reset_button
+                const container = bitrate_menu_elements.container
 
                 // Set opacity of the element to required value
-                if(bitrate_values.length > 0){
-                    container.style.opacity = "0.5" //TODO change it later to 0
+                if(bitrate_values.length > 0 && override_button != null && reset_button != null){
+                    container.style.opacity = "0.5" // Does not have to be completely transparent, it is not visible in fullscreen mode
                     clearInterval(timer)
-                    resolve({container, override_button, reset_button, select, options, bitrate_values})
+                    resolve(bitrate_menu_elements)
                 }
             }
             catch (err){
@@ -57,4 +62,3 @@ const extract_html_elements = () => {
 
 
 
-export default get_bitrate_menu_elements

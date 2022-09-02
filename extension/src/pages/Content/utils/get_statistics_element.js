@@ -1,23 +1,9 @@
 import { STATS_INVISIBLE } from "../../config"
 import { STATS_NONCLICKABLE } from "../../config"
+import { simulate_nerd_stats_hotkey } from "./keyboard_hotkeys/simulate_nerd_stats_hotkey"
 
 
-const simulate_nerd_stats_hotkey = () => {
-    document.dispatchEvent(
-        new KeyboardEvent("keydown", {
-            key: "D",
-            altKey: true,
-            ctrlKey: true,
-            shiftKey: true,
-            bubbles: true,
-            code: "KeyD",
-            which: 68,
-            cancelable: true,
-            composed: true,
-            keyCode: 68
-        })
-    )
-}
+
 
 export const get_statistics_element = () => {
     return new Promise((resolve) => {

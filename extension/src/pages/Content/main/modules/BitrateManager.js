@@ -2,7 +2,7 @@ import { STORAGE_KEYS } from "../../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../../config";
 import {get_local_datetime} from "../../../../utils/time_utils";
 import { send_bitrate } from "../../../../http_requests/send_bitrate";
-import get_bitrate_menu_elements from "../../utils/get_bitrate_menu_elements";
+import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements";
 
 export class BitrateManager{
     constructor() {
@@ -26,7 +26,7 @@ export class BitrateManager{
      *  It sets initial bitrate value.
     */
     async bitrate_menu_init(){
-        const {bitrate_values, select, override_button} = await get_bitrate_menu_elements()
+        const {bitrate_values, select, override_button} = await invoke_bitrate_menu_and_get_html_elements()
            
         const last_index = bitrate_values.length-1
         this.current_bitrate_index = last_index
@@ -45,7 +45,7 @@ export class BitrateManager{
     start_bitrate_changes(){
         // Start regular bitrate changes
         setInterval(async () => {  
-            const {bitrate_values, select, override_button} = await get_bitrate_menu_elements()
+            const {bitrate_values, select, override_button} = await invoke_bitrate_menu_and_get_html_elements()
             console.log(`Available bitrate values: ${bitrate_values}`)
 
             const bitrate_mode = (await chrome.storage.local.get([STORAGE_KEYS.BITRATE_MODE]))[STORAGE_KEYS.BITRATE_MODE]
@@ -54,34 +54,35 @@ export class BitrateManager{
 
             let bitrate_to_be_set = undefined
             if(bitrate_mode === "random"){
-                bitrate_to_be_set = this.set_bitrate_random(bitrate_values)
+                bitrate_to_be_set = this.get_next_bitrate_random(bitrate_values)
             }
             else if(bitrate_mode === "sequential"){
-                bitrate_to_be_set = this.set_bitrate_sequential(bitrate_values)
+                bitrate_to_be_set = this.get_next_bitrate_sequential(bitrate_values)
             }
             
                                     
-            this.set_bitrate(select, override_button, bitrate_to_be_set)
+            await this.set_bitrate(select, override_button, bitrate_to_be_set)
+            await this.send_bitrate_change_update(bitrate_to_be_set)
         }, BITRATE_CHANGE_INTERVAL)
     }
 
 
     /** 
-     * Sets next bitrate value in random manner 
+     * Returns next bitrate value in random manner 
      * @param {Array} bitrate_values 
      * @returns {number}
      */
-     set_bitrate_random(bitrate_values){
+     get_next_bitrate_random(bitrate_values){
         return bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
     }
 
     /**
-     * Selects next bitrate value in sequential manner
+     * Returns next bitrate value in sequential manner
      * Keeps track of current index of available bitrate values
      * @param {Array} bitrate_values 
      * @returns {number}
      */
-    set_bitrate_sequential(bitrate_values){
+    get_next_bitrate_sequential(bitrate_values){
         const next_index = this.current_bitrate_index + 1
         if(next_index > this.max_bitrate_index){
             this.current_bitrate_index = 0
@@ -101,26 +102,39 @@ export class BitrateManager{
      * @param {HTMLElement} button 
      * @param {number} value 
     */
-    set_bitrate(select, button, value) {
-        setTimeout(async ()=> {
-            console.log(`Setting bitrate to ${value} kbps`)
-            select.value = value
-            button.click()  // <-- the change happens after click event is dispatched
+    set_bitrate(select, button, bitrate) {
+        return new Promise(resolve => {
+            setTimeout(async ()=> {
+                console.log(`Setting bitrate to ${bitrate} kbps`)
+                select.value = bitrate
+                button.click()  // <-- the change happens after click event is dispatched
 
-            // Get previous bitrate and send update
-            const res = await chrome.storage.local.get([STORAGE_KEYS.CURRENT_BITRATE, STORAGE_KEYS.DATABASE_VIDEO_ID])
-            const bitrate_data = {
-                video_id: res[STORAGE_KEYS.DATABASE_VIDEO_ID],
-                previous: res[STORAGE_KEYS.CURRENT_BITRATE],
-                timestamp: get_local_datetime(new Date()),
-                value: value
-            }
-            send_bitrate(bitrate_data)
+                resolve()
+            }, 1000)
+        })
+       
+    }
 
-            // Save new current bitrate value to chrome.storage
-            await chrome.storage.local.set({
-                [STORAGE_KEYS.CURRENT_BITRATE]: value
-            })
-        }, 1000)
+    /**
+     * Prepares data and sends post request to REST API
+     * with information on new bitrate change.
+     * Also updates chrome.storage with current bitrate
+     * @param {number} bitrate 
+    */
+    async send_bitrate_change_update(bitrate){
+        // Get previous bitrate and send update
+        const res = await chrome.storage.local.get([STORAGE_KEYS.CURRENT_BITRATE, STORAGE_KEYS.DATABASE_VIDEO_ID])
+        const bitrate_data = {
+            video_id: res[STORAGE_KEYS.DATABASE_VIDEO_ID],
+            previous: res[STORAGE_KEYS.CURRENT_BITRATE],
+            timestamp: get_local_datetime(new Date()),
+            value: bitrate
+        }
+        send_bitrate(bitrate_data)
+
+        // Save new current bitrate value to chrome.storage
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.CURRENT_BITRATE]: bitrate
+        })
     }
 }

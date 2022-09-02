@@ -1,6 +1,4 @@
 
-
-
 export const simulate_bitrate_menu_hotkey = () => {
     document.dispatchEvent(
         new KeyboardEvent("keydown", {
