@@ -14,6 +14,12 @@ export const DEFAULT_EXPERIMENT_CONFIGURATION = {
                 90,
                 45,
                 51
+            ],
+            "bitrate_vmaf_map": [
+                {bitrate: 100, vmaf: 25},
+                {bitrate: 250, vmaf: 35},
+                {bitrate: 500, vmaf: 50},
+                {bitrate: 1750, vmaf: 85},
             ]
         },
         {
@@ -27,6 +33,18 @@ export const DEFAULT_EXPERIMENT_CONFIGURATION = {
                 90,
                 45,
                 51
+            ],
+            "bitrate_vmaf_map": [
+                {bitrate: 100, vmaf: 25},
+                {bitrate: 250, vmaf: 35},
+                {bitrate: 500, vmaf: 50},
+                {bitrate: 1750, vmaf: 32},
+                {bitrate: 4250, vmaf: 23},
+                {bitrate: 3500, vmaf: 90},
+                {bitrate: 1750, vmaf: 95},
+                {bitrate: 1250, vmaf: 65},
+                {bitrate: 1500, vmaf: 50},
+                {bitrate: 1750, vmaf: 85},
             ]
         }
     ]

@@ -1,13 +1,11 @@
 import React from 'react';
 import { useState } from 'react';
-
 import { useEffect } from 'react';
 import SessionType from "./Components/SessionType";
-import EpisodesAmount from './Components/EpisodesAmount';
 import DeviceID from "./Components/DeviceID";
 import TesterIDContainer from './Components/TesterIDContainer';
 import StartButton from './Components/StartButton';
-import EpisodesURL from "./Components/EpisodesURL";
+
 import BitrateModeSwitch from './Components/BitrateModeSwitch';
 import axios from 'axios';
 import { backend_urls } from '../../http_requests/config';
@@ -21,7 +19,6 @@ import ConfigFileMenu from './Components/ConfigFileMenu/ConfigFileMenu';
 
 const Setup = () => {
   const [deviceID, setDeviceID] = useState(1)
-  const [episodesAmount, setEpisodesAmount] = useState(1)
   const [backendActive, setBackendActive] = useState(false)
 
   useEffect(() => {
@@ -47,7 +44,7 @@ const Setup = () => {
         backendActive ?
           <Container fluid className='mt-5 pt-5 pb-5'>
             <Row className="justify-content-between">
-              <Col xxl={6} xl={6} lg={8} md={12} style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}> <h1>Bitrate schedule</h1>
+              <Col xxl={6} xl={6} lg={8} md={12} style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}>
                 <ConfigFileMenu />
               </Col>
               <Col xxl={4} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ alignItems: "center", justifyContent: "center" }}>

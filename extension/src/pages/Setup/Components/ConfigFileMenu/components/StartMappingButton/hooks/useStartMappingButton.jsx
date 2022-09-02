@@ -1,4 +1,4 @@
-import { EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS } from "../../../../config"
+import { EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS } from "../../../../../../config"
 
 
 const useStartMappingButton = () => {

@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./style.module.css"
-
+import Table from 'react-bootstrap/Table'
 
 const ConfigPreview = (props) => {
 
@@ -8,7 +8,7 @@ const ConfigPreview = (props) => {
 
     return (
         <>
-            <h1 className={styles.header}>Configuration preview</h1>
+            <h1 className={styles.header}>Episodes configuration preview</h1>
             {
                 props.json_object.episodes ?
                     props.json_object?.episodes.map((episode, index) => {
@@ -20,7 +20,14 @@ const ConfigPreview = (props) => {
                                 <p className={styles.summary_item}>vmaf_template: {JSON.stringify(episode?.vmaf_template)}</p>
 
                                 <p className={styles.summary_item}>bitrate_available: {episode.bitrate ? JSON.stringify(episode.bitrate) : "[to be defined]"}</p>
-                                <p className={styles.summary_item}>vmaf_available: {episode.vmaf_closes ? JSON.stringify(episode.vmaf_closest) : "[to be defined]"}</p>
+                                <p className={styles.summary_item}>Bitrate {"<>"} VMAF map:</p>
+                                {
+                                    episode.bitrate_vmaf_map ? episode.bitrate_vmaf_map.map((item, index) => {
+                                        return (
+                                            <p key={index} className={styles.map_item}>Bitrate {item.bitrate} {"<---->"} {item.vmaf} VMAF</p>
+                                        )
+                                    }) : <span style={{ color: "red", margin: 0, fontWeight: 100 }}>To be defined</span>
+                                }
                             </div>
                         )
                     }) : null

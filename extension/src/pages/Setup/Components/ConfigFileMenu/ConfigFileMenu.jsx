@@ -1,9 +1,9 @@
 import React from "react";
-import ConfigFileInput from "../ConfigFileInput/ConfigFileInput";
-import ConfigPreview from "../ConfigFilePreview/ConfigPreview";
+import ConfigFileInput from "./components/ConfigFileInput/ConfigFileInput";
+import ConfigPreview from "./components/ConfigFilePreview/ConfigPreview";
 import useJSONConfig from "../../CustomHooks/useJSONConfig";
 
-import StartMappingButton from "../StartMappingButton/StartMappingButton";
+import StartMappingButton from "./components/StartMappingButton/StartMappingButton";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
 
@@ -24,10 +24,7 @@ const ConfigFileMenu = (props) => {
     return (
         <>
             <ConfigFileInput read_data_from_file={read_data_from_file} />
-            <br></br><br></br><br></br>
-
             <ConfigPreview json_string={json_string} json_object={json_object} />
-
             <StartMappingButton />
         </>
     )

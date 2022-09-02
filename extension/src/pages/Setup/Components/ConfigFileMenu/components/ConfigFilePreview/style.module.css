@@ -1,13 +1,16 @@
 .header {
-    color: whitesmoke;
-    font-size: 25px;
+    margin: 0;
+    padding: 0;
+    margin-top: 2em;
 }
+
 
 .summary_container {
     margin-top: 30px;
 }
 
 .summary_container_header {
+
     font-size: 20px;
     color: white;
 }
@@ -21,4 +24,11 @@
     color: whitesmoke;
     margin: 0;
     font-weight: 100;
+}
+
+.map_item {
+    margin: 0;
+    color: whitesmoke;
+    font-weight: 100;
+    font-size: 12px;
 }

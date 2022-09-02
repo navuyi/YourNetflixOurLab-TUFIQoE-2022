@@ -1,17 +1,13 @@
-import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements"
-import { get_statistics_element } from "../../utils/get_statistics_element"
 import { BitrateMenu } from "../../utils/BitrateMenu"
 import { StatisticsMenu } from "../../utils/StatisticsMenu"
-import { DATABASE_KEYS } from "../../../config"
+import { DATABASE_KEYS, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../../config"
 
 
 class Mapper{
     constructor(){
         this.interval = undefined
         this.available_bitrates = []
-        this.max_bitrate_index = undefined
-        this.current_bitrate_index = 0
-        this.vmaf_bitrate_map = []
+        this.bitrate_vmaf_map = []
 
         // BitrateMenu class instance
         this.bitrate_menu = undefined
@@ -36,43 +32,53 @@ class Mapper{
 
         // Get available bitrate values
         this.available_bitrates = this.bitrate_menu.get_available_bitrates()
-        this.max_bitrate_index = this.available_bitrates.length - 1
-
         this.print(`Available bitrates: ${this.available_bitrates}`)
-        this.print(`Max bitrate index: ${this.max_bitrate_index}`)
 
-        await this.map_bitrate_to_vmaf()
+        // Start mapping
+        await this.create_map()
+    }
+
+
+    /**
+     *  This method maps available bitrate values to vmaf.
+    */ 
+    async create_map(){
+        for(const bitrate of this.available_bitrates){
+            // Invoke bitrate menu
+            await this.bitrate_menu.invoke_bitrate_menu()
+            // Set next bitrate to be mapped
+            this.bitrate_menu.set_bitrate(bitrate)
+
+            // Wait for buffering bitrate and vmaf to change
+            // Code execution waits for this phase to resolve
+            const map_item = await this.wait_for_change(bitrate)
+
+            // Update general vmaf <-> bitrate map
+            this.update_bitrate_vmaf_map(map_item)
+
+        }
+
+        this.print(`Bitrate to vmaf mapping finished.`)
+        console.log(this.bitrate_vmaf_map)
+        await this.finalize()
     }
 
    
-
-    async map_bitrate_to_vmaf(){
-        // Define bitrate to me mapped
-        const bitrate_to_map = this.available_bitrates[this.current_bitrate_index]
-
-        // Invoke bitrate menu
-        await this.bitrate_menu.invoke_bitrate_menu()
-        // Set next bitrate to be mapped
-        this.bitrate_menu.set_bitrate(bitrate_to_map)
-
-        // Wait for buffering bitrate and vmaf to change
-        const map_item = await this.wait_for_change(bitrate_to_map)
-
-        this.vmaf_bitrate_map.push(map_item)
-
-        console.log(this.vmaf_bitrate_map)
-        
-        this.current_bitrate_index += 1
-
-        if(this.current_bitrate_index <= this.max_bitrate_index){
-            this.map_bitrate_to_vmaf()
-        }
-        else{
-            this.print(`Bitrate to vmaf mapping finished.`)
-            console.log(this.vmaf_bitrate_map)
-        }
+    /**
+     * Updates object with mapping results
+     * @param {Object} map_item 
+     */
+    update_bitrate_vmaf_map(map_item){
+        this.bitrate_vmaf_map.push(map_item)
     }
 
+    /**
+     * Method observes nerd statistics's buffering VMAF and buffering video bitrate
+     * in order to match it based on expected bitrate.
+     * Method returns map item which is an object containing expected bitrate value and it's corresponding VMAF.
+     * @param {number} expected_bitrate 
+     * @returns {Object}
+    */
     async wait_for_change(expected_bitrate){
         return new Promise(resolve => {
             let interval;
@@ -88,13 +94,44 @@ class Mapper{
                     clearInterval(interval)
                     const map_item = {
                         bitrate: expected_bitrate,
-                        vmaf_available: buffering_vmaf
+                        vmaf: buffering_vmaf
                     }
                     resolve(map_item)
                 }
             }, 1000)
         })
     }
+
+
+
+    async finalize(){
+        const storage = await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION, STORAGE_KEYS.VIDEO_COUNT, STORAGE_KEYS.VIDEO_LIMIT])
+
+        // Fetch required information
+        const configuration = storage[STORAGE_KEYS.CONFIGURATION]
+        const video_count = storage[STORAGE_KEYS.VIDEO_COUNT]
+        const video_limit = storage[STORAGE_KEYS.VIDEO_LIMIT]
+        const video_index = video_count -1
+        const episodes = configuration.episodes
+
+        // Update configuration with generated bitrate <-> vmaf map
+        configuration.episodes[video_index].bitrate_vmaf_map = this.bitrate_vmaf_map
+        configuration.episodes[video_index].bitrate_available = this.available_bitrates
+        await chrome.storage.local.set({
+            [STORAGE_KEYS.CONFIGURATION]: configuration,
+            [STORAGE_KEYS.RUNNING]: false // <-- SETTING RUNNING TO FALSE ! ! ! ! !
+        })
+
+        // Redirect to next video or setup screen
+        chrome.runtime.sendMessage({
+            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
+            [MESSAGE_TEMPLATE.DATA]: {
+                url: video_limit === video_count ? "setup.html" : episodes[video_index+1].url
+            }
+        })        
+    }
+
+    
 }
 
 

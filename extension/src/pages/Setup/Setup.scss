@@ -1,3 +1,9 @@
+$netflix_light_red: #E50914;
+$netflix_dark_red: #B81D24;
+$netflix_black: #221F1F;
+$netflix_white: #F5F5F1;
+
+
 .App {
   position: absolute;
   top: 0px;
@@ -7,7 +13,7 @@
   text-align: center;
   height: 100%;
 
-  background-color: #282c34;
+
 
   padding: 0 25px;
 
@@ -20,13 +26,13 @@
 }
 
 body {
-  background-color: #282c34;
+  background-color: $netflix_black;
 }
 
 h1 {
-  color: #e50914;
+  color: $netflix_light_red;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 40px;
   margin-left: 0;
   padding-left: 0;
 }
@@ -35,34 +41,16 @@ h2 {
   margin-left: 0;
   padding-left: 0;
   font-weight: 500;
-  font-size: 28px;
+  font-size: 24px;
 
-  color: #ffffff;
+  color: $netflix_white;
 }
 
 h3 {
   padding-left: 0;
   font-weight: 400;
-  font-size: 22px;
+  font-size: 20px;
   text-align: start;
-  color: #ffffff;
+  color: $netflix_white;
   margin: 0;
-}
-
-#startButton {
-  color: white;
-  background-color: #db0000;
-  border: none;
-  border-radius: 5px;
-  font-size: 24px;
-  padding: 5px 60px;
-  cursor: pointer;
-}
-
-#startButton:hover {
-  background-color: #a00404;
-}
-
-#startButton:active {
-  background-color: #610000;
 }
