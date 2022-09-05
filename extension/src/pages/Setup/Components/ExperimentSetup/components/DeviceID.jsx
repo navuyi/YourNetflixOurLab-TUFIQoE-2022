@@ -1,7 +1,5 @@
-import React, {useLayoutEffect} from "react";
-import {useState} from "react";
-import {useEffect} from "react";
-import {STORAGE_KEYS} from "../../config";
+import React, { useLayoutEffect } from "react";
+import { STORAGE_KEYS } from "../../../../config";
 
 
 const DeviceID = (props) => {
@@ -53,10 +51,10 @@ const DeviceID = (props) => {
         cursor: "pointer"
     }
 
-    return(
-        <div style={{width: "100%"}}>
+    return (
+        <div style={{ width: "100%" }}>
             <h3>Device ID</h3>
-            <div style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "50%", marginTop: "10px"}}>
+            <div style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "50%", marginTop: "10px" }}>
                 <button onClick={handleClick} device_id={106} style={button_1_style}>106</button>
                 <button onClick={handleClick} device_id={107} style={button_2_style}>107</button>
             </div>

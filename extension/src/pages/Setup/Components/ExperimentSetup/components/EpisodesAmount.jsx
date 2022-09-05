@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
-import { STORAGE_KEYS } from "../../config";
+import { STORAGE_KEYS } from "../../../../config";
 
 
 
@@ -33,14 +33,16 @@ const EpisodesAmount = (props) => {
     }
 
 
-    return(
-        <div style={{width: "100%", marginTop: "30px", display:"flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between"}}>
+    return (
+        <div style={{ width: "100%", marginTop: "30px", display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
             <h3>Episodes amount</h3>
             <select
-                style={{width: "200px", height: "30px", 
-                outline: "none", 
-                border: "none", borderRadius: "3px", 
-                fontWeight: "bold", fontFamily: "Ubuntu, sans-serif", textAlign: "center"}}
+                style={{
+                    width: "200px", height: "30px",
+                    outline: "none",
+                    border: "none", borderRadius: "3px",
+                    fontWeight: "bold", fontFamily: "Ubuntu, sans-serif", textAlign: "center"
+                }}
                 value={props.episodesAmount}
                 onChange={handleChange}
             >

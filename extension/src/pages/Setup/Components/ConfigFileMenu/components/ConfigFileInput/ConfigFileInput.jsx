@@ -7,7 +7,7 @@ const ConfigFileInput = (props) => {
     return (
         <>
             <h1 className={styles.header}>Configuration file</h1>
-            <Form.Group>
+            <Form.Group className={styles.form_group}>
                 <Form.Label style={{ color: "whitesmoke" }} >Provide JSON file with bitrate configuration</Form.Label>
                 <Form.Control onChange={props.read_data_from_file} type="file" style={{ width: "70%" }} accept=".json" />
             </Form.Group>

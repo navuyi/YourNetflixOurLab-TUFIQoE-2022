@@ -1,6 +1,7 @@
 import { BitrateMenu } from "../../utils/BitrateMenu"
 import { StatisticsMenu } from "../../utils/StatisticsMenu"
-import { DATABASE_KEYS, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../../config"
+import { CONFIGURATION_KEYS, DATABASE_KEYS, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../../config"
+import { ScenarioGenerator } from "./ScenarioGenerator"
 
 
 class Mapper{
@@ -17,7 +18,7 @@ class Mapper{
     }
 
     print(text){
-        console.log(`[StatsAnalyzer] ${text}`)
+        console.log(`[Mapper] ${text}`)
     }
 
 
@@ -93,8 +94,8 @@ class Mapper{
                     this.print(`Found VMAF <-> bitrate mapping. Resolving...`)
                     clearInterval(interval)
                     const map_item = {
-                        bitrate: expected_bitrate,
-                        vmaf: buffering_vmaf
+                        bitrate: parseInt(expected_bitrate),
+                        vmaf: parseInt(buffering_vmaf)
                     }
                     resolve(map_item)
                 }
@@ -114,21 +115,47 @@ class Mapper{
         const video_index = video_count -1
         const episodes = configuration.episodes
 
+        const MAPPING_FINISHED = video_count === video_limit
+
+
         // Update configuration with generated bitrate <-> vmaf map
-        configuration.episodes[video_index].bitrate_vmaf_map = this.bitrate_vmaf_map
-        configuration.episodes[video_index].bitrate_available = this.available_bitrates
+        configuration.episodes[video_index][CONFIGURATION_KEYS.BITRATE_VMAF_MAP] = this.bitrate_vmaf_map
+        
+
+        // Generate Bitrate-VMAF scenario for the episode // AFTER UPDATING CONFIGURATION
+        const scenario_generator = new ScenarioGenerator(configuration.episodes[video_index])
+        const scenario = scenario_generator.generate_episode_scenario()
+        configuration.episodes[video_index][CONFIGURATION_KEYS.SCENARIO] = scenario
+
+        console.log(configuration)
+
+
+        // Update local storage
         await chrome.storage.local.set({
             [STORAGE_KEYS.CONFIGURATION]: configuration,
-            [STORAGE_KEYS.RUNNING]: false // <-- SETTING RUNNING TO FALSE ! ! ! ! !
         })
+
+
+        // Update storage if mapping is finished
+        if(MAPPING_FINISHED === true){
+            await chrome.storage.local.set({
+                [STORAGE_KEYS.VIDEO_COUNT]: 0,  // video_count is also used in experiment part
+                [STORAGE_KEYS.RUNNING]: false
+            })
+        }
 
         // Redirect to next video or setup screen
         chrome.runtime.sendMessage({
             [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
             [MESSAGE_TEMPLATE.DATA]: {
-                url: video_limit === video_count ? "setup.html" : episodes[video_index+1].url
+                url: MAPPING_FINISHED ? "setup.html" : episodes[video_index+1].url
             }
         })        
+    }
+
+
+    async redirect(){
+
     }
 
     

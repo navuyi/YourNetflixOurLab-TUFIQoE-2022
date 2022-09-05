@@ -9,7 +9,7 @@ const StartMappingButton = (props) => {
 
     return (
         <>
-            <Button variant="danger" onClick={handleClick} className={"mt-5 w-50"} > Start VMAF--Bitrate mapping</Button>
+            <Button variant="danger" onClick={handleClick} className={"w-100"} > Start VMAF--Bitrate mapping</Button>
         </>
     )
 }

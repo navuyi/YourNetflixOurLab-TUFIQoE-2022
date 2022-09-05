@@ -6,6 +6,8 @@ import useJSONConfig from "../../CustomHooks/useJSONConfig";
 import StartMappingButton from "./components/StartMappingButton/StartMappingButton";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
+import ConfigFileDownloadButton from "./components/ConfigFileDownloadButton/ConfigFileDownloadButton";
+import { Row, Col } from "react-bootstrap";
 
 
 const ConfigFileMenu = (props) => {
@@ -25,7 +27,10 @@ const ConfigFileMenu = (props) => {
         <>
             <ConfigFileInput read_data_from_file={read_data_from_file} />
             <ConfigPreview json_string={json_string} json_object={json_object} />
-            <StartMappingButton />
+            <Row className="flex-row justify-content-between mt-5">
+                <Col><StartMappingButton /></Col>
+                <Col><ConfigFileDownloadButton /></Col>
+            </Row>
         </>
     )
 }

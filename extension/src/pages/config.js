@@ -88,6 +88,17 @@ export const STORAGE_KEYS = {
   CONFIGURATION: "configuration"
 };
 
+
+export const CONFIGURATION_KEYS = {
+  NAME: "name",
+  DESCRIPTION: "description",
+  URL: "url",
+  
+  VMAF_TEMPLATE_SCENARIO: "vmaf_template_scenario",
+  BITRATE_VMAF_MAP: "bitrate_vmaf_map",
+  SCENARIO: "scenario"
+}
+
 export const STORAGE_DEFAULT = {
   [STORAGE_KEYS.DATABASE_EXPERIMENT_ID]: null,
   [STORAGE_KEYS.DATABASE_VIDEO_ID]: null,

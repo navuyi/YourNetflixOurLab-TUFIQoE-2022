@@ -20,7 +20,7 @@ export class Controller{
         const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
         const mode = (await chrome.storage.local.get([STORAGE_KEYS.EXTENSION_MODE]))[STORAGE_KEYS.EXTENSION_MODE]
         if(running === false){
-            this.print("Extension is not running. Use popup in order to start experiment.")
+            this.print("Extension is not running.")
             return
         }
         
