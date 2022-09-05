@@ -1,10 +1,6 @@
-import { useState } from "react";
 import { create_experiment } from "../../../../../http_requests/create_experiment";
 import { create_video } from "../../../../../http_requests/create_video";
-
-
-import { STORAGE_KEYS } from "../../../../config";
-
+import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../../config";
 import { get_local_datetime } from "../../../../../utils/time_utils";
 
 const useStartExperiment = () => {
@@ -24,24 +20,50 @@ const useStartExperiment = () => {
         }
     }
 
+    /**
+     * Checks if configuration is valid before starting experiment to
+     * avoid misconfigured experiments.
+     * In case of an issue displays proper message as window alert.
+     * @returns {Boolean}
+    */
     const validate_configuration = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
-        console.log(configuration)
-        if (!("videos" in configuration)) {
-            alert(`Configuration is lacking "videos" key`)
+        if (!(CONFIGURATION_KEYS.VIDEOS in configuration)) {
+            alert(`There is no "videos" key in configuration!`)
             return false
         }
+        for (const video of configuration[CONFIGURATION_KEYS.VIDEOS]) {
+            // Check bitrate_vmaf_map
+            if (!(CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP in video)) {
+                alert(`There is no ${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} in video config`)
+                return false
+            }
+            else if (!Array.isArray(configuration[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP])) {
+                alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} should be an array of objects!`)
+                return false
+            }
+            else if (configuration[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP.length === 0]) {
+                alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} cannot be empty!`)
+                return false
+            }
 
-        for (const video of configuration.videos) {
-            if (!('scenario' in video)) {
-                alert(`Video configuration is lacking scenario. Run Bitrate <-> VMAF mapping before starting experiment.`)
+            // Check video's bitrate/vmaf scenario
+            if (!(CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO in video)) {
+                alert(`There is no ${CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO} in video config! Run bitrate-vmaf mapping before starting experiment.`)
+                return false
+            }
+            else if (!Array.isArray(configuration[CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO])) {
+                alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} should be an array of objects!`)
                 return false
             }
         }
-
+        // Finally return true and proceed
         return true
     }
 
+    /**
+     *  Creates new experiment record in database
+    */
     const create_experiment_record = async () => {
         const res = await chrome.storage.local.get([
             STORAGE_KEYS.VIDEO_LIMIT,
@@ -63,6 +85,12 @@ const useStartExperiment = () => {
         await create_experiment(data)
     }
 
+
+    /**
+     *  Sends requests to the backend REST API 
+     *  and creates new video record in database.
+     *  Uses experiment_id returned from backend after creating experiment entry. 
+    */
     const create_video_record = async () => {
         const res = await chrome.storage.local.get([
             STORAGE_KEYS.DATABASE_EXPERIMENT_ID,
@@ -78,6 +106,10 @@ const useStartExperiment = () => {
         await create_video(data)
     }
 
+
+    /**
+     *  Starts the extension experiment mode and redirects to the first video in configuration 
+    */
     const run_and_redirect = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         const start_url = configuration.videos[0].url
@@ -92,6 +124,11 @@ const useStartExperiment = () => {
         await chrome.tabs.update(tabs[0].id, { url: start_url })
     }
 
+
+    /**
+     * Extracts all video's url from configuration
+     * @returns {Array} Array of all experiment's videos' urls
+    */
     const get_experiment_urls = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         const urls = []
