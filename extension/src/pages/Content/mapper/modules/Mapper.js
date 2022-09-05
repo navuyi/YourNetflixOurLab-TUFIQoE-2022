@@ -113,19 +113,19 @@ class Mapper{
         const video_count = storage[STORAGE_KEYS.VIDEO_COUNT]
         const video_limit = storage[STORAGE_KEYS.VIDEO_LIMIT]
         const video_index = video_count -1
-        const episodes = configuration.episodes
+        const videos = configuration.videos
 
         const MAPPING_FINISHED = video_count === video_limit
 
 
         // Update configuration with generated bitrate <-> vmaf map
-        configuration.episodes[video_index][CONFIGURATION_KEYS.BITRATE_VMAF_MAP] = this.bitrate_vmaf_map
+        configuration.videos[video_index][CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP] = this.bitrate_vmaf_map
         
 
-        // Generate Bitrate-VMAF scenario for the episode // AFTER UPDATING CONFIGURATION
-        const scenario_generator = new ScenarioGenerator(configuration.episodes[video_index])
-        const scenario = scenario_generator.generate_episode_scenario()
-        configuration.episodes[video_index][CONFIGURATION_KEYS.SCENARIO] = scenario
+        // Generate Bitrate-VMAF scenario for the video // AFTER UPDATING CONFIGURATION
+        const scenario_generator = new ScenarioGenerator(configuration.videos[video_index])
+        const scenario = scenario_generator.generate_video_scenario()
+        configuration.videos[video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO] = scenario
 
         console.log(configuration)
 
@@ -148,7 +148,7 @@ class Mapper{
         chrome.runtime.sendMessage({
             [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
             [MESSAGE_TEMPLATE.DATA]: {
-                url: MAPPING_FINISHED ? "setup.html" : episodes[video_index+1].url
+                url: MAPPING_FINISHED ? "setup.html" : videos[video_index+1].url
             }
         })        
     }

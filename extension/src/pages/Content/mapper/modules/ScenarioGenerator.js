@@ -3,15 +3,15 @@ import { CONFIGURATION_KEYS } from "../../../config"
 
 
 export class ScenarioGenerator{
-    constructor(episode){
-        this.episode = episode
-        this.bitrate_vmaf_map = episode[CONFIGURATION_KEYS.BITRATE_VMAF_MAP]
-        this.vmaf_template_scenario = episode[CONFIGURATION_KEYS.VMAF_TEMPLATE_SCENARIO]
+    constructor(video){
+        this.video = video
+        this.bitrate_vmaf_map = video[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP]
+        this.vmaf_template_scenario = video[CONFIGURATION_KEYS.VIDEO_KEYS.VMAF_TEMPLATE_SCENARIO]
         this.scenario = []
     }
 
 
-    generate_episode_scenario(){
+    generate_video_scenario(){
         for(const vmaf_template of this.vmaf_template_scenario){
            
             const {bitrate, vmaf} = this.find_closest_match(vmaf_template)

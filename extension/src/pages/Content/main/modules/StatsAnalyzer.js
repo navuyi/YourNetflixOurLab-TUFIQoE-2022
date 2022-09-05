@@ -10,7 +10,7 @@ export class StatsAnalyzer{
     constructor(){
         this.element = undefined
         this.interval = undefined
-        this.episodeIndex = undefined
+        this.videoIndex = undefined
 
         this.record_count = 0
     }
@@ -22,8 +22,8 @@ export class StatsAnalyzer{
     async init(){
         this.print(`Initializing...`)
 
-        // Assigning episode index
-        this.episodeIndex = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
+        // Assigning video index
+        this.videoIndex = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
 
         // Get statistics element to be analyzed
         this.element = await get_statistics_element()
@@ -34,7 +34,7 @@ export class StatsAnalyzer{
         this.interval = setInterval(() => {
             chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]).then(async res => {
                 const video_count = res[STORAGE_KEYS.VIDEO_COUNT]
-                const episode_index = video_count - 1
+                const video_index = video_count - 1
                 
                 // Analyze data
                 const timestamp = get_local_datetime(new Date())

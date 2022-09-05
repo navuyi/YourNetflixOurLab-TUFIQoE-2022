@@ -1,18 +1,18 @@
 import React, { useState } from "react";
 import { useLayoutEffect } from "react";
 import { useEffect } from "react";
-import { STORAGE_KEYS } from "../../../../config";
+import { STORAGE_KEYS } from "../../config";
 
 
 
-const EpisodesAmount = (props) => {
+const VideosAmount = (props) => {
 
 
     useLayoutEffect(() => {
         const init = async () => {
-            // Initialize episode amount
+            // Initialize videos amount
             const limit = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_LIMIT]))[STORAGE_KEYS.VIDEO_LIMIT]
-            props.setEpisodesAmount(limit)
+            props.setVideosAmount(limit)
         }
         init()
     }, [])
@@ -20,7 +20,7 @@ const EpisodesAmount = (props) => {
 
     const handleChange = async (e) => {
         const value = parseInt(e.target.value)
-        props.setEpisodesAmount(value)
+        props.setVideosAmount(value)
 
         await chrome.storage.local.set({
             [STORAGE_KEYS.VIDEO_LIMIT]: value
@@ -35,7 +35,7 @@ const EpisodesAmount = (props) => {
 
     return (
         <div style={{ width: "100%", marginTop: "30px", display: "flex", alignItems: "center", flexDirection: "row", justifyContent: "space-between" }}>
-            <h3>Episodes amount</h3>
+            <h3>Videos amount</h3>
             <select
                 style={{
                     width: "200px", height: "30px",
@@ -43,7 +43,7 @@ const EpisodesAmount = (props) => {
                     border: "none", borderRadius: "3px",
                     fontWeight: "bold", fontFamily: "Ubuntu, sans-serif", textAlign: "center"
                 }}
-                value={props.episodesAmount}
+                value={props.videosAmount}
                 onChange={handleChange}
             >
                 <option style={option_style} value={1} label="One" />
@@ -55,4 +55,4 @@ const EpisodesAmount = (props) => {
     )
 }
 
-export default EpisodesAmount
+export default VideosAmount

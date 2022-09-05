@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./style.module.css"
 import Separator from "../Separator/Separator";
-import EpisodeSummaryItem from "../EpisodeSummaryItem/EpisodeSummaryItem";
+import VideoSummaryItem from "../VideoSummaryItem/VideoSummaryItem";
 
 const ConfigPreview = (props) => {
 
@@ -9,19 +9,19 @@ const ConfigPreview = (props) => {
 
     return (
         <>
-            <h1 className={styles.header}>Episodes configuration summary</h1>
+            <h1 className={styles.header}>Videos configuration summary</h1>
             {
-                props.json_object.episodes ?
-                    props.json_object?.episodes.map((episode, index) => {
+                props.json_object.videos ?
+                    props.json_object?.videos.map((video, index) => {
                         return (
                             <div key={index}>
-                                <EpisodeSummaryItem
+                                <VideoSummaryItem
 
-                                    episode={episode}
+                                    video={video}
                                     index={index}
                                 />
                                 {
-                                    props.json_object.episodes.length - 1 === index ? null : <Separator />
+                                    props.json_object.videos.length - 1 === index ? null : <Separator />
                                 }
                             </div>
                         )

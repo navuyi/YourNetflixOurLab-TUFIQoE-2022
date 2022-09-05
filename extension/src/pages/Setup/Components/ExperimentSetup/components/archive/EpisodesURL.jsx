@@ -1,20 +1,20 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { STORAGE_KEYS } from "../../../../config";
+import { STORAGE_KEYS } from "../../../../../config";
 
 
-const EpisodesURL = (props) => {
+const VideosURL = (props) => {
     const [urlArray, setUrlArray] = useState([""])
 
     useLayoutEffect(() => {
         async function init() {
             const array = []
             // Populate array
-            for (let i = 0; i < props.episodesAmount; i++) {
+            for (let i = 0; i < props.videosAmount; i++) {
                 array.push("")
             }
 
             const urls = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_URLS]))[STORAGE_KEYS.VIDEO_URLS]
-            for (let i = 0; i < props.episodesAmount; i++) {
+            for (let i = 0; i < props.videosAmount; i++) {
                 array[i] = urls[i] ?? ""
             }
 
@@ -25,7 +25,7 @@ const EpisodesURL = (props) => {
         }
 
         init()
-    }, [props.episodesAmount])
+    }, [props.videosAmount])
 
     const handleChange = async (e) => {
         const url = e.target.value
@@ -41,7 +41,7 @@ const EpisodesURL = (props) => {
 
     return (
         <div style={{ width: "100%", marginTop: "30px", display: "flex", alignItems: "flex-start", flexDirection: "row", justifyContent: "space-between" }}>
-            <h3>Episodes URLs</h3>
+            <h3>Videos URLs</h3>
             <div style={{ display: "flex", flexDirection: "column" }}>
                 {
                     urlArray.map((value, index) => {
@@ -68,4 +68,4 @@ const EpisodesURL = (props) => {
 
 
 
-export default EpisodesURL;
+export default VideosURL;

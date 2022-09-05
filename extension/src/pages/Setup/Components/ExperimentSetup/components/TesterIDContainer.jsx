@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import { useState } from "react"
 import { useLayoutEffect } from "react"
 import { STORAGE_KEYS } from "../../../../config"
-import TesterID from "./TesterID"
+import TesterIDButton from "./TesterIDButton"
 
 const TesterIDContainer = (props) => {
     const [testerID, setTesterID] = useState("")
@@ -22,7 +22,7 @@ const TesterIDContainer = (props) => {
 
     return (
         <div style={{ width: "100%", marginTop: "30px", display: "flex", alignItems: "flex-start", flexDirecion: "row", justifyContent: "space-between" }}>
-            <TesterID
+            <TesterIDButton
                 index={1}
                 label={"one"}
                 id={testerID}

@@ -1,7 +1,7 @@
 export const DEFAULT_EXPERIMENT_CONFIGURATION = {
   "bitrate_change_interval": 300,
   "description": "",
-  "episodes": [
+  "videos": [
     {
       "bitrate_vmaf_map": [
         {

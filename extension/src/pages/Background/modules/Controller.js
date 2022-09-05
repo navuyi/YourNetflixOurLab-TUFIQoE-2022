@@ -52,7 +52,7 @@ export class Controller{
     }
 
     /**
-     *  Method that keeps track of episodes order and limit.
+     *  Method that keeps track of videos order and limit.
      *  For the first video in queue the count will be 1 but its index in an array is 0.
      *  Video count is increased just before injecting the ContentScript.
      *  It means that n-th video in row has the count of n for the enterity of playback. The index is n-1  

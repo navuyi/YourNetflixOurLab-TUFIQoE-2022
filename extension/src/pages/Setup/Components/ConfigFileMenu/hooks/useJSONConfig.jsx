@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { STORAGE_KEYS } from "../../config"
+import { STORAGE_KEYS } from "../../../../config"
 
 const useJSONConfig = () => {
 
@@ -26,7 +26,7 @@ const useJSONConfig = () => {
         await chrome.storage.local.set({
             [STORAGE_KEYS.CONFIGURATION]: obj
         })
-        await update_video_limit(obj.episodes.length)
+        await update_video_limit(obj.videos.length)
     }
 
 
@@ -41,7 +41,7 @@ const useJSONConfig = () => {
         set_json_object(configuration)
 
         // Update storage
-        await update_video_limit(configuration.episodes.length)
+        await update_video_limit(configuration.videos.length)
     }
 
     const update_video_limit = async (limit) => {

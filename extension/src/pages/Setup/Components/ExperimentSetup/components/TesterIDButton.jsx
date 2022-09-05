@@ -2,7 +2,7 @@ import React from "react"
 import { STORAGE_KEYS } from "../../../../config"
 import { remove_whitespaces } from "../../../../../utils/string_utils"
 
-const TesterID = (props) => {
+const TesterIDButton = (props) => {
 
     const key = STORAGE_KEYS.TESTER_ID
 
@@ -38,4 +38,4 @@ const TesterID = (props) => {
     )
 }
 
-export default TesterID
+export default TesterIDButton

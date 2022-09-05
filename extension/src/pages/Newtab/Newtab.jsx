@@ -46,7 +46,7 @@ const Newtab = () => {
 
     
   
-      console.log(`Episode count: ${video_count}     Episode limit: ${video_limit}`)
+      console.log(`Video count: ${video_count}     Video limit: ${video_limit}`)
       if(video_limit === video_count){
         finish_experiment()
       }

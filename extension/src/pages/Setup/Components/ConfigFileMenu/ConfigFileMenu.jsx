@@ -1,7 +1,7 @@
 import React from "react";
 import ConfigFileInput from "./components/ConfigFileInput/ConfigFileInput";
 import ConfigPreview from "./components/ConfigFilePreview/ConfigPreview";
-import useJSONConfig from "../../CustomHooks/useJSONConfig";
+import useJSONConfig from "./hooks/useJSONConfig"
 
 import StartMappingButton from "./components/StartMappingButton/StartMappingButton";
 import { useLayoutEffect } from "react";

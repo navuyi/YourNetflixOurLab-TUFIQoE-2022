@@ -1,7 +1,7 @@
 import React from "react";
 import { useLayoutEffect } from "react";
 import { useState } from "react";
-import { STORAGE_KEYS } from "../../../../config";
+import { STORAGE_KEYS } from "../../../../../config";
 
 
 

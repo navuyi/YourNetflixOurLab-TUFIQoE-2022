@@ -27,20 +27,17 @@ const useStartExperiment = () => {
     const validate_configuration = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         console.log(configuration)
-        if (!("episodes" in configuration)) {
-            alert(`Configuration is lacking "episodes" key`)
+        if (!("videos" in configuration)) {
+            alert(`Configuration is lacking "videos" key`)
             return false
         }
 
-        for (const episode of configuration.episodes) {
-            if (!('scenario' in episode)) {
-                alert(`Episode configuration is lacking scenario`)
+        for (const video of configuration.videos) {
+            if (!('scenario' in video)) {
+                alert(`Video configuration is lacking scenario. Run Bitrate <-> VMAF mapping before starting experiment.`)
                 return false
             }
         }
-
-
-
 
         return true
     }
@@ -60,7 +57,7 @@ const useStartExperiment = () => {
             experiment_type: res[STORAGE_KEYS.EXPERIMENT_TYPE],
             video_limit: res[STORAGE_KEYS.VIDEO_LIMIT],
             tester_id: res[STORAGE_KEYS.TESTER_ID],
-            urls: await get_configuration_urls()
+            urls: await get_experiment_urls()
         }
 
         await create_experiment(data)
@@ -76,14 +73,14 @@ const useStartExperiment = () => {
             started: get_local_datetime(new Date()),
             experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
             video_index: 0, //<-- simply 0 or parseInt(res[STORAGE_KEYS.VIDEO_COUNT]),
-            url: res[STORAGE_KEYS.CONFIGURATION].episodes[0].url // First video's url
+            url: res[STORAGE_KEYS.CONFIGURATION].videos[0].url // First video's url
         }
         await create_video(data)
     }
 
     const run_and_redirect = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
-        const start_url = configuration.episodes[0].url
+        const start_url = configuration.videos[0].url
         const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
 
         // Make extension running <-- ESSENTIAL
@@ -95,11 +92,11 @@ const useStartExperiment = () => {
         await chrome.tabs.update(tabs[0].id, { url: start_url })
     }
 
-    const get_configuration_urls = async () => {
+    const get_experiment_urls = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         const urls = []
-        for (const episode of configuration.episodes) {
-            urls.push(episode.url)
+        for (const video of configuration.videos) {
+            urls.push(video.url)
         }
         return urls
     }

@@ -3,11 +3,11 @@ import React, {useEffect, useState} from 'react';
 
 import './Popup.css';
 import SessionType from "./Components/SessionType";
-import EpisodesAmount from './Components/EpisodesAmount';
+import VideosAmount from './Components/VideosAmount';
 import DeviceID from "./Components/DeviceID";
 import TesterIDContainer from './Components/TesterIDContainer';
 import StartButton from './Components/StartButton';
-import EpisodesURL from "./Components/EpisodesURL";
+import VideosURL from "./Components/VideosURL";
 import { STORAGE_KEYS } from '../config';
 import EmergencySaveButton from './Components/EmergencySaveButton';
 import axios from 'axios';
@@ -16,7 +16,7 @@ import BitrateModeSwitch from './Components/BitrateModeSwitch';
 
 const Popup = () => {
     const [deviceID, setDeviceID] = useState(1)
-    const [episodesAmount, setEpisodesAmount] = useState(1)
+    const [videosAmount, setVideosAmount] = useState(1)
     const [backendActive, setBackendActive] = useState(false)
 
     useEffect(() => {
@@ -50,12 +50,12 @@ const Popup = () => {
 
                     <h2 style={{marginTop: "30px"}}>Experiment settings</h2>
                     <SessionType />
-                    <EpisodesAmount
-                        episodesAmount={episodesAmount}
-                        setEpisodesAmount={setEpisodesAmount}
+                    <VideosAmount
+                        videosAmount={videosAmount}
+                        setVideosAmount={setVideosAmount}
                     />
-                    <EpisodesURL
-                        episodesAmount={episodesAmount}
+                    <VideosURL
+                        videosAmount={videosAmount}
                     />
                     <TesterIDContainer 
                         deviceID={deviceID}

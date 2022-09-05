@@ -90,13 +90,18 @@ export const STORAGE_KEYS = {
 
 
 export const CONFIGURATION_KEYS = {
-  NAME: "name",
+  TITLE: "title",
   DESCRIPTION: "description",
-  URL: "url",
-  
-  VMAF_TEMPLATE_SCENARIO: "vmaf_template_scenario",
-  BITRATE_VMAF_MAP: "bitrate_vmaf_map",
-  SCENARIO: "scenario"
+  BITRATE_CHANGE_INTERVAL: "bitrate_change_interval",
+  VIDEOS: "videos",
+  VIDEO_KEYS: {
+    NAME: "name",
+    DESCRIPTION: "description",
+    URL: "url",
+    VMAF_TEMPLATE_SCENARIO: "vmaf_template_scenario",
+    BITRATE_VMAF_MAP: "bitrate_vmaf_map",
+    SCENARIO: "scenario",
+  }
 }
 
 export const STORAGE_DEFAULT = {
@@ -108,16 +113,10 @@ export const STORAGE_DEFAULT = {
   [STORAGE_KEYS.VIDEO_COUNT]: 0,
 
   [STORAGE_KEYS.DEVICE_ID]: 106, // 106 or 107 is correct, 106 set by default,
-  [STORAGE_KEYS.TESTER_ID]: '123', // tester's ID
+  [STORAGE_KEYS.TESTER_ID]: 'dev_tester', // tester's ID
 
   [STORAGE_KEYS.EXPERIMENT_TYPE]: 'alone', // alone and together are correct values, alone by default
   [STORAGE_KEYS.VIDEO_LIMIT]: 1, // Most likely it will be set to 1 or 2
-
-  /*[STORAGE_KEYS.VIDEO_URLS]: [
-    'https://www.netflix.com/watch/80025316?trackId=14170286',
-  ],*/ //TO BE DELETED
-
-  [STORAGE_KEYS.BITRATE_MODE]: 'sequential', //<-- random or sequential are available || KEEP sequential as default ! ! !
 
   [STORAGE_KEYS.RUNNING]: false,
   [STORAGE_KEYS.EXTENSION_MODE]: "experiment", // <-- experiment or mapping 

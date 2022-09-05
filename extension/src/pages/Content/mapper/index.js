@@ -36,7 +36,7 @@ const redirect_to_next_video = async () => {
     else{
         console.log("Redirecting to the next video for mapping")
         const config = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
-        const next_url = config.episodes[video_index+1].url
+        const next_url = config.videos[video_index+1].url
         setTimeout(() => {
             chrome.runtime.sendMessage({
                 [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
