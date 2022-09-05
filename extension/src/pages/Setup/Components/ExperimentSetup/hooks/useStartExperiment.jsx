@@ -1,5 +1,6 @@
-import { create_experiment } from "../../../../../http_requests/create_experiment";
-import { create_video } from "../../../../../http_requests/create_video";
+import { create_experiment } from "../../../../../utils/http_requests/create_experiment"
+import { create_video } from "../../../../../utils/http_requests/create_video";
+
 import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../../config";
 import { get_local_datetime } from "../../../../../utils/time_utils";
 

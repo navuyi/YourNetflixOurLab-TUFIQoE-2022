@@ -1,7 +1,7 @@
 import axios from "axios"
-import { STORAGE_KEYS } from "../pages/config"
-import { BACKEND_URL, backend_urls } from "./config"
-import { get_local_datetime } from "../utils/time_utils"
+import { STORAGE_KEYS } from "../../pages/config"
+import {  backend_urls } from "./config"
+import {get_local_datetime} from "../time_utils"
 
 export const create_video = async (data) => {
     try{

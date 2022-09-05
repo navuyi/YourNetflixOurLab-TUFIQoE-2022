@@ -1,14 +1,13 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import './Newtab.css';
 import './Newtab.scss';
-import {save_json} from "../../utils/save_json";
+import { save_json } from "../../utils/save_json"
 
-import {useEffect} from "react";
-import {STORAGE_KEYS} from "../config";
-import { STORAGE_DEFAULT } from '../config';
-import {get_local_datetime} from "../../utils/time_utils"
-import { update_video } from '../../http_requests/update_video';
-import { create_video } from '../../http_requests/create_video';
+import { useEffect } from "react";
+import { STORAGE_KEYS } from "../config";
+import { get_local_datetime } from "../../utils/time_utils"
+import { update_video } from '../../utils/http_requests/update_video';
+import { create_video } from '../../utils/http_requests/create_video';
 import ContinueButton from './Components/ContinueButton';
 import { useLayoutEffect } from 'react';
 import ContinueHeader from './Components/ContinueHeader';
@@ -44,13 +43,13 @@ const Newtab = () => {
       }
       await update_video(update_data)
 
-    
-  
+
+
       console.log(`Video count: ${video_count}     Video limit: ${video_limit}`)
-      if(video_limit === video_count){
+      if (video_limit === video_count) {
         finish_experiment()
       }
-      else{
+      else {
         prepare_to_next_video(res, video_index)
       }
     }
@@ -73,7 +72,7 @@ const Newtab = () => {
       await create_video(next_video_data)
 
       // Make Continue button visible
-      const tabs = await chrome.tabs.query({active: true, currentWindow: true})
+      const tabs = await chrome.tabs.query({ active: true, currentWindow: true })
       setNavigationInfo({
         next_url: next_url,
         tab_id: tabs[0].id
@@ -95,33 +94,33 @@ const Newtab = () => {
     let interval = undefined
     interval = setInterval(() => {
 
-      if(seconds === 1){
+      if (seconds === 1) {
         clearInterval(interval)
         return
       }
-      setSeconds(prevState => {console.log(prevState); return prevState-1;})
+      setSeconds(prevState => { console.log(prevState); return prevState - 1; })
     }, 1000)
   }
 
-return (
-  <div className="App" style={{backgroundColor: "#222222"}}>
-    <div>
-      {
-      !finished ? 
-      !continueBtnVisible ? <h3>{`Trwa synchronizacja. Kontynuacja za ${seconds} sekund.`}</h3> : null
-      :
-      <h3>{`Seans zakończony. Proszę zawiadomić administratora eksperymentu.`}</h3>
-      }
-      {
-        continueBtnVisible ? 
-        <>
-          <ContinueHeader />
-          <ContinueButton navigationInfo={navigationInfo}/>
-        </>
-        : null
-      }
+  return (
+    <div className="App" style={{ backgroundColor: "#222222" }}>
+      <div>
+        {
+          !finished ?
+            !continueBtnVisible ? <h3>{`Trwa synchronizacja. Kontynuacja za ${seconds} sekund.`}</h3> : null
+            :
+            <h3>{`Seans zakończony. Proszę zawiadomić administratora eksperymentu.`}</h3>
+        }
+        {
+          continueBtnVisible ?
+            <>
+              <ContinueHeader />
+              <ContinueButton navigationInfo={navigationInfo} />
+            </>
+            : null
+        }
+      </div>
     </div>
-  </div>
   );
 };
 

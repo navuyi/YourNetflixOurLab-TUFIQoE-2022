@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 
 import axios from 'axios';
-import { backend_urls } from "../../http_requests/config"
+import { backend_urls } from "../../utils/http_requests/config"
 
 import { Container, Col, Row } from "react-bootstrap"
 

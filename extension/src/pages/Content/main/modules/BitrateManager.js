@@ -1,7 +1,7 @@
 import { STORAGE_KEYS } from "../../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../../config";
-import {get_local_datetime} from "../../../../utils/time_utils";
-import { send_bitrate } from "../../../../http_requests/send_bitrate";
+import { get_local_datetime } from "../../../../utils/time_utils";
+import { send_bitrate } from "../../../../utils/http_requests/send_bitrate";
 import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements";
 
 export class BitrateManager{

@@ -1,6 +1,6 @@
 import axios from "axios"
-import { STORAGE_KEYS } from "../pages/config"
-import { BACKEND_URL, backend_urls } from "./config"
+import { STORAGE_KEYS } from "../../pages/config"
+import { backend_urls } from "./config"
 
 export const create_experiment = async (data) => {
     try{

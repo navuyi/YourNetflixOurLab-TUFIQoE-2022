@@ -1,9 +1,6 @@
 import axios from "axios"
-import { STORAGE_KEYS } from "../pages/config"
-import { BACKEND_URL, backend_urls } from "./config"
-import { get_local_datetime } from "../utils/time_utils"
-
-
+import { STORAGE_KEYS } from "../../pages/config"
+import {backend_urls} from "./config"
 
 
 export const send_playback_data = async (playback_data, archive) => {
@@ -29,3 +26,4 @@ export const send_playback_data = async (playback_data, archive) => {
         console.log(err)
     }
 }
+
