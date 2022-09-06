@@ -1,4 +1,3 @@
-import Mapper from "../mapper/modules/Mapper"
 import { invoke_bitrate_menu_and_get_html_elements } from "./get_bitrate_menu_elements"
 
 export class BitrateMenu{
@@ -62,11 +61,33 @@ export class BitrateMenu{
      * @param {number} bitrate 
     */
     set_bitrate(bitrate){
-        console.log(`Setting bitrate to: ${bitrate}`)
-        this.select.value = bitrate
+        // Check bitrate availability
+        const bitrate_valid = this.check_bitrate_availability(bitrate)
+        console.log(`Setting bitrate to: ${bitrate_valid}`)
+        this.select.value = bitrate_valid
         this.override_button.click()
+
+        return bitrate_valid
     }
 
-    
-
+    /**
+     * Method checks if provided bitrate is available in bitrate menu.
+     * If it is then the same value is returned.
+     * If not closest value is found and returned.
+     * @param {Number} bitrate 
+     * @returns {Number} Returns closest available bitrate to provided value
+    */
+    check_bitrate_availability(bitrate){
+        if(this.available_bitrates.includes(bitrate)){
+            return bitrate
+        }
+        else{
+            console.log("Provided bitrate is not available. Finding closest value...")
+            const closest_bitrate = this.available_bitrates.reduce((prev, curr) => {
+                return(Math.abs(curr-bitrate) < Math.abs(prev-bitrate) ? curr: prev)
+            })
+            console.log(`Closest bitrate to ${bitrate} is ${closest_bitrate}`)
+            return closest_bitrate
+        }
+    }
 }

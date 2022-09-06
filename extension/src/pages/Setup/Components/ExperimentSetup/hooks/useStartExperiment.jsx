@@ -39,11 +39,11 @@ const useStartExperiment = () => {
                 alert(`There is no ${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} in video config`)
                 return false
             }
-            else if (!Array.isArray(configuration[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP])) {
+            else if (Array.isArray(video[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP]) === false) {
                 alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} should be an array of objects!`)
                 return false
             }
-            else if (configuration[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP.length === 0]) {
+            else if (video[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP].length === 0) {
                 alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} cannot be empty!`)
                 return false
             }
@@ -53,8 +53,8 @@ const useStartExperiment = () => {
                 alert(`There is no ${CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO} in video config! Run bitrate-vmaf mapping before starting experiment.`)
                 return false
             }
-            else if (!Array.isArray(configuration[CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO])) {
-                alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP} should be an array of objects!`)
+            else if (!Array.isArray(video[CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO])) {
+                alert(`${CONFIGURATION_KEYS.VIDEO_KEYS.BSCENARIO} should be an array of objects!`)
                 return false
             }
         }

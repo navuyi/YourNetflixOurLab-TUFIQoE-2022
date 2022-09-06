@@ -1,120 +1,86 @@
-import { STORAGE_KEYS } from "../../../config";
+import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../config";
 import { BITRATE_CHANGE_INTERVAL } from "../../../config";
 import { get_local_datetime } from "../../../../utils/time_utils";
 import { send_bitrate } from "../../../../utils/http_requests/send_bitrate";
 import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements";
+import { BitrateMenu } from "../../utils/BitrateMenu";
 
 export class BitrateManager{
     constructor() {
         // BitrateMenu class instance
         this.bitrate_menu = undefined
-        
 
-        // Variables used in sequential change mode
-        this.current_bitrate_index = undefined
-        this.max_bitrate_index = undefined
+        this.scenario = undefined
     }
 
-    
     async init(){
-        await this.bitrate_menu_init()
+        // Create bitrate menu class instance
+        this.bitrate_menu = new BitrateMenu()
+        await this.bitrate_menu.init()
+
+        // Prepare video's bitrate scenario
+        await this.prepare_video_scenario()
+
+        // Start bitrate changes
         await this.start_bitrate_changes()
     }
 
+    /**
+     *  Method prepares scenario for current video.
+     *  Fetches configuration from chrome.storage 
+    */
+    async prepare_video_scenario(){
+        const storage = await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION, STORAGE_KEYS.VIDEO_COUNT])
+        const configuration = storage[STORAGE_KEYS.CONFIGURATION]
+        const video_count = storage[STORAGE_KEYS.VIDEO_COUNT]
+        const video_index = video_count - 1
+
+        const scenario = configuration[CONFIGURATION_KEYS.VIDEOS][video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO]
+        this.scenario = scenario
+    }
 
     /**
-     *  This function is executed on BitrateManager init, only once
-     *  It sets initial bitrate value.
+     * Generator or iterator idk
+     * Yields scenario's items in loop
     */
-    async bitrate_menu_init(){
-        const {bitrate_values, select, override_button} = await invoke_bitrate_menu_and_get_html_elements()
-           
-        const last_index = bitrate_values.length-1
-        this.current_bitrate_index = last_index
-        this.max_bitrate_index = last_index
-        const value = bitrate_values[last_index]
-
-        this.set_bitrate(select, override_button, value)
+    *scenario_iterator(){
+        let index = 0;
+        while(true){
+            console.log(`Yielding...`)
+            console.log(this.scenario[index])
+            yield this.scenario[index]
+            if(index >= this.scenario.length -1){
+                index = 0
+            }
+            else{
+                index += 1
+            }
+        }
     }
 
 
     /**
      * Starts bitrate changes in intervals
-     * Way of setting bitrate deppends on config file
-     * Watch BITRATE_MODE in config.js --> random or sequential are available for now
+     * Bitrates are set according to the configuration's scenario for current video.
+     * In case the provided bitrate is not available the closest available value will be applied.
+     * Validation is part of BitrateMenu instance's methods
     */
     start_bitrate_changes(){
         // Start regular bitrate changes
+        const iterator = this.scenario_iterator()
+
         setInterval(async () => {  
-            const {bitrate_values, select, override_button} = await invoke_bitrate_menu_and_get_html_elements()
-            console.log(`Available bitrate values: ${bitrate_values}`)
-
-            const bitrate_mode = (await chrome.storage.local.get([STORAGE_KEYS.BITRATE_MODE]))[STORAGE_KEYS.BITRATE_MODE]
-                        
-            console.log(`[BitrateManager] Starting bitrate changes in ${bitrate_mode} mode`)
-
-            let bitrate_to_be_set = undefined
-            if(bitrate_mode === "random"){
-                bitrate_to_be_set = this.get_next_bitrate_random(bitrate_values)
-            }
-            else if(bitrate_mode === "sequential"){
-                bitrate_to_be_set = this.get_next_bitrate_sequential(bitrate_values)
-            }
-            
-                                    
-            await this.set_bitrate(select, override_button, bitrate_to_be_set)
-            await this.send_bitrate_change_update(bitrate_to_be_set)
+            const current_settings = iterator.next().value    
+            console.log(`Setting bitrate to ${current_settings.bitrate}kbps which corresponds to VMAF ${current_settings.vmaf}`)
+            console.log(`VMAF template was ${current_settings.vmaf_template}. Difference: ${current_settings.vmaf_diff}`)
+                
+            const bitrate_validated = await this.bitrate_menu.set_bitrate(current_settings.bitrate)
+            await this.send_bitrate_change_update(bitrate_validated)
         }, BITRATE_CHANGE_INTERVAL)
     }
 
 
-    /** 
-     * Returns next bitrate value in random manner 
-     * @param {Array} bitrate_values 
-     * @returns {number}
-     */
-     get_next_bitrate_random(bitrate_values){
-        return bitrate_values[Math.floor(Math.random()*bitrate_values.length)]
-    }
-
-    /**
-     * Returns next bitrate value in sequential manner
-     * Keeps track of current index of available bitrate values
-     * @param {Array} bitrate_values 
-     * @returns {number}
-     */
-    get_next_bitrate_sequential(bitrate_values){
-        const next_index = this.current_bitrate_index + 1
-        if(next_index > this.max_bitrate_index){
-            this.current_bitrate_index = 0
-        }
-        else{
-            this.current_bitrate_index = next_index
-        }
-
-        return bitrate_values[this.current_bitrate_index]
-    }
-
-
-
-    /**
-     * Sets actual bitrate value by simulating click event on proper HTML element
-     * @param {HTMLElement} select 
-     * @param {HTMLElement} button 
-     * @param {number} value 
-    */
-    set_bitrate(select, button, bitrate) {
-        return new Promise(resolve => {
-            setTimeout(async ()=> {
-                console.log(`Setting bitrate to ${bitrate} kbps`)
-                select.value = bitrate
-                button.click()  // <-- the change happens after click event is dispatched
-
-                resolve()
-            }, 1000)
-        })
-       
-    }
+    
 
     /**
      * Prepares data and sends post request to REST API
