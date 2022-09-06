@@ -1,26 +1,25 @@
 import { get_local_datetime } from "../../../utils/time_utils"
 import {EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS} from "../../config"
-
+import { CustomLogger } from "../../../utils/CustomLogger"
 
 export class Controller{
     constructor() {
        this.NETFLIX_WATCH_URL = "https://www.netflix.com/watch"
+       this.logger = new CustomLogger("[Controller]")
     }
 
     async init(){
-        console.log("[Controller] Initializing..." + get_local_datetime(new Date()))
+        this.logger.log("Initializing...")
         this.listenForVideoStart()
     }
 
-    print(text){
-        console.log(`[Controller] ${text}`)
-    }
+    
 
     async injectScript(tabId){
         const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
         const mode = (await chrome.storage.local.get([STORAGE_KEYS.EXTENSION_MODE]))[STORAGE_KEYS.EXTENSION_MODE]
         if(running === false){
-            this.print("Extension is not running.")
+            this.logger.log("Extension is not running.")
             return
         }
         
@@ -39,7 +38,7 @@ export class Controller{
             content_script = "mapperContentScript.bundle.js"
         }
         else(
-            this.print("Content script is incorrect!!!")
+            this.logger.log("Content script is incorrect!!!")
         )
 
         await chrome.scripting.executeScript({
@@ -48,7 +47,7 @@ export class Controller{
            },
             files: [content_script]  // ContentScript filename has to match names in webpack.config.js
         })
-        this.print("ContentScript has been injected")
+        this.logger.log("ContentScript has been injected")
     }
 
     /**
@@ -60,7 +59,7 @@ export class Controller{
     async increaseVideoCount(){
         const count = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
         const new_count = count+1
-        this.print(`Increasing video count to ${new_count}`)
+        this.logger.log(`Increasing video count to ${new_count}`)
         await chrome.storage.local.set({
             [STORAGE_KEYS.VIDEO_COUNT]: new_count
         })
@@ -74,12 +73,12 @@ export class Controller{
         // onHistoryStateUpdated detects navigation within Netlifx player (next video button)
         /*
         chrome.webNavigation.onHistoryStateUpdated.addListener((details) => {
-            this.print(`ON HISTORY STATE UPDATED`)
+            this.logger.log(`ON HISTORY STATE UPDATED`)
             console.log(details)
             if(details.frameId === 0 && details.url.includes(this.NETFLIX_WATCH_URL)) {
                 chrome.tabs.get(details.tabId, async (tab) => {
                     if(tab.url === details.url) {
-                        this.print("Entered Netflix Video Player")
+                        this.logger.log("Entered Netflix Video Player")
                         await this.injectScript(details.tabId)
                     }
                 });
@@ -88,12 +87,12 @@ export class Controller{
         */
         // onCompleted detects navigation using chrome.tabs.update
         chrome.webNavigation.onCompleted.addListener(details => {
-            this.print(`ON COMPLETED`)
-            console.log(details)
+            this.logger.log(`ON COMPLETED`)
+            this.logger.log(details)
             if(details.frameId === 0 && details.url.includes(this.NETFLIX_WATCH_URL)) {
                 chrome.tabs.get(details.tabId, async (tab) => {
                     if(tab.url === details.url) {
-                        this.print("Entered Netflix Video Player")
+                        this.logger.log("Entered Netflix Video Player")
                         await this.injectScript(details.tabId)
                     }
                 });

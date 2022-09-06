@@ -5,6 +5,7 @@ import { DATABASE_KEYS } from "../../../config"
 import { get_statistics_element } from "../../utils/get_statistics_element"
 import { send_playback_data } from "../../../../utils/http_requests/send_playback_data"
 import { StatisticsMenu } from "../../utils/StatisticsMenu"
+import { CustomLogger } from "../../../../utils/CustomLogger"
 
 
 
@@ -12,14 +13,14 @@ export class StatsAnalyzer{
     constructor(){
         this.interval = undefined
         this.stats_menu = undefined
+
+        this.logger = new CustomLogger("[StatsAnalyzer]")
     }
 
-    print(text){
-        console.log(`[StatsAnalyzer] ${text}`)
-    }
+    
 
     async init(){
-        this.print(`Initializing...`)
+        this.logger.log(`Initializing...`)
 
         // Create StatisticsMenu class instance
         this.stats_menu = new StatisticsMenu()
@@ -82,7 +83,6 @@ export class StatsAnalyzer{
         if(outer_container){
             // Click watch credits button
             const credits_button = document.querySelectorAll('[data-uia="watch-credits-seamless-button"]')[0]
-            console.log(credits_button)
             credits_button.click()
             outer_container.remove() // remove container
 

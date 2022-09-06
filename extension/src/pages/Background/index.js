@@ -10,7 +10,7 @@ import { get_local_datetime } from "../../utils/time_utils"
  * This listener callback executes only when extension is installed or reloaded. 
 */
 chrome.runtime.onInstalled.addListener(() => {
-    console.log("[BackgroundScript] Installing... " + get_local_datetime(new Date()))
+    console.log(`[BackgroundScript] | ${get_local_datetime(new Date())} | Installing...` )
 
      // Initialize local storage || WARNING --> THIS RESETS ALL chrome.storage KEYS TO DEFAULT VALUES
      chrome.storage.local.set(STORAGE_DEFAULT)

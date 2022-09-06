@@ -2,6 +2,7 @@ import { BitrateMenu } from "../../utils/BitrateMenu"
 import { StatisticsMenu } from "../../utils/StatisticsMenu"
 import { CONFIGURATION_KEYS, DATABASE_KEYS, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../../config"
 import { ScenarioGenerator } from "./ScenarioGenerator"
+import { CustomLogger } from "../../../../utils/CustomLogger"
 
 
 class Mapper{
@@ -15,11 +16,12 @@ class Mapper{
 
         // StatisticsMenu class instance
         this.statistics_menu = undefined
+
+        // CustomLogger instance
+        this.logger = new CustomLogger("[Mapper]")
     }
 
-    print(text){
-        console.log(`[Mapper] ${text}`)
-    }
+    
 
 
     async init(){
@@ -33,7 +35,7 @@ class Mapper{
 
         // Get available bitrate values
         this.available_bitrates = this.bitrate_menu.get_available_bitrates()
-        this.print(`Available bitrates: ${this.available_bitrates}`)
+        this.logger.log(`Available bitrates: ${this.available_bitrates}`)
 
         // Start mapping
         await this.create_map()
@@ -59,8 +61,8 @@ class Mapper{
 
         }
 
-        this.print(`Bitrate to vmaf mapping finished.`)
-        console.log(this.bitrate_vmaf_map)
+        this.logger.log(`Bitrate to vmaf mapping finished.`)
+        this.logger.log(this.bitrate_vmaf_map)
         await this.finalize()
     }
 
@@ -88,10 +90,10 @@ class Mapper{
                 const buffering_vmaf = statistic_data[DATABASE_KEYS.BUFFERING_VMAF]
                 const buffering_bitrate = statistic_data[DATABASE_KEYS.BUFFERING_BITRATE_VIDEO]
 
-                this.print(`Expected bitrate: ${expected_bitrate} || Buffering bitrate: ${buffering_bitrate}`)
+                this.logger.log(`Expected bitrate: ${expected_bitrate} || Buffering bitrate: ${buffering_bitrate}`)
                 
                 if(parseInt(expected_bitrate) === parseInt(buffering_bitrate)){
-                    this.print(`Found VMAF <-> bitrate mapping. Resolving...`)
+                    this.logger.log(`Found VMAF <-> bitrate mapping. Resolving...`)
                     clearInterval(interval)
                     const map_item = {
                         bitrate: parseInt(expected_bitrate),
@@ -127,7 +129,7 @@ class Mapper{
         const scenario = scenario_generator.generate_video_scenario()
         configuration.videos[video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO] = scenario
 
-        console.log(configuration)
+        this.logger.log(configuration)
 
 
         // Update local storage

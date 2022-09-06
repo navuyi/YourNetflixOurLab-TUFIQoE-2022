@@ -1,3 +1,4 @@
+import { CustomLogger } from "../../../../utils/CustomLogger"
 import { CONFIGURATION_KEYS } from "../../../config"
 
 
@@ -8,6 +9,8 @@ export class ScenarioGenerator{
         this.bitrate_vmaf_map = video[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP]
         this.vmaf_template_scenario = video[CONFIGURATION_KEYS.VIDEO_KEYS.VMAF_TEMPLATE_SCENARIO]
         this.scenario = []
+
+        this.logger.log = new CustomLogger("[ScenarioGenerator]")
     }
 
 

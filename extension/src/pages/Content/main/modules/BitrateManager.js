@@ -4,6 +4,7 @@ import { get_local_datetime } from "../../../../utils/time_utils";
 import { send_bitrate } from "../../../../utils/http_requests/send_bitrate";
 import { invoke_bitrate_menu_and_get_html_elements } from "../../utils/get_bitrate_menu_elements";
 import { BitrateMenu } from "../../utils/BitrateMenu";
+import { CustomLogger } from "../../../../utils/CustomLogger";
 
 export class BitrateManager{
     constructor() {
@@ -11,6 +12,8 @@ export class BitrateManager{
         this.bitrate_menu = undefined
 
         this.scenario = undefined
+
+        this.logger = new CustomLogger("[BitrateManager]")
     }
 
     async init(){
@@ -46,8 +49,8 @@ export class BitrateManager{
     *scenario_iterator(){
         let index = 0;
         while(true){
-            console.log(`Yielding...`)
-            console.log(this.scenario[index])
+            this.logger.log("Yielding...")
+            this.logger.log(this.scenario[index])
             yield this.scenario[index]
             if(index >= this.scenario.length -1){
                 index = 0
@@ -71,8 +74,8 @@ export class BitrateManager{
 
         setInterval(async () => {  
             const current_settings = iterator.next().value    
-            console.log(`Setting bitrate to ${current_settings.bitrate}kbps which corresponds to VMAF ${current_settings.vmaf}`)
-            console.log(`VMAF template was ${current_settings.vmaf_template}. Difference: ${current_settings.vmaf_diff}`)
+            this.logger.log(`Setting bitrate to ${current_settings.bitrate}kbps which corresponds to VMAF ${current_settings.vmaf}`)
+            this.logger.log(`VMAF template was ${current_settings.vmaf_template}. Difference: ${current_settings.vmaf_diff}`)
                 
             const bitrate_validated = await this.bitrate_menu.set_bitrate(current_settings.bitrate)
             await this.send_bitrate_change_update(bitrate_validated)

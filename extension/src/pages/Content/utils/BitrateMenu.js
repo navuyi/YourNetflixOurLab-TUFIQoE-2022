@@ -1,3 +1,4 @@
+import { CustomLogger } from "../../../utils/CustomLogger"
 import { invoke_bitrate_menu_and_get_html_elements } from "./get_bitrate_menu_elements"
 
 export class BitrateMenu{
@@ -8,6 +9,8 @@ export class BitrateMenu{
         this.override_button = undefined
         this.reset_button = undefined
         this.select = undefined
+
+        this.logger = new CustomLogger("[BitrateMenu]")
     }
 
 
@@ -30,7 +33,7 @@ export class BitrateMenu{
     async invoke_bitrate_menu(){
         // Invoke bitrate menu and get html elements
         const elements = await invoke_bitrate_menu_and_get_html_elements()
-        console.log(elements)
+        this.logger.log(elements)
 
         this.bitrate_menu_elements = elements
         this.available_bitrates = this.bitrate_menu_elements.bitrate_values
@@ -63,7 +66,7 @@ export class BitrateMenu{
     set_bitrate(bitrate){
         // Check bitrate availability
         const bitrate_valid = this.check_bitrate_availability(bitrate)
-        console.log(`Setting bitrate to: ${bitrate_valid}`)
+        this.logger.log(`Setting bitrate to: ${bitrate_valid}`)
         this.select.value = bitrate_valid
         this.override_button.click()
 
@@ -82,11 +85,11 @@ export class BitrateMenu{
             return bitrate
         }
         else{
-            console.log("Provided bitrate is not available. Finding closest value...")
+            this.logger.log("Provided bitrate is not available. Finding closest value...")
             const closest_bitrate = this.available_bitrates.reduce((prev, curr) => {
                 return(Math.abs(curr-bitrate) < Math.abs(prev-bitrate) ? curr: prev)
             })
-            console.log(`Closest bitrate to ${bitrate} is ${closest_bitrate}`)
+            this.logger.log(`Closest bitrate to ${bitrate} is ${closest_bitrate}`)
             return closest_bitrate
         }
     }

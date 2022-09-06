@@ -1,3 +1,4 @@
+import { CustomLogger } from "../../../../utils/CustomLogger"
 import { send_assessment } from "../../../../utils/http_requests/send_assessment"
 import { get_local_datetime } from "../../../../utils/time_utils"
 import { STORAGE_KEYS } from "../../../config"
@@ -11,6 +12,8 @@ export class AssessmentManager{
         this.started = undefined
         this.ended = undefined
         this.panel_visible = false
+
+        this.logger = new CustomLogger("[AssessmentManager]")
     }
 
     /**
@@ -21,15 +24,7 @@ export class AssessmentManager{
         this.start_assessment_process()
     }
 
-    /**
-     * Custom console.log method
-     * @param {string} text 
-    */
-    print(text){
-        console.log(`[AssessmentManager] ${text}`)
-    }
-
-
+    
     /**
      * Method starting assessment process.
      * It will show assessment to the subject in defined time intervals 
@@ -79,7 +74,7 @@ export class AssessmentManager{
                     }
                 }
                 catch(err){
-                    console.log(err)
+                    this.logger.log(err)
                 }
             }, 500)
         })

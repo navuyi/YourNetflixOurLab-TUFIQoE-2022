@@ -1,9 +1,11 @@
 import { get_statistics_element } from "./get_statistics_element"
 import { DATABASE_KEYS } from "../../config"
+import { CustomLogger } from "../../../utils/CustomLogger"
 
 export class StatisticsMenu{
     constructor(){
         this.stats_element = undefined
+        this.logger = new CustomLogger("[StatisticsMenu]")
     }
 
 
@@ -92,7 +94,7 @@ export class StatisticsMenu{
             }
         }
         catch(e){
-            console.log(e)
+            this.logger.log(e)
             return null
         }
     }
