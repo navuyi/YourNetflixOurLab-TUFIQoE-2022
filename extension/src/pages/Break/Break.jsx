@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import './Newtab.css';
-import './Newtab.scss';
+import './Break.css';
+import './Break.scss';
 import { save_json } from "../../utils/save_json"
-
+import { CONFIGURATION_KEYS, STORAGE_DEFAULT } from '../config';
 import { useEffect } from "react";
 import { STORAGE_KEYS } from "../config";
 import { get_local_datetime } from "../../utils/time_utils"
@@ -12,7 +12,7 @@ import ContinueButton from './Components/ContinueButton';
 import { useLayoutEffect } from 'react';
 import ContinueHeader from './Components/ContinueHeader';
 
-const Newtab = () => {
+const Break = () => {
   const [seconds, setSeconds] = useState(5)  // Change this value !! !! !! not timeout below
   const timeout = seconds * 1000
   const [finished, setFinished] = useState(false)
@@ -28,8 +28,7 @@ const Newtab = () => {
         STORAGE_KEYS.DATABASE_VIDEO_ID,
         STORAGE_KEYS.DATABASE_EXPERIMENT_ID,
         STORAGE_KEYS.VIDEO_LIMIT,
-        STORAGE_KEYS.VIDEO_COUNT,
-        STORAGE_KEYS.VIDEO_URLS
+        STORAGE_KEYS.VIDEO_COUNT
       ])
       const video_limit = parseInt(res[STORAGE_KEYS.VIDEO_LIMIT])
       const video_count = parseInt(res[STORAGE_KEYS.VIDEO_COUNT])
@@ -60,9 +59,14 @@ const Newtab = () => {
 
   const prepare_to_next_video = (res, video_index) => {
     setTimeout(async () => {
+      // Get configuration
+      const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
+      const episodes = configuration[CONFIGURATION_KEYS.VIDEOS]
+
       // Create new video in database
       const next_video_index = video_index + 1
-      const next_url = res[STORAGE_KEYS.VIDEO_URLS][next_video_index];
+      const next_url = episodes[next_video_index].url
+      console.log(next_url)
       const next_video_data = {
         started: get_local_datetime(new Date()),
         experiment_id: res[STORAGE_KEYS.DATABASE_EXPERIMENT_ID],
@@ -124,4 +128,4 @@ const Newtab = () => {
   );
 };
 
-export default Newtab;
+export default Break;

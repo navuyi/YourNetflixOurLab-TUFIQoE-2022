@@ -1,7 +1,7 @@
 import { create_experiment } from "../../../../../utils/http_requests/create_experiment"
 import { create_video } from "../../../../../utils/http_requests/create_video";
 
-import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../../config";
+import { CONFIGURATION_KEYS, EXTENSION_MODE_AVAILABLE, STORAGE_KEYS } from "../../../../config";
 import { get_local_datetime } from "../../../../../utils/time_utils";
 
 const useStartExperiment = () => {
@@ -118,7 +118,8 @@ const useStartExperiment = () => {
 
         // Make extension running <-- ESSENTIAL
         await chrome.storage.local.set({
-            [STORAGE_KEYS.RUNNING]: true
+            [STORAGE_KEYS.RUNNING]: true,
+            [STORAGE_KEYS.EXTENSION_MODE]: EXTENSION_MODE_AVAILABLE.EXPERIMENT
         })
 
         // Redirect to the first video

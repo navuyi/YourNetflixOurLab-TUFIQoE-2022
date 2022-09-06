@@ -60,7 +60,7 @@ const receive_finished_signal = async (message, sender, sendResponse) => {
         // Redirect to custom webpage
         const tabId = sender.tab.id
         await chrome.tabs.update(tabId, {
-            url: "newtab.html"
+            url: "break.html"
         })
         sendResponse({msg: "Finish signal received"}) // Essential sendResponse
     }

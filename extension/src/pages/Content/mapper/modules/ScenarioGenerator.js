@@ -10,7 +10,7 @@ export class ScenarioGenerator{
         this.vmaf_template_scenario = video[CONFIGURATION_KEYS.VIDEO_KEYS.VMAF_TEMPLATE_SCENARIO]
         this.scenario = []
 
-        this.logger.log = new CustomLogger("[ScenarioGenerator]")
+        this.logger = new CustomLogger("[ScenarioGenerator]")
     }
 
 

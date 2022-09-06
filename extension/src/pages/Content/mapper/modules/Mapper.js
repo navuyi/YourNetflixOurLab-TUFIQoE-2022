@@ -90,7 +90,7 @@ class Mapper{
                 const buffering_vmaf = statistic_data[DATABASE_KEYS.BUFFERING_VMAF]
                 const buffering_bitrate = statistic_data[DATABASE_KEYS.BUFFERING_BITRATE_VIDEO]
 
-                this.logger.log(`Expected bitrate: ${expected_bitrate} || Buffering bitrate: ${buffering_bitrate}`)
+                this.logger.log(`Expected bitrate: ${expected_bitrate} --- Buffering bitrate: ${buffering_bitrate}`)
                 
                 if(parseInt(expected_bitrate) === parseInt(buffering_bitrate)){
                     this.logger.log(`Found VMAF <-> bitrate mapping. Resolving...`)
@@ -129,9 +129,7 @@ class Mapper{
         const scenario = scenario_generator.generate_video_scenario()
         configuration.videos[video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO] = scenario
 
-        this.logger.log(configuration)
-
-
+        
         // Update local storage
         await chrome.storage.local.set({
             [STORAGE_KEYS.CONFIGURATION]: configuration,

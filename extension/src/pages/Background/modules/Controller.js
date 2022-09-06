@@ -32,9 +32,11 @@ export class Controller{
         // Define conent script file
         let content_script;
         if(mode === EXTENSION_MODE_AVAILABLE.EXPERIMENT){
+            this.logger.log("Experiment mode detected. Switching to mainContentScript.bundle.js")
             content_script = "mainContentScript.bundle.js"
         }
         else if(mode === EXTENSION_MODE_AVAILABLE.MAPPING){
+            this.logger.log("Mapping mode detected. Switching to mapperContentScript.bundle.js")
             content_script = "mapperContentScript.bundle.js"
         }
         else(

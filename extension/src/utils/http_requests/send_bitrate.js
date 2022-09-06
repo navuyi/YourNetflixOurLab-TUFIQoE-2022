@@ -7,7 +7,7 @@ export const send_bitrate = async (bitrate_data) => {
         console.log(backend_urls.bitrate)
         const response = await axios.post(backend_urls.bitrate, bitrate_data)
         if(response.status === 201){
-            console.log("Assessment data submitted successfully")
+            console.log("Bitrate data submitted successfully")
         }
     }
     catch(err){
