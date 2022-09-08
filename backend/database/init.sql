@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS experiment(
     experiment_type TEXT NOT NULL,  
     video_limit INTEGER NOT NULL,
     tester_id TEXT NOT NULL,
+    configuration TEXT NOT NULL,
     urls TEXT NOT NULL        
 );
 
