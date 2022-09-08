@@ -1,5 +1,5 @@
 import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../config";
-import { BITRATE_CHANGE_INTERVAL } from "../../../config";
+import { BITRATE_INTERVAL } from "../../../config";
 import { get_local_datetime } from "../../../../utils/time_utils";
 import { send_bitrate } from "../../../../utils/http_requests/send_bitrate";
 import { BitrateMenu } from "../../utils/BitrateMenu";
@@ -16,6 +16,9 @@ export class BitrateManager{
         // Scenario iterator
         this.iterator = undefined
 
+        // Bitrate change interval - config fille
+        this.bitrate_interval = undefined
+
         // Custom logger
         this.logger = new CustomLogger("[BitrateManager]")
     }
@@ -29,6 +32,9 @@ export class BitrateManager{
         // Prepare video's bitrate scenario
         await this.prepare_video_scenario()
 
+        // Prepare bitrate interval
+        await this.prepare_bitrate_interval()
+
         // Create iterator
         this.iterator = this.scenario_iterator()
 
@@ -37,6 +43,26 @@ export class BitrateManager{
 
         // Start bitrate changes
         await this.start_bitrate_changes_interval()
+    }
+
+
+    /**
+     *  Method reads bitrate changes interval from config file. Provided in seconds has to be converted to ms. 
+    */
+    async prepare_bitrate_interval(){
+        const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
+        const interval_s = configuration[CONFIGURATION_KEYS.BITRATE_INTERVAL]
+
+        if(interval_s != null && typeof(interval_s) == 'number'){
+            this.bitrate_interval = 1000 * interval_s
+            this.logger.log(`Configuration's bitrate change interval - OK, ${interval_s}s = ${this.bitrate_interval}ms`)
+        }
+        else{
+            this.logger.log(`Configuration's bitrate change interval missing or incorrect. Using default interval`)
+            this.bitrate_interval = BITRATE_INTERVAL
+        }
+
+        
     }
 
 
@@ -100,7 +126,7 @@ export class BitrateManager{
             this.logger.log(`VMAF template was ${current_settings.vmaf_template}. Difference: ${current_settings.vmaf_diff}`)
                 
             await this.invoke_bitrate_change(current_settings.bitrate)
-        }, BITRATE_CHANGE_INTERVAL)
+        }, this.bitrate_interval)
     }
 
 

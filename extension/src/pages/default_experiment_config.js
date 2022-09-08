@@ -1,5 +1,6 @@
 export const DEFAULT_EXPERIMENT_CONFIGURATION = {
-  "bitrate_change_interval": 300,
+  "assessment_interval": 150,
+  "bitrate_interval": 300,
   "description": "",
   "videos": [
     {

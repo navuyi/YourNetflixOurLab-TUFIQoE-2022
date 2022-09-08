@@ -50,12 +50,6 @@ const useJSONConfig = () => {
         })
     }
 
-    const update_bitrate_change_interval = async (interval_s) => {
-        //TODO 
-    }
-
-
-
     return {
         json_string,
         json_object,

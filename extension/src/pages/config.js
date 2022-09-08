@@ -3,7 +3,7 @@ import { DEFAULT_EXPERIMENT_CONFIGURATION } from "./default_experiment_config";
 export const STATS_RECORD_INTERVAL_MS = 1000; //1000 <---
 export const STATS_NONCLICKABLE = true;
 export const STATS_INVISIBLE = false;
-export const BITRATE_CHANGE_INTERVAL = 5 * 60 * 1000; // <--- 5 minutes = 5*60*1000
+export const BITRATE_INTERVAL = 5 * 60 * 1000; // <--- 5 minutes = 5*60*1000
 export const ASSESSMENT_INTERVAL = 2.5 * 60 * 1000; // <--- 2.5*60*1000
 
 export const DATABASE_KEYS = {
@@ -92,7 +92,8 @@ export const STORAGE_KEYS = {
 export const CONFIGURATION_KEYS = {
   TITLE: "title",
   DESCRIPTION: "description",
-  BITRATE_CHANGE_INTERVAL: "bitrate_change_interval",
+  BITRATE_INTERVAL: "bitrate_interval",
+  ASSESSMENT_INTERVAL: "assessment_interval",
   VIDEOS: "videos",
   VIDEO_KEYS: {
     NAME: "name",

@@ -1,7 +1,7 @@
 import { create_experiment } from "../../../../../utils/http_requests/create_experiment"
 import { create_video } from "../../../../../utils/http_requests/create_video";
 
-import { CONFIGURATION_KEYS, EXTENSION_MODE_AVAILABLE, STORAGE_KEYS } from "../../../../config";
+import { CONFIGURATION_KEYS, EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS } from "../../../../config";
 import { get_local_datetime } from "../../../../../utils/time_utils";
 
 const useStartExperiment = () => {
@@ -29,6 +29,16 @@ const useStartExperiment = () => {
     */
     const validate_configuration = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
+        if (!(CONFIGURATION_KEYS.BITRATE_INTERVAL in configuration)) {
+            alert(`There is no ${CONFIGURATION_KEYS.BITRATE_INTERVAL} key in configuration!`)
+            return false
+        }
+        else if (typeof (configuration[CONFIGURATION_KEYS.BITRATE_INTERVAL]) != "number") {
+            alert(`${CONFIGURATION_KEYS.BITRATE_INTERVAL} must be a number!`)
+            return false
+        }
+        //TODO add validation for ASSESSMENT_INTERVAL
+
         if (!(CONFIGURATION_KEYS.VIDEOS in configuration)) {
             alert(`There is no "videos" key in configuration!`)
             return false
@@ -71,7 +81,8 @@ const useStartExperiment = () => {
             STORAGE_KEYS.VIDEO_COUNT,
             STORAGE_KEYS.DEVICE_ID,
             STORAGE_KEYS.EXPERIMENT_TYPE,
-            STORAGE_KEYS.TESTER_ID
+            STORAGE_KEYS.TESTER_ID,
+            STORAGE_KEYS.CONFIGURATION
         ])
 
         const data = {
@@ -80,6 +91,7 @@ const useStartExperiment = () => {
             experiment_type: res[STORAGE_KEYS.EXPERIMENT_TYPE],
             video_limit: res[STORAGE_KEYS.VIDEO_LIMIT],
             tester_id: res[STORAGE_KEYS.TESTER_ID],
+            configuration: JSON.stringify(res[STORAGE_KEYS.CONFIGURATION]),
             urls: await get_experiment_urls()
         }
 
