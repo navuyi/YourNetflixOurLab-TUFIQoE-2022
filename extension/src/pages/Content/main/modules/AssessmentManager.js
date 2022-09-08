@@ -1,7 +1,7 @@
 import { CustomLogger } from "../../../../utils/CustomLogger"
 import { send_assessment } from "../../../../utils/http_requests/send_assessment"
 import { get_local_datetime } from "../../../../utils/time_utils"
-import { STORAGE_KEYS } from "../../../config"
+import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../config"
 import { ASSESSMENT_INTERVAL } from "../../../config"
 
 
@@ -14,6 +14,8 @@ export class AssessmentManager{
         this.panel_visible = false
 
         this.logger = new CustomLogger("[AssessmentManager]")
+
+        this.assessment_interval = undefined
     }
 
     /**
@@ -21,6 +23,9 @@ export class AssessmentManager{
     */
     async init(){
         await this.init_popup()
+
+        await this.prepare_assessment_interval()
+
         this.start_assessment_process()
     }
 
@@ -38,10 +43,21 @@ export class AssessmentManager{
                 popup.style.display = "unset"
                 this.panel_visible = true
             }
-        }, ASSESSMENT_INTERVAL) 
+        }, this.assessment_interval) 
     }
 
-    
+    async prepare_assessment_interval(){
+        const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
+        const interval = configuration[CONFIGURATION_KEYS.ASSESSMENT_INTERVAL]
+        if(interval != null && typeof(interval) == 'number'){
+            this.assessment_interval = interval*1000
+            this.logger.log(`Configuration assessment interval OK: ${interval}s - ${this.assessment_interval}ms`)
+        }
+        else{
+            this.logger.log(`Configuration assessment interval missing or incorrect. Using default value: ${ASSESSMENT_INTERVAL}ms.`)
+            this.assessment_interval = ASSESSMENT_INTERVAL
+        }
+    }
 
     async init_popup(){
         return new Promise(resolve => {

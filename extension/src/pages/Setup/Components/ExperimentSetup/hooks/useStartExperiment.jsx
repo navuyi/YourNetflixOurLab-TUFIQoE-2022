@@ -29,6 +29,7 @@ const useStartExperiment = () => {
     */
     const validate_configuration = async () => {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
+        // Validate bitrate interval
         if (!(CONFIGURATION_KEYS.BITRATE_INTERVAL in configuration)) {
             alert(`There is no ${CONFIGURATION_KEYS.BITRATE_INTERVAL} key in configuration!`)
             return false
@@ -37,7 +38,15 @@ const useStartExperiment = () => {
             alert(`${CONFIGURATION_KEYS.BITRATE_INTERVAL} must be a number!`)
             return false
         }
-        //TODO add validation for ASSESSMENT_INTERVAL
+        // Validate assessment interval
+        if (!(CONFIGURATION_KEYS.ASSESSMENT_INTERVAL in configuration)) {
+            alert(`There is no ${CONFIGURATION_KEYS.ASSESSMENT_INTERVAL} key in configuration!`)
+            return false
+        }
+        else if (typeof (configuration[CONFIGURATION_KEYS.ASSESSMENT_INTERVAL]) != "number") {
+            alert(`${CONFIGURATION_KEYS.ASSESSMENT_INTERVAL} must be a number!`)
+            return false
+        }
 
         if (!(CONFIGURATION_KEYS.VIDEOS in configuration)) {
             alert(`There is no "videos" key in configuration!`)
