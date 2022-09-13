@@ -64,23 +64,31 @@ export class StatsAnalyzer{
      * Their availability indicates that serie's video is about to end and credits are present.
      * If elements are detected video playback ends and subject is redirected to custom extension's web page
     */
-    async are_credits_available(){
-        // Provide emergency check 5-10 seconds before end of the video (duration time) in case detecting credits does not work.
-        
+    async are_credits_available(){ 
         const outer_container = document.getElementsByClassName("nfa-pos-abs nfa-bot-6-em nfa-right-5-em nfa-d-flex")[0]
 
         //data-uia = "watch-credits-seamless-button"
         // data-uia="next-episode-seamless-button"
         
-
-        // TODO
-        // THIS WILL NOT WORK PROPERLY IN THE LAST EPISODE OF THE SERIE
-        // FIX, FIND WORKAROUND ! ! !
+        // Checking PlayerSpace class element in case of last episode of the last season
+        const player_space = document.getElementsByClassName("PlayerSpace")[0]
 
         // Check Wroc do przeglądania element! ! ! ! !!
         // a with class="BackToBrowse"
-        
-        if(outer_container){
+        if(player_space != null){
+            // Stop analyzing
+            clearInterval(this.interval)
+
+            // Pause the video
+            document.getElementsByTagName("video")[0].pause()
+
+            // Send FINISHED signal to the BackgroundScript
+            await chrome.runtime.sendMessage({
+                [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
+                [MESSAGE_TEMPLATE]: true
+            })
+        }
+        else if(outer_container){
             // Click watch credits button
             const credits_button = document.querySelectorAll('[data-uia="watch-credits-seamless-button"]')[0]
             credits_button.click()
