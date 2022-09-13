@@ -38,7 +38,9 @@ class Mapper{
         this.logger.log(`Available bitrates: ${this.available_bitrates}`)
 
         // Start mapping
-        await this.create_map()
+        setTimeout(async () => {
+            await this.create_map()
+        }, 10000)
     }
 
 
@@ -49,8 +51,9 @@ class Mapper{
         for(const bitrate of this.available_bitrates){
             // Invoke bitrate menu
             await this.bitrate_menu.invoke_bitrate_menu()
+            
             // Set next bitrate to be mapped
-            this.bitrate_menu.set_bitrate(bitrate)
+            await this.bitrate_menu.set_bitrate(bitrate)
 
             // Wait for buffering bitrate and vmaf to change
             // Code execution waits for this phase to resolve

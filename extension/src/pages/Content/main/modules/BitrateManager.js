@@ -38,11 +38,15 @@ export class BitrateManager{
         // Create iterator
         this.iterator = this.scenario_iterator()
 
-        // Set initial bitrate value
-        await this.set_initial_bitrate()
 
-        // Start bitrate changes
-        await this.start_bitrate_changes_interval()
+        // Starting in 10 seconds to avoid CDNs change and bitrate reset
+        setTimeout(async () => {
+            // Set initial bitrate value
+            await this.set_initial_bitrate()
+
+            // Start bitrate changes
+            await this.start_bitrate_changes_interval()
+        }, 10000)
     }
 
 
@@ -139,8 +143,13 @@ export class BitrateManager{
     async invoke_bitrate_change(bitrate){
         // Invoke bitrate menu - watch the method's body in BitrateMenu class
         await this.bitrate_menu.invoke_bitrate_menu()   // ESSENTIAL --> bitrate menu has to be invoked before simulating clicks and changing bitrate
+        
         // Validate selected bitrate
-        const bitrate_validated = await this.bitrate_menu.set_bitrate(bitrate)
+        const bitrate_validated = this.bitrate_menu.check_bitrate_availability(bitrate)
+
+        // Set bitrate
+        await this.bitrate_menu.set_bitrate(bitrate_validated)
+
         // Send bitrate change update to backend server
         await this.send_bitrate_change_update(bitrate_validated)
     }

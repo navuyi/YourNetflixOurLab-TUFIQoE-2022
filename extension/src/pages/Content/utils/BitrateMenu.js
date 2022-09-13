@@ -1,5 +1,6 @@
 import { CustomLogger } from "../../../utils/CustomLogger"
 import { invoke_bitrate_menu_and_get_html_elements } from "./get_bitrate_menu_elements"
+import { simulate_bitrate_menu_hotkey } from "./keyboard_hotkeys/simulate_bitrate_menu_hotkeys"
 
 export class BitrateMenu{
     constructor(){
@@ -21,7 +22,8 @@ export class BitrateMenu{
     */
     async init(){
         await this.invoke_bitrate_menu()
-        this.reset_button.click()   // Close bitrate menu after initialization is finished
+        //this.reset_button.click()   <-- alternative way of closing the menu but it also resets the bitrates
+        simulate_bitrate_menu_hotkey() // Close bitrate menu after initialization is finished
     }
 
 
@@ -31,6 +33,7 @@ export class BitrateMenu{
      *  after overriding bitrate value or reseting
     */
     async invoke_bitrate_menu(){
+        this.logger.log("Invoking bitrate menu...")
         // Invoke bitrate menu and get html elements
         const elements = await invoke_bitrate_menu_and_get_html_elements()
         this.logger.log(elements)
@@ -40,6 +43,8 @@ export class BitrateMenu{
         this.override_button = this.bitrate_menu_elements.override_button
         this.reset_button = this.bitrate_menu_elements.reset_button
         this.select = this.bitrate_menu_elements.select
+
+        this.logger.log("Bitrate menu invoked.")
     }
 
     /**
@@ -63,14 +68,11 @@ export class BitrateMenu{
      * provided as a parameter
      * @param {number} bitrate 
     */
-    set_bitrate(bitrate){
-        // Check bitrate availability
-        const bitrate_valid = this.check_bitrate_availability(bitrate)
-        this.logger.log(`Setting bitrate to: ${bitrate_valid}`)
-        this.select.value = bitrate_valid
-        this.override_button.click()
-
-        return bitrate_valid
+    async set_bitrate(bitrate){
+        this.logger.log(`Setting bitrate to: ${bitrate}`)
+        this.select.value = bitrate
+        this.logger.log(`SELECTED BITRATE VALUE: ${this.select.value}`)
+        this.override_button.click()   
     }
 
     /**

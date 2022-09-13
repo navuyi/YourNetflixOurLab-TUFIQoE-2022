@@ -106,8 +106,7 @@ export class AssessmentManager{
         const background = document.createElement("div")
         background.style.width = "100vw"; background.style.height = "100vh";
         background.style.position = "absolute"; background.style.left= "0"; background.style.top = "0";
-        background.style.backgroundColor = "#222222";
-        background.style.opacity = "0.9";
+        background.style.backgroundColor = "#221F1F";
         background.style.display = "flex"; background.style.justifyContent = "center"; background.style.alignItems = "center"; background.style.flexDirection = "column"
         background.style.zIndex = "10000"
 
