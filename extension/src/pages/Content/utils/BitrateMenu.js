@@ -1,3 +1,4 @@
+
 import { CustomLogger } from "../../../utils/CustomLogger"
 import { invoke_bitrate_menu_and_get_html_elements } from "./get_bitrate_menu_elements"
 import { simulate_bitrate_menu_hotkey } from "./keyboard_hotkeys/simulate_bitrate_menu_hotkeys"
@@ -78,7 +79,7 @@ export class BitrateMenu{
     /**
      * Method checks if provided bitrate is available in bitrate menu.
      * If it is then the same value is returned.
-     * If not closest value is found and returned.
+     * If not - the closest value is found and returned.
      * @param {Number} bitrate 
      * @returns {Number} Returns closest available bitrate to provided value
     */
