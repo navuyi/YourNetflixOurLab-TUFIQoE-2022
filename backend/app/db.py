@@ -1,4 +1,3 @@
-from msilib.schema import Error
 import sqlite3
 from .utils.dict_factory import dict_factory
 from flask import g, current_app
