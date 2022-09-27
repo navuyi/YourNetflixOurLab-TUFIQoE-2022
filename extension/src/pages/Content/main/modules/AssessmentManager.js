@@ -33,17 +33,23 @@ export class AssessmentManager{
     /**
      * Method starting assessment process.
      * It will show assessment to the subject in defined time intervals 
-     * by setting it's style.display from "none" to "unset"
+     * by setting its style.display from "none" to "unset"
     */
     start_assessment_process(){
-        this.interval = setInterval(() => {
-            if(this.panel_visible === false){
-                const popup = document.getElementById("assessment-popup")
-                this.started = new Date()
-                popup.style.display = "unset"
-                this.panel_visible = true
-            }
-        }, this.assessment_interval) 
+        if(this.assessment_interval <= 0){
+            this.logger.log(`Assessment interval set to ${this.assessment_interval}.`)
+            this.logger.log(`Assessments are disabled`)
+        }
+        else {
+            this.interval = setInterval(() => {
+                if (this.panel_visible === false) {
+                    const popup = document.getElementById("assessment-popup")
+                    this.started = new Date()
+                    popup.style.display = "unset"
+                    this.panel_visible = true
+                }
+            }, this.assessment_interval)
+        }
     }
 
     async prepare_assessment_interval(){

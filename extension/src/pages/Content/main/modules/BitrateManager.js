@@ -6,6 +6,9 @@ import { BitrateMenu } from "../../utils/BitrateMenu";
 import { CustomLogger } from "../../../../utils/CustomLogger";
 
 export class BitrateManager{
+    private bitrate_menu: BitrateMenu | undefined
+    private scenario : 
+
     constructor() {
         // BitrateMenu class instance
         this.bitrate_menu = undefined
@@ -46,7 +49,7 @@ export class BitrateManager{
 
             // Start bitrate changes
             await this.start_bitrate_changes_interval()
-        }, 10000)
+        }, 20000)
     }
 
 
@@ -80,8 +83,7 @@ export class BitrateManager{
         const video_count = storage[STORAGE_KEYS.VIDEO_COUNT]
         const video_index = video_count - 1
 
-        const scenario = configuration[CONFIGURATION_KEYS.VIDEOS][video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO]
-        this.scenario = scenario
+        this.scenario = configuration[CONFIGURATION_KEYS.VIDEOS][video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO]
     }
 
 
@@ -177,4 +179,7 @@ export class BitrateManager{
             [STORAGE_KEYS.CURRENT_BITRATE]: bitrate
         })
     }
+
+
+
 }
