@@ -6,9 +6,6 @@ import { BitrateMenu } from "../../utils/BitrateMenu";
 import { CustomLogger } from "../../../../utils/CustomLogger";
 
 export class BitrateManager{
-    private bitrate_menu: BitrateMenu | undefined
-    private scenario : 
-
     constructor() {
         // BitrateMenu class instance
         this.bitrate_menu = undefined
@@ -41,7 +38,7 @@ export class BitrateManager{
         // Create iterator
         this.iterator = this.scenario_iterator()
 
-
+        /*
         // Starting in 10 seconds to avoid CDNs change and bitrate reset
         setTimeout(async () => {
             // Set initial bitrate value
@@ -49,7 +46,43 @@ export class BitrateManager{
 
             // Start bitrate changes
             await this.start_bitrate_changes_interval()
-        }, 20000)
+        }, 10000)
+        */
+
+        await this.start_bitrate_manipulation_when_ready()
+    }
+
+    /**
+     * Checks if certain html video elements are available in DOM and then...
+     * ...starts bitrate manipulation process by setting the initial bitrate and
+     * scheduling further bitrate changes according to the interval set in config file.
+     * @returns {Promise<void>}
+    */
+    async start_bitrate_manipulation_when_ready(){
+        return new Promise((resolve) => {
+            let interval = undefined
+            interval = setInterval(async () => {
+                try{
+                    const video = document.getElementsByTagName("video")[0]
+                    const video_div = video.parentElement
+                    const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
+
+                    if(video && video_div && ltr_element){
+                        clearInterval(interval) // stop the retrying process - must be first
+                        this.logger.log("FOUND VIDEO ELEMENTS STARTING BITRATE CHANGES")
+                        // Set initial bitrate
+                        await this.set_initial_bitrate()
+                        // Schedule further bitrate changes
+                        this.start_bitrate_changes_interval()
+                        resolve()
+                    }
+                }
+                catch(err){
+                    this.logger.log("Bitrate changes not yet started - no video elements")
+                    this.logger.log(err)
+                }
+            }, 500)
+        })
     }
 
 
@@ -180,6 +213,37 @@ export class BitrateManager{
         })
     }
 
+    show_indicator(){
+        const indicator = this.create_indicator_element()
+        const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
 
+        ltr_element.appendChild(indicator)
+
+        setTimeout(() => {
+            indicator.style.display = "none"
+        }, 5000)
+    }
+
+    create_indicator_element(){
+        const indicator = document.createElement("div")
+        indicator.innerText = "Bitrate change process has started."
+
+        indicator.style.width = "100%"
+        indicator.style.height = "100%"
+        indicator.style.backgroundColor = "whitesmoke"
+        indicator.style.color = "black"
+        indicator.style.fontSize = "24px"
+
+        indicator.style.display = "flex";
+        indicator.style.justifyContent = "center"
+        indicator.style.alignItems = "center"
+
+        indicator.style.position = "absolute"
+        indicator.style.top= "0px"
+
+        indicator.id = "first-bitrate-change-indicator"
+
+        return indicator
+    }
 
 }

@@ -13,6 +13,7 @@ const init = async () => {
     const assessmentManager = new AssessmentManager()
     await assessmentManager.init()
 
+
     /*
         // It is possible to overload console.log function so that we can save every console.log message
         // Consider it
