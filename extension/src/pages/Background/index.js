@@ -9,14 +9,14 @@ import { get_local_datetime } from "../../utils/time_utils"
  * Detect extension reloads and perform actions.
  * This listener callback executes only when extension is installed or reloaded. 
 */
-chrome.runtime.onInstalled.addEventListener(() => {
+chrome.runtime.onInstalled.addListener(() => {
     console.log(`[BackgroundScript] | ${get_local_datetime(new Date())} | Installing...` )
 
      // Initialize local storage || WARNING --> THIS RESETS ALL chrome.storage KEYS TO DEFAULT VALUES
      chrome.storage.local.set(STORAGE_DEFAULT)
 })
 
-chrome.action.onClicked.addEventListener(async (tab) => {
+chrome.action.onClicked.addListener(async (tab) => {
     console.log(tab)
     await chrome.tabs.update(tab.tabId, {
         url: "setup.html"

@@ -21,8 +21,8 @@ export const invoke_bitrate_menu_and_get_html_elements = async () => {
 
                 // Set opacity of the element to required value
                 if(bitrate_values.length > 0 && override_button != null && reset_button != null){
-                    container.style.opacity = "0.5" // Does not have to be completely transparent, it is not visible in fullscreen mode
                     clearInterval(timer)
+                    container.style.opacity = "0.5" // Does not have to be completely transparent, it is not visible in fullscreen mode
                     resolve(bitrate_menu_elements)
                 }
             }
