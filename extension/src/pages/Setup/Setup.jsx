@@ -48,7 +48,7 @@ const Setup = () => {
           </Container> :
 
           <div style={{ width: "100%", height: "100%", display: "flex", alignItems: "center", justifyContent: "Center" }}>
-            <h3 style={{ fontSize: 32, color: "#f60000", fontWeight: "100", fontWeight: "bolder" }}>Backend server is not active!</h3>
+            <h3 style={{ fontSize: 32, color: "#f60000", fontWeight: "bolder" }}>Backend server is not active!</h3>
           </div>
       }
     </div >

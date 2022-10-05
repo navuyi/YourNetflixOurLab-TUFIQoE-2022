@@ -1,9 +1,9 @@
 import React from 'react';
 import { render } from 'react-dom';
 
-import Newtab from './Setup';
+import Setup from './Setup';
 
 
-render(<Newtab />, window.document.querySelector('#app-container'));
+render(<Setup />, window.document.querySelector('#app-container'));
 
 if (module.hot) module.hot.accept();

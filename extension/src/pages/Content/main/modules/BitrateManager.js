@@ -5,7 +5,7 @@ import { send_bitrate } from "../../../../utils/http_requests/send_bitrate";
 import { BitrateMenu } from "../../utils/BitrateMenu";
 import { CustomLogger } from "../../../../utils/CustomLogger";
 
-export class BitrateManager{
+export class BitrateManager {
     constructor() {
         // BitrateMenu class instance
         this.bitrate_menu = undefined
@@ -23,8 +23,8 @@ export class BitrateManager{
         this.logger = new CustomLogger("[BitrateManager]")
     }
 
-    
-    async init(){
+
+    async init() {
         // Create bitrate menu class instance
         this.bitrate_menu = new BitrateMenu()
         await this.bitrate_menu.init()
@@ -50,6 +50,8 @@ export class BitrateManager{
         */
 
         await this.start_bitrate_manipulation_when_ready()
+
+        await this.reset_buffer()
     }
 
     /**
@@ -57,17 +59,17 @@ export class BitrateManager{
      * ...starts bitrate manipulation process by setting the initial bitrate and
      * scheduling further bitrate changes according to the interval set in config file.
      * @returns {Promise<void>}
-    */
-    async start_bitrate_manipulation_when_ready(){
+     */
+    async start_bitrate_manipulation_when_ready() {
         return new Promise((resolve) => {
             let interval = undefined
             interval = setInterval(async () => {
-                try{
+                try {
                     const video = document.getElementsByTagName("video")[0]
                     const video_div = video.parentElement
                     const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
 
-                    if(video && video_div && ltr_element){
+                    if (video && video_div && ltr_element) {
                         clearInterval(interval) // stop the retrying process - must be first
                         this.logger.log("FOUND VIDEO ELEMENTS STARTING BITRATE CHANGES")
                         // Set initial bitrate
@@ -76,8 +78,7 @@ export class BitrateManager{
                         this.start_bitrate_changes_interval()
                         resolve()
                     }
-                }
-                catch(err){
+                } catch (err) {
                     this.logger.log("Bitrate changes not yet started - no video elements")
                     this.logger.log(err)
                 }
@@ -87,30 +88,29 @@ export class BitrateManager{
 
 
     /**
-     *  Method reads bitrate changes interval from config file. Provided in seconds has to be converted to ms. 
-    */
-    async prepare_bitrate_interval(){
+     *  Method reads bitrate changes interval from config file. Provided in seconds has to be converted to ms.
+     */
+    async prepare_bitrate_interval() {
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         const interval_s = configuration[CONFIGURATION_KEYS.BITRATE_INTERVAL]
 
-        if(interval_s != null && typeof(interval_s) == 'number'){
+        if (interval_s != null && typeof (interval_s) == 'number') {
             this.bitrate_interval = 1000 * interval_s
             this.logger.log(`Configuration's bitrate change interval - OK, ${interval_s}s = ${this.bitrate_interval}ms`)
-        }
-        else{
+        } else {
             this.logger.log(`Configuration's bitrate change interval missing or incorrect. Using default interval`)
             this.bitrate_interval = BITRATE_INTERVAL
         }
 
-        
+
     }
 
 
     /**
      *  Method prepares scenario for current video.
-     *  Fetches configuration from chrome.storage 
-    */
-    async prepare_video_scenario(){
+     *  Fetches configuration from chrome.storage
+     */
+    async prepare_video_scenario() {
         const storage = await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION, STORAGE_KEYS.VIDEO_COUNT])
         const configuration = storage[STORAGE_KEYS.CONFIGURATION]
         const video_count = storage[STORAGE_KEYS.VIDEO_COUNT]
@@ -123,17 +123,16 @@ export class BitrateManager{
     /**
      * Generator or iterator idk
      * Yields scenario's items in loop
-    */
-    *scenario_iterator(){
+     */
+    * scenario_iterator() {
         let index = 0;
-        while(true){
+        while (true) {
             this.logger.log("Yielding...")
             this.logger.log(this.scenario[index])
             yield this.scenario[index]
-            if(index >= this.scenario.length -1){
+            if (index >= this.scenario.length - 1) {
                 index = 0
-            }
-            else{
+            } else {
                 index += 1
             }
         }
@@ -142,9 +141,9 @@ export class BitrateManager{
 
     /**
      *  Sets the initial bitrate value
-     *  which is the first in video's escenario 
-    */
-    async set_initial_bitrate(){
+     *  which is the first in video's escenario
+     */
+    async set_initial_bitrate() {
         const initial_settings = this.iterator.next().value
         this.logger.log("Setting initial bitrate value: " + initial_settings.bitrate)
 
@@ -157,13 +156,13 @@ export class BitrateManager{
      * Bitrates are set according to the configuration's scenario for current video.
      * In case the provided bitrate is not available the closest available value will be applied.
      * Validation is part of BitrateMenu instance's methods
-    */
-    start_bitrate_changes_interval(){
-        setInterval(async () => {  
-            const current_settings = this.iterator.next().value    
+     */
+    start_bitrate_changes_interval() {
+        setInterval(async () => {
+            const current_settings = this.iterator.next().value
             this.logger.log(`Setting bitrate to ${current_settings.bitrate}kbps which corresponds to VMAF ${current_settings.vmaf}`)
             this.logger.log(`VMAF template was ${current_settings.vmaf_template}. Difference: ${current_settings.vmaf_diff}`)
-                
+
             await this.invoke_bitrate_change(current_settings.bitrate)
         }, this.bitrate_interval)
     }
@@ -173,12 +172,12 @@ export class BitrateManager{
      * Invokes bitrate change first by invoking the bitrate menu, then
      * validating provided bitrate and overriding playback bitrate with it.
      * Also sends bitrate change post request to the backend server.
-     * @param {Number} bitrate 
-    */
-    async invoke_bitrate_change(bitrate){
+     * @param {Number} bitrate
+     */
+    async invoke_bitrate_change(bitrate) {
         // Invoke bitrate menu - watch the method's body in BitrateMenu class
         await this.bitrate_menu.invoke_bitrate_menu()   // ESSENTIAL --> bitrate menu has to be invoked before simulating clicks and changing bitrate
-        
+
         // Validate selected bitrate
         const bitrate_validated = this.bitrate_menu.check_bitrate_availability(bitrate)
 
@@ -188,15 +187,15 @@ export class BitrateManager{
         // Send bitrate change update to backend server
         await this.send_bitrate_change_update(bitrate_validated)
     }
-    
+
 
     /**
      * Prepares data and sends post request to REST API
      * with information on new bitrate change.
      * Also updates chrome.storage with current bitrate
-     * @param {Number} bitrate 
-    */
-    async send_bitrate_change_update(bitrate){
+     * @param {Number} bitrate
+     */
+    async send_bitrate_change_update(bitrate) {
         // Get previous bitrate and send update
         const res = await chrome.storage.local.get([STORAGE_KEYS.CURRENT_BITRATE, STORAGE_KEYS.DATABASE_VIDEO_ID])
         const bitrate_data = {
@@ -213,7 +212,7 @@ export class BitrateManager{
         })
     }
 
-    show_indicator(){
+    show_indicator() {
         const indicator = this.create_indicator_element()
         const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
 
@@ -224,7 +223,7 @@ export class BitrateManager{
         }, 5000)
     }
 
-    create_indicator_element(){
+    create_indicator_element() {
         const indicator = document.createElement("div")
         indicator.innerText = "Bitrate change process has started."
 
@@ -239,11 +238,52 @@ export class BitrateManager{
         indicator.style.alignItems = "center"
 
         indicator.style.position = "absolute"
-        indicator.style.top= "0px"
+        indicator.style.top = "0px"
 
         indicator.id = "first-bitrate-change-indicator"
 
         return indicator
     }
 
+
+    inject_code(){
+        const s = document.createElement('script');
+        s.src = chrome.runtime.getURL("netflixControls.bundle.js");
+
+        (document.head || document.documentElement).appendChild(s);
+        s.remove()
+    }
+
+    async reset_buffer(){
+        this.inject_code()
+        let interval = undefined
+        return new Promise(resolve => {
+            interval = setInterval(() => {
+                const seek_element = document.getElementById("seek_element")
+                const video = document.getElementsByTagName("video")[0]
+
+                if(seek_element != null && video != null){
+                    clearInterval(interval)
+
+                    video.style.visibility = "hidden"
+                    video.pause()
+                    video.muted = true
+                    seek_element.setAttribute("timestamp", String(1000))
+                    seek_element.click()
+
+
+                    setTimeout(() => {
+                        seek_element.setAttribute("timestamp", String(0))
+                        seek_element.click()
+
+                        video.style.visibility = "visible"
+                        video.play()
+                        video.muted = false
+                    }, 1000)
+                    resolve()
+                }
+            }, 500)
+        })
+
+    }
 }
