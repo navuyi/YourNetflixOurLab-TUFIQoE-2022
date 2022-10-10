@@ -11,7 +11,9 @@ export class AssessmentManager{
         this.interval = undefined
         this.started = undefined
         this.ended = undefined
-        this.panel_visible = false
+
+        this.jitter_max = 25
+        this.jitter_min = 15
 
         this.logger = new CustomLogger("[AssessmentManager]")
 
@@ -25,32 +27,43 @@ export class AssessmentManager{
         await this.init_popup()
 
         await this.prepare_assessment_interval()
+        if(this.assessment_interval <= 0){
+            this.logger.log(`Assessment interval set to ${this.assessment_interval}.`)
+            this.logger.log(`Assessments are disabled`)
+            return
+        }
 
-        this.start_assessment_process()
+        // Schedule first assessment panel
+        this.schedule_assessment_panel()
     }
 
     
     /**
-     * Method starting assessment process.
-     * It will show assessment to the subject in defined time intervals 
-     * by setting its style.display from "none" to "unset"
+     * Schedules new assessment panel to show up in time determined by
+     * defined assessment interval and random jitter
     */
-    start_assessment_process(){
-        if(this.assessment_interval <= 0){
-            this.logger.log(`Assessment interval set to ${this.assessment_interval}.`)
-            this.logger.log(`Assessments are disabled`)
-        }
-        else {
-            this.interval = setInterval(() => {
-                if (this.panel_visible === false) {
-                    const popup = document.getElementById("assessment-popup")
-                    this.started = new Date()
-                    popup.style.display = "unset"
-                    this.panel_visible = true
-                }
-            }, this.assessment_interval)
-        }
+    schedule_assessment_panel(){
+        const jitter = this.calculate_jitter()
+        this.logger.log(`Scheduling assessment in ${this.assessment_interval/1000} + jitter of ${jitter/1000}.`)
+        setTimeout(() => {
+            this.show_assessment_panel()
+        }, this.assessment_interval + jitter)
     }
+
+    calculate_jitter(){
+        const range = [-1, 1]
+        const multiplier = range[Math.floor(Math.random()*range.length)]
+        const seconds = Math.round(Math.random() * (this.jitter_max - this.jitter_min + 1) + this.jitter_min)
+
+        return multiplier * 1000 * seconds
+    }
+
+    show_assessment_panel(){
+        const popup = document.getElementById("assessment-popup")
+        this.started = new Date()
+        popup.style.display = "unset"
+    }
+
 
     async prepare_assessment_interval(){
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
@@ -96,6 +109,7 @@ export class AssessmentManager{
                     }
                 }
                 catch(err){
+                    this.logger.log("Could not append popup element to video player. Retrying...")
                     this.logger.log(err)
                 }
             }, 500)
@@ -144,7 +158,8 @@ export class AssessmentManager{
      * @returns {Array.HTMLElement}
      */
     create_buttons(){
-        const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła", "Nie zwróciłem/am uwagi"]
+        //const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła", "Nie zwróciłem/am uwagi"]
+        const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła"]
         const buttons = []
         descriptions.forEach((text, index) => {
             const button = document.createElement("button")
@@ -185,10 +200,13 @@ export class AssessmentManager{
         })
 
         // Last button reconfiguration
+    /*
         const btn = buttons[buttons.length-1]
         btn.setAttribute("value", "DID_NOT_PAY_ATTENTION")
         btn.innerText = descriptions[buttons.length-1]
         btn.style.marginTop = "20px"
+    */
+
 
         return buttons
     }
@@ -201,7 +219,6 @@ export class AssessmentManager{
     */
     async handle_button_click(e){
         this.ended = new Date()
-        this.panel_visible = false
         document.getElementById("assessment-popup").style.display = "none"
         const value = e.target.getAttribute("value")
         const description = e.target.getAttribute("description")
@@ -214,6 +231,9 @@ export class AssessmentManager{
             timestamp: get_local_datetime(new Date()),
             duration: this.ended - this.started
         }
+
+        // Schedule next assessment panel
+        this.schedule_assessment_panel()
         
         /*await*/ send_assessment(data)
     }
