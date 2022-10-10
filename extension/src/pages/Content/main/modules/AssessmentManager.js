@@ -50,6 +50,11 @@ export class AssessmentManager{
         }, this.assessment_interval + jitter)
     }
 
+    /**
+     * Calculates jitter that will be added to the assessment_interval
+     * Can be a negative or positive value
+     * @returns {number}
+     */
     calculate_jitter(){
         const range = [-1, 1]
         const multiplier = range[Math.floor(Math.random()*range.length)]
@@ -58,6 +63,9 @@ export class AssessmentManager{
         return multiplier * 1000 * seconds
     }
 
+    /**
+     * Manipulates the assessment panel styling so that is becomes visible
+    */
     show_assessment_panel(){
         const popup = document.getElementById("assessment-popup")
         this.started = new Date()
@@ -65,6 +73,10 @@ export class AssessmentManager{
     }
 
 
+    /**
+     * Prepares assessment interval so that it can be used as an argument for setTimeout
+     * @returns {Promise<void>}
+    */
     async prepare_assessment_interval(){
         const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
         const interval = configuration[CONFIGURATION_KEYS.ASSESSMENT_INTERVAL]
@@ -78,6 +90,10 @@ export class AssessmentManager{
         }
     }
 
+    /**
+     * Initializes the assessment popup element
+     * @returns {Promise<unknown>}
+     */
     async init_popup(){
         return new Promise(resolve => {
             const popup = document.createElement("div")
@@ -105,7 +121,7 @@ export class AssessmentManager{
                         clearInterval(interval) // stop the retrying process
                         video_div.appendChild(popup)    // add popup to the DOM
                         ltr_element.style.willChange = "unset"  // make popup clickable
-                        resolve(true)
+                        resolve()
                     }
                 }
                 catch(err){
@@ -158,7 +174,6 @@ export class AssessmentManager{
      * @returns {Array.HTMLElement}
      */
     create_buttons(){
-        //const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła", "Nie zwróciłem/am uwagi"]
         const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła"]
         const buttons = []
         descriptions.forEach((text, index) => {
@@ -199,15 +214,6 @@ export class AssessmentManager{
             buttons.push(button)
         })
 
-        // Last button reconfiguration
-    /*
-        const btn = buttons[buttons.length-1]
-        btn.setAttribute("value", "DID_NOT_PAY_ATTENTION")
-        btn.innerText = descriptions[buttons.length-1]
-        btn.style.marginTop = "20px"
-    */
-
-
         return buttons
     }
 
@@ -235,7 +241,7 @@ export class AssessmentManager{
         // Schedule next assessment panel
         this.schedule_assessment_panel()
         
-        /*await*/ send_assessment(data)
+        /*await*/ send_assessment(data) // <-- not waiting for response
     }
 }
 
