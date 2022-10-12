@@ -3,8 +3,8 @@ import {CustomLogger} from "../../../../utils/CustomLogger";
 
 class BufferResetter{
     constructor() {
-        this.inject_code()
         this.logger = new CustomLogger("[BufferResetter]")
+        this.inject_code()
     }
 
 

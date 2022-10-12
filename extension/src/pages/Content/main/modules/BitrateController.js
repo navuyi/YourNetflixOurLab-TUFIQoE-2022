@@ -20,11 +20,19 @@ class BitrateController{
     async init(){
         await this.wait_for_video_to_load()
 
-        await this.set_initial_bitrate()
+        await this.set_bitrate()    // First bitrate set after video is loaded
 
-        await this.buffer_resetter.reset()
+        await this.buffer_resetter.reset()  // Navigating to the start and resetting buffer
+
+        await this.set_bitrate()    // Second bitrate set after buffer is reset
+
+        this.start_bitrate_change_interval()    // Scheduling the rest of bitrate changes using setInterval
     }
 
+    /**
+     * Method waits for the essential html elements to be loaded and available for manipulation.
+     * @returns {Promise<unknown>}
+    */
     async wait_for_video_to_load(){
         return new Promise((resolve) => {
             let interval = undefined
@@ -48,13 +56,25 @@ class BitrateController{
         })
     }
 
-    async set_initial_bitrate() {
-        const initial_settings = this.iterator.next().value
-        this.logger.log("Setting initial bitrate value: " + initial_settings.bitrate)
+    /**
+     * Universal method for setting the next bitrate value in order.
+     * Order of bitrates is defined by video's scenario.
+     * @returns {Promise<void>}
+    */
+    async set_bitrate() {
+        const settings = this.iterator.next().value
+        this.logger.log(`Setting bitrate to ${settings.bitrate}kbps which corresponds to VMAF ${settings.vmaf}`)
+        this.logger.log(`VMAF template was ${settings.vmaf_template}. Difference: ${settings.vmaf_diff}`)
 
-        await this.execute_bitrate_change(initial_settings.bitrate)
+        await this.execute_bitrate_change(settings.bitrate)
     }
 
+    /**
+     * Executes bitrate change by invoking actual bitrate menu,
+     * validating selected bitrate and overriding the settings
+     * @param bitrate<number>
+     * @returns {Promise<void>}
+    */
     async execute_bitrate_change(bitrate) {
         // Invoke bitrate menu
         await this.bitrate_menu.invoke_bitrate_menu()   // ESSENTIAL --> bitrate menu has to be invoked before simulating clicks and changing bitrate
@@ -87,6 +107,15 @@ class BitrateController{
         await chrome.storage.local.set({
             [STORAGE_KEYS.CURRENT_BITRATE]: bitrate
         })
+    }
+
+    /**
+     * Starts bitrate change interval
+    */
+    start_bitrate_change_interval(){
+        setInterval(async () => {
+            await this.set_bitrate()
+        }, this.interval)
     }
 }
 

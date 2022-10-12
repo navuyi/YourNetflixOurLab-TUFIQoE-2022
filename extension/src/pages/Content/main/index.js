@@ -1,5 +1,4 @@
 import {StatsAnalyzer} from "./modules/StatsAnalyzer"
-import {BitrateManager} from "./modules/BitrateManager"
 import {AssessmentManager} from "./modules/AssessmentManager"
 import QualityScenarioManager from "./modules/QualityScenarioManager";
 
