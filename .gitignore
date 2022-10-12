@@ -33,3 +33,4 @@ software/*
 
 
 backend/logs.log
+/extension/.idea/
