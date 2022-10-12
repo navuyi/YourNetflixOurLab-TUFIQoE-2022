@@ -2,8 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fa6f7e9-7ec3-4c16-beb0-1ea121590ea9" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/extension/src/scripts/cadmium-playercore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/wwf_software.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/app/blueprints/test_A.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/blueprints/test_A.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/manifest.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/pages/Background/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/Background/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/pages/Content/main/modules/BitrateManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/Content/main/modules/BitrateManager.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/pages/Content/utils/VideoPlayerController.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/pages/default_experiment_config.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/default_experiment_config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/scripts/cadmium-player.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/src/scripts/netflix-controls-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/scripts/netflix-controls-script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/extension/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,19 +22,43 @@
   <component name="ComposerSettings">
     <execution />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectId" id="2AbwtyhYYJCW4h9r8Cqs4UeGmSd" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">
-    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="aspect.path.notification.shown" value="true" />
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/navuyi/Desktop/tufiqoe/WatchingWithFriends-TUFIQoE-2022/scenarios&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/navuyi/Desktop/tufiqoe/WatchingWithFriends-TUFIQoE-2022/extension/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/scenarios" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/backend/database" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -38,6 +71,32 @@
       <workItem from="1655291824637" duration="16000" />
       <workItem from="1656680629236" duration="89000" />
       <workItem from="1657102262519" duration="595000" />
+      <workItem from="1664263458392" duration="15322000" />
+      <workItem from="1664349478227" duration="2273000" />
+      <workItem from="1664359917167" duration="4000" />
+      <workItem from="1664359935366" duration="645000" />
+      <workItem from="1664361057616" duration="1288000" />
+      <workItem from="1664367235961" duration="389000" />
+      <workItem from="1664442386609" duration="4841000" />
+      <workItem from="1664473839087" duration="1337000" />
+      <workItem from="1664480133484" duration="2129000" />
+      <workItem from="1664485384998" duration="1185000" />
+      <workItem from="1664531002569" duration="2215000" />
+      <workItem from="1664547232737" duration="8000" />
+      <workItem from="1664789681401" duration="468000" />
+      <workItem from="1664790156530" duration="2000" />
+      <workItem from="1664790166547" duration="174000" />
+      <workItem from="1664958679730" duration="15980000" />
+      <workItem from="1665132206962" duration="1032000" />
+      <workItem from="1665151077142" duration="18000" />
+      <workItem from="1665382878675" duration="371000" />
+      <workItem from="1665383316425" duration="4443000" />
+      <workItem from="1665395653028" duration="1648000" />
+      <workItem from="1665408884319" duration="6536000" />
+      <workItem from="1665469423718" duration="5158000" />
+      <workItem from="1665482049602" duration="1859000" />
+      <workItem from="1665493120969" duration="1824000" />
+      <workItem from="1665558318217" duration="5155000" />
     </task>
     <servers />
   </component>
