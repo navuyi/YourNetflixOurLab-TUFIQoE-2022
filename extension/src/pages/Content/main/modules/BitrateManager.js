@@ -247,6 +247,5 @@ export class BitrateManager {
                 }
             }, 10)
         })
-
     }
 }
