@@ -40,6 +40,9 @@
     "debugger",
     "webNavigation",
     "unlimitedStorage",
-    "background"
+    "background",
+    "declarativeNetRequest",
+    "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback"
   ]
 }

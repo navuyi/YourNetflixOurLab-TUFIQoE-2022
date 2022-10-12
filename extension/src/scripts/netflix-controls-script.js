@@ -8,6 +8,3 @@ seek_element.addEventListener('click', () => {
 });
 (document.body).appendChild(seek_element);
 
-
-
-const fullscreen_element = document.createElement("div")

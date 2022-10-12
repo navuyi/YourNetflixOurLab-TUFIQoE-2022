@@ -3,8 +3,6 @@ import {Controller} from "./modules/Controller"
 import { STORAGE_DEFAULT } from "../config"
 import { get_local_datetime } from "../../utils/time_utils"
 
-
-
 /**
  * Detect extension reloads and perform actions.
  * This listener callback executes only when extension is installed or reloaded. 

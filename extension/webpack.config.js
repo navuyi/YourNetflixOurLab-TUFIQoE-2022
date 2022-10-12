@@ -52,10 +52,11 @@ var options = {
     devtools: path.join(__dirname, 'src', 'pages', 'Devtools', 'index.js'),
     panel: path.join(__dirname, 'src', 'pages', 'Panel', 'index.jsx'),
     */
-    netflixControls: path.join(__dirname, 'src', 'scripts', 'netflix-controls-script.js')
+    netflixControls: path.join(__dirname, 'src', 'scripts', 'netflix-controls-script.js'),
+    cadmiumPlayercore: path.join(__dirname, 'src', 'scripts', 'cadmium-playercore.js')
   },
   chromeExtensionBoilerplate: {
-    notHotReload: ['background', 'mainContentScript', 'mapperContentScript', 'netflixControls'],  // Remember to include content script in notHotReload!!!
+    notHotReload: ['background', 'mainContentScript', 'mapperContentScript', 'netflixControls', 'cadmiumPlayercore'],  // Remember to include content script in notHotReload!!!
   },
   output: {
     filename: '[name].bundle.js',
