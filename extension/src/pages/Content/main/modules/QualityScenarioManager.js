@@ -5,19 +5,15 @@ import BitrateController from "./BitrateController";
 import {BitrateMenu} from "../../utils/BitrateMenu";
 
 export class QualityScenarioManager {
+    scenario
+    bitrate_interval
+    logger
+    bitrate_menu
+    iterator
+    bitrate_controller
+
     constructor() {
-        // Episode's scenario
-        this.scenario = undefined
-        // Bitrate change interval - config file
-        this.bitrate_interval = undefined
-        // Custom logger
-        this.logger = undefined
-        // BitrateMenu instance
-        this.bitrate_menu = undefined
-        // Scenario iterator
-        this.iterator = undefined
-        // BitrateController instance
-        this.bitrate_controller = undefined
+       // empty :)
     }
 
 

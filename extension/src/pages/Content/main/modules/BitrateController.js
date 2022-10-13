@@ -7,6 +7,8 @@ import BufferResetter from "./BufferResetter";
 
 
 class BitrateController{
+    scenario; interval; iterator; bitrate_menu; logger; buffer_resetter;
+
     constructor(scenario, interval, bitrate_menu, iterator) {
         this.scenario = scenario
         this.interval = interval
