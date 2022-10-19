@@ -3,7 +3,7 @@ import { StatisticsMenu } from "../../utils/StatisticsMenu"
 import { CONFIGURATION_KEYS, DATABASE_KEYS, MESSAGE_HEADERS, MESSAGE_TEMPLATE, STORAGE_KEYS } from "../../../config"
 import { ScenarioGenerator } from "./ScenarioGenerator"
 import { CustomLogger } from "../../../../utils/CustomLogger"
-
+import {wait_for_video_to_load} from "../../utils/wait_for_video_to_load";
 
 class Mapper{
     constructor(){
@@ -21,8 +21,6 @@ class Mapper{
         this.logger = new CustomLogger("[Mapper]")
     }
 
-    
-
 
     async init(){
         // Init BitrateMenu instance
@@ -37,12 +35,22 @@ class Mapper{
         this.available_bitrates = this.bitrate_menu.get_available_bitrates()
         this.logger.log(`Available bitrates: ${this.available_bitrates}`)
 
-        // Start mapping
-        setTimeout(async () => {
-            await this.create_map()
-        }, 10000)
+
+        await wait_for_video_to_load()
+        this.mute_video()
+        await this.create_map()
     }
 
+
+    mute_video(){
+        const v = document.getElementsByTagName("video")[0]
+        if(v != null){
+            v.muted = true
+        }
+        else{
+            this.logger.log("Video element is undefined")
+        }
+    }
 
     /**
      *  This method maps available bitrate values to vmaf.

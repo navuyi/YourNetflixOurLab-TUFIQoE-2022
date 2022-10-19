@@ -4,7 +4,7 @@ import {STORAGE_KEYS} from "../../../config";
 import {get_local_datetime} from "../../../../utils/time_utils";
 import {send_bitrate} from "../../../../utils/http_requests/send_bitrate";
 import BufferResetter from "./BufferResetter";
-
+import {wait_for_video_to_load} from "../../utils/wait_for_video_to_load";
 
 class BitrateController{
     scenario; interval; iterator; bitrate_menu; logger; buffer_resetter;
@@ -20,7 +20,7 @@ class BitrateController{
     }
 
     async init(){
-        await this.wait_for_video_to_load()
+        await wait_for_video_to_load()
 
         await this.set_bitrate()    // First bitrate set after video is loaded
 
@@ -31,32 +31,7 @@ class BitrateController{
         this.start_bitrate_change_interval()    // Scheduling the rest of bitrate changes using setInterval
     }
 
-    /**
-     * Method waits for the essential html elements to be loaded and available for manipulation.
-     * @returns {Promise<unknown>}
-    */
-    async wait_for_video_to_load(){
-        return new Promise((resolve) => {
-            let interval = undefined
-            interval = setInterval(async () => {
-                try {
-                    const video = document.getElementsByTagName("video")[0]
-                    const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
 
-                    if (video && ltr_element) {
-                        clearInterval(interval) // stop the retrying process - must be first
-                        this.logger.log("HTML video element is loaded. Proceeding...")
-                        resolve()
-                    }
-                    else{
-                        this.logger.log("Video element not found! Retrying...")
-                    }
-                } catch (err) {
-                    this.logger.log(err)
-                }
-            }, 100)
-        })
-    }
 
     /**
      * Universal method for setting the next bitrate value in order.

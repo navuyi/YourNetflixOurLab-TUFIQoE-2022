@@ -73,9 +73,22 @@ export class StatsAnalyzer{
         // Checking PlayerSpace class element in case of last episode of the last season
         const player_space = document.getElementsByClassName("PlayerSpace")[0]
 
-        // Check Wroc do przeglądania element! ! ! ! !!
-        // a with class="BackToBrowse"
-        if(player_space != null){
+        // This element is displayed when last video of last season is played or a standalone movie
+        const back_to_browse = document.getElementsByClassName("BackToBrowse")[0]
+
+        if(back_to_browse){
+            clearInterval(this.interval)
+
+            // Pause the video
+            document.getElementsByTagName("video")[0].pause()
+
+            // Send FINISHED signal to the BackgroundScript
+            await chrome.runtime.sendMessage({
+                [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.FINISHED,
+                [MESSAGE_TEMPLATE]: true
+            })
+        }
+        else if(player_space){
             // Stop analyzing
             clearInterval(this.interval)
 

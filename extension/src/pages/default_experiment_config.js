@@ -1,7 +1,7 @@
 export const DEFAULT_EXPERIMENT_CONFIGURATION = {
   "assessment_interval": 150,
   "bitrate_interval": 150,
-  "description": "",
+  "description": "can be left as empty string",
   "videos": [
     {
       "bitrate_vmaf_map": [
