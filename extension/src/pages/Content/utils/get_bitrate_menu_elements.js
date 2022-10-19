@@ -48,7 +48,7 @@ const extract_html_elements = () => {
     const bitrate_menu_div = container.childNodes[1]
     const select = bitrate_menu_div.childNodes[1]
     const options = Array.from(bitrate_menu_div.childNodes[1].childNodes)
-    const bitrate_values = Array.from(bitrate_menu_div.childNodes[1].childNodes).map(option => {return parseInt(option.innerText)})
+    const bitrate_values = Array.from(bitrate_menu_div.childNodes[1].childNodes).map(option => {return parseInt(option.value)})
 
     return {
         container: container,
