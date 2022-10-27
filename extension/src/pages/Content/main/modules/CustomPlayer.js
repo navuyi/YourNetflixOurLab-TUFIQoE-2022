@@ -1,6 +1,5 @@
 import {wait_for_video_to_load} from "../../utils/wait_for_video_to_load";
 import {CustomLogger} from "../../../../utils/CustomLogger";
-import {remove_whitespaces} from "../../../../utils/string_utils";
 
 
 export class CustomPlayer{
@@ -10,60 +9,83 @@ export class CustomPlayer{
     }
 
 
+    update_volume_display(){
+        const v = document.getElementsByTagName("video")[0]
+        const volume = v.volume
+        document.getElementById("volume_display").innerText = this.convert_to_percentage(volume) + " %"
+    }
+
+    convert_to_percentage(value){
+        return (value*100).toFixed(0)
+    }
+
+
+    increment_volume(){
+        let v = document.getElementsByTagName("video")[0]
+        if(v.volume + 0.05 < 1){
+            v.volume += 0.05
+        }else{
+            v.volume = 1
+        }
+        this.update_volume_display()
+    }
+
+    decrement_volume(){
+        let v = document.getElementsByTagName("video")[0]
+        if(v.volume - 0.05 > 0){
+            v.volume -= 0.05
+        }
+        else{
+            v.volume = 0
+        }
+        this.update_volume_display()
+    }
+
+    create_controls_container(){
+        const container = document.createElement("div")
+        container.style.width = "200px"
+        container.style.display = "flex"
+        container.style.justifyContent = "space-between"
+        container.style.alignItems = "center"
+
+        return container
+    }
+
+    create_volume_display(){
+        const display = document.createElement("div")
+        display.id = "volume_display"
+        display.innerText = (document.getElementsByTagName("video")[0].volume * 100).toFixed(0) + " %"
+
+        display.style.fontSize = "24px"
+        display.style.fontWeight = "bold"
+
+        return display
+    }
+
     async init(){
        await this.create_shutter()
 
         const down = this.create_volume_button("volume_down", "-")
         const up = this.create_volume_button("volume_up", "+")
+        const container = this.create_controls_container()
+        const display = this.create_volume_display()
 
-        down.onclick = () => {
-           let v = document.getElementsByTagName("video")[0]
-            if(v.volume - 0.05 > 0){
-                v.volume -= 0.05
-            }
-            else{
-                v.volume = 0
-            }
-            document.getElementById("volume_level").innerText = (document.getElementsByTagName("video")[0].volume * 100).toFixed(0) + " %"
-        }
-
-
-        up.onclick = () => {
-            let v = document.getElementsByTagName("video")[0]
-            if(v.volume + 0.05 < 1){
-                v.volume += 0.05
-            }else{
-                v.volume = 1
-            }
-            document.getElementById("volume_level").innerText = (document.getElementsByTagName("video")[0].volume * 100).toFixed(0) + " %"
-        }
-
-        const controls = document.createElement("div")
-        controls.style.width = "200px"
-        controls.style.display = "flex"
-        controls.style.justifyContent = "space-between"
-        controls.style.alignItems = "center"
-
-        const counter = document.createElement("div")
-        counter.id = "volume_level"
-        counter.innerText = (document.getElementsByTagName("video")[0].volume * 100).toFixed(0) + " %"
-
-        counter.style.fontSize = "24px"
-        counter.style.fontWeight = "bold"
-
-        controls.appendChild(down)
-        controls.appendChild(counter)
-        controls.appendChild(up)
+        down.onclick = this.decrement_volume.bind(this)
+        up.onclick = this.increment_volume.bind(this)
 
 
 
-        controls.style.zIndex = "10100"
-        controls.onclick = e => e.stopPropagation()
+        container.appendChild(down)
+        container.appendChild(display)
+        container.appendChild(up)
+
+        container.style.zIndex = "10100"
+        container.onclick = e => e.stopPropagation()
 
         const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
         ltr_element.addEventListener("mousemove", () => {
             let controls_container = document.getElementsByClassName("watch-video--bottom-controls-container")[0]
-            controls_container ? controls_container.replaceChildren(controls) : null
+            controls_container ? controls_container.replaceChildren(container) : null
         })
     }
 
