@@ -144,7 +144,7 @@ export class AssessmentManager{
         background.style.position = "absolute"; background.style.left= "0"; background.style.top = "0";
         background.style.backgroundColor = "#221F1F";
         background.style.display = "flex"; background.style.justifyContent = "center"; background.style.alignItems = "center"; background.style.flexDirection = "column"
-        background.style.zIndex = "10000"
+        background.style.zIndex = "11000"
 
 
         background.onclick = (e) => {
