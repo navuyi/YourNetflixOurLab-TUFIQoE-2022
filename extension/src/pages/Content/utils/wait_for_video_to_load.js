@@ -22,6 +22,6 @@ export const wait_for_video_to_load = async () => {
             } catch (err) {
                 console.log(err)
             }
-        }, 100)
+        }, 50)
     })
 }
