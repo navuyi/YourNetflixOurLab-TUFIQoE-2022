@@ -70,8 +70,20 @@ export class AssessmentManager{
         const popup = document.getElementById("assessment-popup")
         this.started = new Date()
         popup.style.display = "unset"
+
+        this.pause_video_playback()
     }
 
+
+    pause_video_playback(){
+        const video = document.getElementsByTagName("video")[0]
+        if(video) video.pause()
+    }
+
+    async resume_video_playback(){
+        const video = document.getElementsByTagName("video")[0]
+        if(video) await video.play()
+    }
 
     /**
      * Prepares assessment interval so that it can be used as an argument for setTimeout
@@ -228,6 +240,8 @@ export class AssessmentManager{
         document.getElementById("assessment-popup").style.display = "none"
         const value = e.target.getAttribute("value")
         const description = e.target.getAttribute("description")
+
+        await this.resume_video_playback()
         
         const data = {
             video_id: (await chrome.storage.local.get([STORAGE_KEYS.DATABASE_VIDEO_ID]))[STORAGE_KEYS.DATABASE_VIDEO_ID],
