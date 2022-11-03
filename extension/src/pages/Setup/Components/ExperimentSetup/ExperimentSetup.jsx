@@ -5,7 +5,7 @@ import TesterIDContainer from "./components/TesterIDContainer"
 import StartExperimentButton from "./components/StartExperimentButton/StartExperimentButton";
 import useDeviceID from "./hooks/useDeviceID";
 
-import { Row, Col } from "react-bootstrap"
+import {Row, Col, Button} from "react-bootstrap"
 
 import { STORAGE_KEYS } from "../../../config";
 
@@ -34,6 +34,9 @@ const ExperimentSetup = (props) => {
 
             <Row className="mt-5">
                 <StartExperimentButton />
+            </Row>
+            <Row>
+                <Button onClick={()=>{props.handle_config_hide()}} className={"w-100 mt-5"} variant={"secondary"}>Hide or reveal</Button>
             </Row>
         </>
     )

@@ -1,19 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
-
 import axios from 'axios';
 import { backend_urls } from "../../utils/http_requests/config"
-
-import { Container, Col, Row } from "react-bootstrap"
-
+import {Container, Col, Row, Button} from "react-bootstrap"
 import 'bootstrap/dist/css/bootstrap.css'
 import './Setup.scss';
 import ConfigFileMenu from './Components/ConfigFileMenu/ConfigFileMenu';
 import ExperimentSetup from './Components/ExperimentSetup/ExperimentSetup';
 
+
 const Setup = () => {
   const [backendActive, setBackendActive] = useState(false)
+  const [configHidden, setConfigHidden] = useState(false)
 
   useEffect(() => {
     const init = async () => {
@@ -31,6 +30,10 @@ const Setup = () => {
     init()
   }, [])
 
+  const handle_config_hide = () => {
+    setConfigHidden(prevState => !prevState)
+  }
+
 
   return (
     <div className="App" >
@@ -39,10 +42,12 @@ const Setup = () => {
           <Container fluid className='mt-5 pt-5 pb-5'>
             <Row className="justify-content-between">
               <Col xxl={6} xl={6} lg={8} md={12} style={{ marginTop: "30px", textAlign: "left", fontWeight: "bold" }}>
-                <ConfigFileMenu />
+                {
+                  configHidden ? null : <ConfigFileMenu />
+                }
               </Col>
               <Col xxl={4} xl={6} lg={8} md={12} className="mt-5 mt-xl-0" style={{ alignItems: "center", justifyContent: "center" }}>
-                <ExperimentSetup />
+                <ExperimentSetup handle_config_hide={handle_config_hide}/>
               </Col>
             </Row>
           </Container> :
