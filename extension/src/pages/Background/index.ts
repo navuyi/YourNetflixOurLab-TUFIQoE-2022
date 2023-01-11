@@ -1,7 +1,8 @@
-import {MESSAGE_HEADERS, MESSAGE_TEMPLATE} from "../config"
+import {MESSAGE_HEADERS} from "../config"
 import {Controller} from "./modules/Controller"
 import { STORAGE_DEFAULT } from "../config"
 import { get_local_datetime } from "../../utils/time_utils"
+import { T_MESSAGE } from "../../config/messages.config"
 
 /**
  * Detect extension reloads and perform actions.
@@ -15,10 +16,11 @@ chrome.runtime.onInstalled.addListener(() => {
 })
 
 chrome.action.onClicked.addListener(async (tab) => {
-    console.log(tab)
-    await chrome.tabs.update(tab.tabId, {
-        url: "setup.html"
-    })
+    if(tab && tab.id){
+        await chrome.tabs.update(tab.id, {
+            url: "setup.html"
+        })
+    } 
 })
 
 
@@ -39,37 +41,37 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     return true     // return true is essential to indicate that response will be sent asynchronously
 })
 
-
-
 // Initialize Controller instance
 const controller = new Controller()
 controller.init()
-
-
 
 /** 
  * Function checks if received message is signal indicating end of video
  * Redirects the tab that the message came from to the custom web page
  * REMEMBER to use sendResponse !!!
 */
-const receive_finished_signal = async (message, sender, sendResponse) => {
-    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.FINISHED){
-        // Redirect to custom webpage
-        const tabId = sender.tab.id
-        await chrome.tabs.update(tabId, {
-            url: "break.html"
-        })
-        sendResponse({msg: "Finish signal received"}) // Essential sendResponse
+const receive_finished_signal = async (message:T_MESSAGE, sender:chrome.runtime.MessageSender, sendResponse:Function) => {
+    if(message.header === MESSAGE_HEADERS.FINISHED){
+       if(sender.tab){
+         // Redirect to custom webpage
+         const tabId = Number(sender.tab.id)
+         await chrome.tabs.update(tabId, {
+             url: "break.html"
+         })
+         sendResponse({msg: "Finish signal received"}) // sendResponse is essential
+       }
     }
 }
 
-const receive_redirect_signal = async (message, sender, sendResponse) => {
-    if(message[MESSAGE_TEMPLATE.HEADER] === MESSAGE_HEADERS.REDIRECT){
-        const tabId = sender.tab.id
-        await chrome.tabs.update(tabId, {
-            url: message.data.url
-        })
-
-        sendResponse({msg: "Redirect signal received"})
+const receive_redirect_signal = async (message:T_MESSAGE, sender:chrome.runtime.MessageSender, sendResponse:Function) => {
+    if(message.header === MESSAGE_HEADERS.REDIRECT){
+        if(sender.tab){
+            const tabId = Number(sender.tab.id)
+            await chrome.tabs.update(tabId, {
+                url: message.data.url
+            })
+    
+            sendResponse({msg: "Redirect signal received"}) // sendResponse is essential
+        } 
     }
 }

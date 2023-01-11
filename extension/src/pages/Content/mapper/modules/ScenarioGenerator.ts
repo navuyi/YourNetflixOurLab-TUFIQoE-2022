@@ -1,4 +1,4 @@
-import { CustomLogger } from "../../../../utils/CustomLogger"
+import { CustomLogger } from "../../../../utils/custom/CustomLogger"
 import { CONFIGURATION_KEYS } from "../../../config"
 
 

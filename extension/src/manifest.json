@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Watching With Friends",
+  "name": "YourNetflixOurLab",
   "description": "AGH-TUFIQoE-2022 Netflix Experiment || Chrome Extension by Rafal Figlus",
   "background": {
     "service_worker": "background.bundle.js"

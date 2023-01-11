@@ -2,20 +2,21 @@ import { get_local_datetime } from "../../../utils/time_utils"
 import {EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS} from "../../config"
 import { CustomLogger } from "../../../utils/CustomLogger"
 
+const NETFLIX_WATCH_URL = "https://www.netflix.com/watch"
+
 export class Controller{
+    private logger : CustomLogger
+
     constructor() {
-       this.NETFLIX_WATCH_URL = "https://www.netflix.com/watch"
        this.logger = new CustomLogger("[Controller]")
     }
 
-    async init(){
+    public init = async () : Promise<void> => {
         this.logger.log("Initializing...")
         this.listenForVideoStart()
     }
 
-    
-
-    async injectScript(tabId){
+    private injectScript = async (tabId:number) : Promise<void> => {
         const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
         const mode = (await chrome.storage.local.get([STORAGE_KEYS.EXTENSION_MODE]))[STORAGE_KEYS.EXTENSION_MODE]
         if(running === false){
@@ -23,10 +24,7 @@ export class Controller{
             return
         }
         
-        // Increase video count
-        /**
-         * 
-        */
+       
         await this.increaseVideoCount()
 
         // Define conent script file
@@ -39,9 +37,10 @@ export class Controller{
             this.logger.log("Mapping mode detected. Switching to mapperContentScript.bundle.js")
             content_script = "mapperContentScript.bundle.js"
         }
-        else(
+        else{
             this.logger.log("Content script is incorrect!!!")
-        )
+            return
+        }
 
         await chrome.scripting.executeScript({
            target: {
@@ -91,7 +90,7 @@ export class Controller{
         chrome.webNavigation.onCompleted.addListener(details => {
             this.logger.log(`ON COMPLETED`)
             this.logger.log(details)
-            if(details.frameId === 0 && details.url.includes(this.NETFLIX_WATCH_URL)) {
+            if(details.frameId === 0 && details.url.includes(NETFLIX_WATCH_URL)) {
                 chrome.tabs.get(details.tabId, async (tab) => {
                     if(tab.url === details.url) {
                         this.logger.log("Entered Netflix Video Player")
