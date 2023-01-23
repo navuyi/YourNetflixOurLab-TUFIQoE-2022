@@ -39,9 +39,9 @@ export const invoke_bitrate_menu_and_get_html_elements = async () : Promise<T_BI
 */
 export const extract_html_elements = () : T_BITRATE_MENU_ELEMENTS => {
     // Get outter menu container
-    const container = [...document.querySelectorAll("div")].filter(item => item.innerText.match("Video Bitrate"))[1]
-    const override_button = [...document.querySelectorAll("button")].filter(button => button.innerText.match("Override"))[0]
-    const reset_button = [...document.querySelectorAll("button")].filter(button => button.innerText.match("Reset"))[0]
+    const container = Array.from(document.querySelectorAll("div")).filter(item => item.innerText.match("Video Bitrate"))[1]
+    const override_button = Array.from(document.querySelectorAll("button")).filter(button => button.innerText.match("Override"))[0]
+    const reset_button = Array.from(document.querySelectorAll("button")).filter(button => button.innerText.match("Reset"))[0]
 
     // Get bitrate menu container
     const bitrate_menu_div = container.childNodes[1]

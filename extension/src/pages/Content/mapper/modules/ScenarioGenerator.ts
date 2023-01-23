@@ -1,23 +1,19 @@
+import { T_BITRATE_VMAF_MAP_ITEM, T_SCENARIO_ITEM, T_VIDEO } from "../../../../config/types/data-structures.type"
 import { CustomLogger } from "../../../../utils/custom/CustomLogger"
-import { CONFIGURATION_KEYS } from "../../../config"
+
 
 
 
 export class ScenarioGenerator{
-    constructor(video){
-        this.video = video
-        this.bitrate_vmaf_map = video[CONFIGURATION_KEYS.VIDEO_KEYS.BITRATE_VMAF_MAP]
-        this.vmaf_template_scenario = video[CONFIGURATION_KEYS.VIDEO_KEYS.VMAF_TEMPLATE_SCENARIO]
-        this.scenario = []
-
-        this.logger = new CustomLogger("[ScenarioGenerator]")
-    }
-
-
-    generate_video_scenario(){
-        for(const vmaf_template of this.vmaf_template_scenario){
-           
-            const {bitrate, vmaf} = this.find_closest_match(vmaf_template)
+    private static logger : CustomLogger = new CustomLogger("[ScenarioGenerator]")
+    
+    public static generate_video_scenario = (video : T_VIDEO) : T_SCENARIO_ITEM[] => {
+        // Initialize video scenario array
+        const scenario : T_SCENARIO_ITEM[] = []
+        const bitrate_vmaf_map = video.bitrate_vmaf_map
+       
+        for(const vmaf_template of video.vmaf_template_scenario){
+            const {bitrate, vmaf} = this.find_closest_match(vmaf_template, bitrate_vmaf_map!)
             
             const scenario_item = {
                 bitrate: bitrate,
@@ -25,23 +21,19 @@ export class ScenarioGenerator{
                 vmaf_template: vmaf_template,
                 vmaf_diff: Math.abs(vmaf-vmaf_template)
             }
-            this.scenario.push(scenario_item)
+           scenario.push(scenario_item)
         }
-
-        return this.scenario
+        return scenario
     }
 
 
-    find_closest_match(vmaf_template){
-        let closest_match;
-        this.bitrate_vmaf_map.reduce((previous, current) => {
-            return (Math.abs(current.vmaf - vmaf_template) < Math.abs(previous.vmaf - vmaf_template) ? closest_match=current : closest_match=previous)
-        })
-
-        return {
-            bitrate: parseInt(closest_match.bitrate),
-            vmaf: parseInt(closest_match.vmaf)
-        }
+    public static find_closest_match = (expected_vmaf: number, bitrate_vmaf_map:T_BITRATE_VMAF_MAP_ITEM[]) : T_BITRATE_VMAF_MAP_ITEM => {
+        // Sorts bitrate_vmaf_map based on difference from expected_vmaf - if expected value is in middle eg. 45 |50| 60 -> 40 will be choosen
+        const closest_match = bitrate_vmaf_map.sort((a,b) => {
+            return Math.abs(a.vmaf-expected_vmaf) - Math.abs(b.vmaf-expected_vmaf)
+        })[0]
+        
+        return closest_match
     }
     
 }

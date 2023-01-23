@@ -7,8 +7,7 @@ export type T_EXPERIMENT_SETTINGS = {
     stats_invisible: boolean,
     bitrate_interval_ms: number,
     assessment_interval_ms: number,
-
-    config: T_CONFIG
+    config: T_CONFIG | null
 }
 
 export type T_EXPERIMENT_VARIABLES = {
@@ -34,8 +33,7 @@ export const STORAGE_DEFAULT : T_STORAGE = {
         stats_invisible: false,
         bitrate_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
         assessment_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
-        incomplete_config: null,
-        complete_config: null
+        config: null
     },
     experiment_variables: {
         database_experiment_id: -1,

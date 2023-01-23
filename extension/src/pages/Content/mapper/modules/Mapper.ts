@@ -8,11 +8,12 @@ import { T_BITRATE_VMAF_MAP_ITEM } from "../../../../config/types/data-structure
 import { NetflixBitrateMenu } from "../../../../utils/netflix/NetflixBitrateMenu"
 import { wait_for_video_to_load } from "../../../../utils/waiters/wait_for_video_to_load"
 import { ChromeStorage } from "../../../../utils/custom/ChromeStorage"
+import { T_MESSAGE } from "../../../../config/messages.config"
+import { MESSAGE_HEADERS } from "../../../../config/messages.config"
 
 class Mapper{
     private available_bitrates : Array<number>
     private bitrate_vmaf_map : Array<T_BITRATE_VMAF_MAP_ITEM>
-   
     private logger : CustomLogger
 
     constructor(){
@@ -38,7 +39,7 @@ class Mapper{
     private create_map = async () : Promise<void> => {
         for(const bitrate of this.available_bitrates){
             // Set next bitrate to be mapped
-            await NetflixBitrateMenu.set_bitrate(bitrate)//this.bitrate_menu.set_bitrate(bitrate)
+            await NetflixBitrateMenu.set_bitrate(bitrate)
 
             // Wait for buffering bitrate and vmaf to change
             const map_item = await this.wait_for_change(bitrate)
@@ -84,43 +85,37 @@ class Mapper{
                     }
                     resolve(map_item)
                 }
-            }, 1000)
+            }, 500)
         })
     }
 
-
-
-    async finalize(){
+    private finalize = async () : Promise<void> => {
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
         
         // Generate Bitrate-VMAF scenario for the video // AFTER UPDATING CONFIGURATION
-        const scenario_generator = new ScenarioGenerator(settings.config.videos[variables.video_index])
-        const scenario = scenario_generator.generate_video_scenario()
-        configuration.videos[video_index][CONFIGURATION_KEYS.VIDEO_KEYS.SCENARIO] = scenario
+        if(!settings.config) return
 
-        
-        // Update local storage
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.CONFIGURATION]: configuration,
-        })
-
+        const scenario = ScenarioGenerator.generate_video_scenario(settings.config.videos[variables.video_index])
+        settings.config.videos[variables.video_index].scenario = scenario
+        await ChromeStorage.set_experiment_settings(settings)
 
         // Update storage if mapping is finished
-        if(MAPPING_FINISHED === true){
-            await chrome.storage.local.set({
-                [STORAGE_KEYS.VIDEO_COUNT]: 0,  // video_count is also used in experiment part
-                [STORAGE_KEYS.RUNNING]: false
-            })
+        const mapping_finished = variables.video_index > settings.config.videos.length
+        if(mapping_finished){
+            variables.video_index = -1
+            variables.experiment_running = false
+            await ChromeStorage.set_experiment_variables(variables)
         }
 
         // Redirect to next video or setup screen
-        chrome.runtime.sendMessage({
-            [MESSAGE_TEMPLATE.HEADER]: MESSAGE_HEADERS.REDIRECT,
-            [MESSAGE_TEMPLATE.DATA]: {
-                url: MAPPING_FINISHED ? "setup.html" : videos[video_index+1].url
+        const msg : T_MESSAGE = {
+            header: MESSAGE_HEADERS.REDIRECT,
+            data: {
+                url: mapping_finished ? "setup.html" : settings.config.videos[variables.video_index+1].url
             }
-        })        
+        }
+        chrome.runtime.sendMessage(msg)        
     }
 }
 

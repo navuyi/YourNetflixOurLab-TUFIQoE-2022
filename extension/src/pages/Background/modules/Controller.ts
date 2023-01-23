@@ -1,6 +1,5 @@
-import { get_local_datetime } from "../../../utils/time_utils"
-import {EXTENSION_MODE_AVAILABLE, STORAGE_DEFAULT, STORAGE_KEYS} from "../../config"
-import { CustomLogger } from "../../../utils/CustomLogger"
+import { ChromeStorage } from "../../../utils/custom/ChromeStorage"
+import { CustomLogger } from "../../../utils/custom/CustomLogger"
 
 const NETFLIX_WATCH_URL = "https://www.netflix.com/watch"
 
@@ -17,8 +16,9 @@ export class Controller{
     }
 
     private injectScript = async (tabId:number) : Promise<void> => {
-        const running = (await chrome.storage.local.get([STORAGE_KEYS.RUNNING]))[STORAGE_KEYS.RUNNING]
-        const mode = (await chrome.storage.local.get([STORAGE_KEYS.EXTENSION_MODE]))[STORAGE_KEYS.EXTENSION_MODE]
+        const variables = await ChromeStorage.get_experiment_variables()
+        const running = variables.experiment_running
+        const mode = variables.extension_mode
         if(running === false){
             this.logger.log("Extension is not running.")
             return
@@ -29,16 +29,16 @@ export class Controller{
 
         // Define conent script file
         let content_script;
-        if(mode === EXTENSION_MODE_AVAILABLE.EXPERIMENT){
+        if(mode === "main"){
             this.logger.log("Experiment mode detected. Switching to mainContentScript.bundle.js")
             content_script = "mainContentScript.bundle.js"
         }
-        else if(mode === EXTENSION_MODE_AVAILABLE.MAPPING){
+        else if(mode === "mapping"){
             this.logger.log("Mapping mode detected. Switching to mapperContentScript.bundle.js")
             content_script = "mapperContentScript.bundle.js"
         }
         else{
-            this.logger.log("Content script is incorrect!!!")
+            this.logger.log("Extension mode is set up incorrectly")
             return
         }
 
@@ -58,12 +58,12 @@ export class Controller{
      *  It means that n-th video in row has the count of n for the enterity of playback. The index is n-1  
     */
     async increaseVideoCount(){
-        const count = (await chrome.storage.local.get([STORAGE_KEYS.VIDEO_COUNT]))[STORAGE_KEYS.VIDEO_COUNT]
-        const new_count = count+1
-        this.logger.log(`Increasing video count to ${new_count}`)
-        await chrome.storage.local.set({
-            [STORAGE_KEYS.VIDEO_COUNT]: new_count
-        })
+        const variables = await ChromeStorage.get_experiment_variables()
+        const video_index = variables.video_index
+        const next_video_index = video_index + 1
+        this.logger.log(`Increasing video count to ${next_video_index}`)
+        variables.video_index = next_video_index
+        await ChromeStorage.set_experiment_variables(variables)
     }
 
 
