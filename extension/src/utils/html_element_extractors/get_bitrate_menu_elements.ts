@@ -1,4 +1,4 @@
-import { T_BITRATE_MENU_ELEMENTS } from "../../config/types/bitrate-menu.type.js"
+import { T_BITRATE_MENU_ELEMENTS } from "../netflix/NetflixBitrateMenu.js"
 import {simulate_bitrate_menu_hotkey} from "../keyboard_hotkeys/simulate_bitrate_menu_hotkeys.js"
 
 /**

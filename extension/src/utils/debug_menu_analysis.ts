@@ -1,4 +1,4 @@
-import { T_DATABASE } from "../config/types/database.type"
+import { T_DEBUG_DATA_PROCESSED } from "../config/types/data-structures.type"
 
 /**
  * Utility method --> extracts useful data from nerds stats (long) string
@@ -22,8 +22,8 @@ const get_value = (regex:string, group:number, data:string) => {
     }
 }
 
-export const extract_debug_menu_data = (debug_menu_text : string, timestamp : string) : T_DATABASE => {
-    const data : T_DATABASE =  {
+export const extract_debug_menu_data = (debug_menu_text : string, timestamp : string) : T_DEBUG_DATA_PROCESSED => {
+    const data : T_DEBUG_DATA_PROCESSED =  {
         position: extract_position(debug_menu_text),
         volume: extract_volume(debug_menu_text),
         segment_position: extract_segment_position(debug_menu_text),

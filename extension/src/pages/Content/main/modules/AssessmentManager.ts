@@ -1,33 +1,41 @@
-import { CustomLogger } from "../../../../utils/CustomLogger"
+import { ChromeStorage } from "../../../../utils/custom/ChromeStorage"
+import { CustomLogger } from "../../../../utils/custom/CustomLogger"
 import { send_assessment } from "../../../../utils/http_requests/send_assessment"
+import { NetflixPlayerAPI } from "../../../../utils/netflix/NetflixPlayerAPI"
 import { get_local_datetime } from "../../../../utils/time_utils"
-import { CONFIGURATION_KEYS, STORAGE_KEYS } from "../../../config"
-import { ASSESSMENT_INTERVAL } from "../../../config"
-
 
 
 export class AssessmentManager{
+    private interval : ReturnType<typeof setInterval> | undefined
+    private started : Date 
+    private ended : Date
+
+    private jitter_max : number
+    private jitter_min : number
+
+    private assessment_interval : number | undefined
+
+    private logger : CustomLogger
+
     constructor() {
         this.interval = undefined
-        this.started = undefined
-        this.ended = undefined
+        this.started = new Date()
+        this.ended = new Date()
 
         this.jitter_max = 25
         this.jitter_min = 15
 
         this.logger = new CustomLogger("[AssessmentManager]")
-
-        this.assessment_interval = undefined
     }
 
     /**
      * Initialize method. Executed once after creating instance of the class.
     */
-    async init(){
+    public init = async () : Promise<void> => {
         await this.init_popup()
-
         await this.prepare_assessment_interval()
-        if(this.assessment_interval <= 0){
+
+        if(this.assessment_interval!=null && this.assessment_interval <= 0){
             this.logger.log(`Assessment interval set to ${this.assessment_interval}.`)
             this.logger.log(`Assessments are disabled`)
             return
@@ -42,12 +50,14 @@ export class AssessmentManager{
      * Schedules new assessment panel to show up in time determined by
      * defined assessment interval and random jitter
     */
-    schedule_assessment_panel(){
-        const jitter = this.calculate_jitter()
-        this.logger.log(`Scheduling assessment in ${this.assessment_interval/1000} + jitter of ${jitter/1000}.`)
-        setTimeout(() => {
-            this.show_assessment_panel()
-        }, this.assessment_interval + jitter)
+    private schedule_assessment_panel = () : void => {
+        if(this.assessment_interval){
+            const jitter = this.calculate_jitter()
+            this.logger.log(`Scheduling assessment in ${this.assessment_interval/1000} + jitter of ${jitter/1000}.`)
+            setTimeout(() => {
+                this.show_assessment_panel()
+            }, this.assessment_interval + jitter)
+        }
     }
 
     /**
@@ -55,7 +65,7 @@ export class AssessmentManager{
      * Can be a negative or positive value
      * @returns {number}
      */
-    calculate_jitter(){
+    private calculate_jitter = () : number => {
         const range = [-1, 1]
         const multiplier = range[Math.floor(Math.random()*range.length)]
         const seconds = Math.round(Math.random() * (this.jitter_max - this.jitter_min + 1) + this.jitter_min)
@@ -66,39 +76,31 @@ export class AssessmentManager{
     /**
      * Manipulates the assessment panel styling so that is becomes visible
     */
-    show_assessment_panel(){
-        const popup = document.getElementById("assessment-popup")
-        this.started = new Date()
-        popup.style.display = "unset"
-
-        this.pause_video_playback()
+    private show_assessment_panel = () : void => {
+        const popup = document.getElementById("assessment-popup") as HTMLElement
+        if(popup != null){
+            this.started = new Date()
+            popup.style.display = "unset"
+            NetflixPlayerAPI.pause_video()
+        }
     }
 
-
-    pause_video_playback(){
-        const video = document.getElementsByTagName("video")[0]
-        if(video) video.pause()
-    }
-
-    async resume_video_playback(){
-        const video = document.getElementsByTagName("video")[0]
-        if(video) await video.play()
-    }
 
     /**
      * Prepares assessment interval so that it can be used as an argument for setTimeout
      * @returns {Promise<void>}
     */
-    async prepare_assessment_interval(){
-        const configuration = (await chrome.storage.local.get([STORAGE_KEYS.CONFIGURATION]))[STORAGE_KEYS.CONFIGURATION]
-        const interval = configuration[CONFIGURATION_KEYS.ASSESSMENT_INTERVAL]
-        if(interval != null && typeof(interval) == 'number'){
+    private prepare_assessment_interval = async () : Promise<void> => {
+        const settings = await ChromeStorage.get_experiment_settings()
+
+        const interval = settings.config?.assessment_interval
+        if(interval != null && typeof interval == 'number'){
             this.assessment_interval = interval*1000
             this.logger.log(`Configuration assessment interval OK: ${interval}s - ${this.assessment_interval}ms`)
         }
         else{
-            this.logger.log(`Configuration assessment interval missing or incorrect. Using default value: ${ASSESSMENT_INTERVAL}ms.`)
-            this.assessment_interval = ASSESSMENT_INTERVAL
+            this.logger.log(`Configuration assessment interval missing or incorrect. Using default value: ${settings.assessment_interval_ms}ms.`)
+            this.assessment_interval = settings.assessment_interval_ms
         }
     }
 
@@ -106,7 +108,7 @@ export class AssessmentManager{
      * Initializes the assessment popup element
      * @returns {Promise<unknown>}
      */
-    async init_popup(){
+    private init_popup = async () : Promise<void> => {
         return new Promise(resolve => {
             const popup = document.createElement("div")
             const background = this.create_background()
@@ -122,17 +124,17 @@ export class AssessmentManager{
             popup.style.display = "none"
             popup.appendChild(background)
 
-            let interval = undefined
+            let interval : ReturnType<typeof setInterval> | undefined = undefined
             interval = setInterval(() => {
                 try{
                     const video = document.getElementsByTagName("video")[0]
                     const video_div = video.parentElement
-                    const ltr_element = document.querySelectorAll("[data-uia='video-canvas']")[0]
+                    const canvas_element = document.querySelectorAll("[data-uia='video-canvas']")[0] as HTMLElement
 
-                    if(video && video_div && ltr_element){
+                    if(video && video_div && canvas_element){
                         clearInterval(interval) // stop the retrying process
                         video_div.appendChild(popup)    // add popup to the DOM
-                        ltr_element.style.willChange = "unset"  // make popup clickable
+                        canvas_element.style.willChange = "unset"  // make popup clickable
                         resolve()
                     }
                 }
@@ -150,7 +152,7 @@ export class AssessmentManager{
      * Creates background html element
      * @returns {HTMLElement}
     */
-    create_background(){
+    private create_background = () : HTMLElement => {
         const background = document.createElement("div")
         background.style.width = "100vw"; background.style.height = "100vh";
         background.style.position = "absolute"; background.style.left= "0"; background.style.top = "0";
@@ -170,7 +172,7 @@ export class AssessmentManager{
      * Creates header HTML element
      * @returns {HTMLElement}
     */
-    create_header(){
+    private create_header = () : HTMLElement => {
         const header = document.createElement("h1")
         header.innerText = "Oceń jakość usługi od strony audiowizualnej"
         header.style.color = "#F39A9D"
@@ -187,7 +189,7 @@ export class AssessmentManager{
      */
     create_buttons(){
         const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła"]
-        const buttons = []
+        const buttons : HTMLButtonElement[] = []
         descriptions.forEach((text, index) => {
             const button = document.createElement("button")
             const value = 5 - index
@@ -202,19 +204,23 @@ export class AssessmentManager{
             button.style.zIndex = "10001"
             
 
-            button.onmouseenter = (e) => {
-                e.target.style.backgroundColor = "#F39A9D"
-                e.target.style.color = "white"
+            button.onmouseenter = (e:Event) => {
+                const target = e.target as HTMLButtonElement
+                target.style.backgroundColor = "#F39A9D"
+                target.style.color = "white"
             }
             button.onmouseleave = (e) => {
-                e.target.style.backgroundColor = "white"
-                e.target.style.color = "black"
+                const target = e.target as HTMLButtonElement
+                target.style.backgroundColor = "white"
+                target.style.color = "black"
             }
             button.onmousedown = (e) => {
-                e.target.style.backgroundColor = "#f17074"
+                const target = e.target as HTMLButtonElement
+                target.style.backgroundColor = "#f17074"
             }
             button.onmouseup = (e) => {
-                e.target.style.backgroundColor = "#F39A9D"
+                const target = e.target as HTMLButtonElement
+                target.style.backgroundColor = "#F39A9D"
             }
 
 
@@ -235,22 +241,27 @@ export class AssessmentManager{
      * Reads data - assessment value/description, assessment time and timestamps and sends them to backend server
      * @param {Event} e 
     */
-    async handle_button_click(e){
+    async handle_button_click(e:Event){
         this.ended = new Date()
-        document.getElementById("assessment-popup").style.display = "none"
-        const value = e.target.getAttribute("value")
-        const description = e.target.getAttribute("description")
+        const target = e.target as HTMLButtonElement
+        const popup = document.getElementById("assessment-popup")
+        if(popup) popup.style.display = "none"
+      
+        const value = target.getAttribute("value")
+        const description = target.getAttribute("description")
 
-        await this.resume_video_playback()
-        
+        await NetflixPlayerAPI.resume_video()
+        const variables = await ChromeStorage.get_experiment_variables()
+
         const data = {
-            video_id: (await chrome.storage.local.get([STORAGE_KEYS.DATABASE_VIDEO_ID]))[STORAGE_KEYS.DATABASE_VIDEO_ID],
+            video_id: variables.video_index,
             value: value,
             description: description,
             started: get_local_datetime(this.started),
             timestamp: get_local_datetime(new Date()),
-            duration: this.ended - this.started
+            duration:  this.ended.getTime() - this.started.getTime()
         }
+       
 
         // Schedule next assessment panel
         this.schedule_assessment_panel()

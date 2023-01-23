@@ -62,3 +62,12 @@ export type T_DEBUG_DATA_RAW = {
     data: string | null,
     timestamp: string
 }
+
+export type T_BITRATE_MENU_ELEMENTS = {
+    container: HTMLElement,
+    override_button: HTMLButtonElement,
+    reset_button: HTMLButtonElement,
+    select: HTMLSelectElement,
+    options: Array<HTMLOptionElement>,
+    bitrate_values: Array<number>
+}
