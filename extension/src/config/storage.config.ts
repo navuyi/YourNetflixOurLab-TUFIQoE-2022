@@ -15,8 +15,7 @@ export type T_EXPERIMENT_VARIABLES = {
     database_video_id: number,
     device_id: number | string,
     subject_id: number | string,
-    experiment_type: string,
-    experiment_running : boolean,
+    extension_running : boolean,
     extension_mode: string,
     video_index: number
 }
@@ -38,11 +37,10 @@ export const STORAGE_DEFAULT : T_STORAGE = {
     experiment_variables: {
         database_experiment_id: -1,
         database_video_id: -1,
-        device_id: "",
-        subject_id: "",
-        experiment_type: "",
-        experiment_running: false,
-        extension_mode: "",
-        video_index: -1
+        device_id: "dev_device_id",
+        subject_id: "dev_subject_id",
+        extension_running: false,
+        extension_mode: "", // main or mapping
+        video_index: 0
     }
 }

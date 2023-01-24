@@ -3,8 +3,7 @@ import {CustomLogger} from "../../../../utils/CustomLogger";
 import {STORAGE_KEYS} from "../../../config";
 import {get_local_datetime} from "../../../../utils/time_utils";
 import {send_bitrate} from "../../../../utils/http_requests/send_bitrate";
-import BufferResetter from "./BufferResetter";
-import {wait_for_video_to_load} from "../../utils/wait_for_video_to_load";
+import { wait_for_video_to_load } from "../../../../utils/waiters/wait_for_video_to_load";
 
 class BitrateController{
     scenario; interval; iterator; bitrate_menu; logger; buffer_resetter;
@@ -16,7 +15,6 @@ class BitrateController{
         this.bitrate_menu = bitrate_menu
 
         this.logger = new CustomLogger("[BitrateController]")
-        this.buffer_resetter = new BufferResetter()
     }
 
     async init(){

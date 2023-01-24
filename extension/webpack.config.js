@@ -36,9 +36,9 @@ if (fileSystem.existsSync(secretsPath)) {
 var options = {
   mode: process.env.NODE_ENV || 'development',
   entry: {
-    break: path.join(__dirname, 'src', 'pages', 'Break', 'index.jsx'),
+    break: path.join(__dirname, 'src', 'pages', 'Break', 'index.tsx'),
 
-    setup: path.join(__dirname, 'src', 'pages', 'Setup', 'index.jsx'),
+    setup: path.join(__dirname, 'src', 'pages', 'Setup', 'index.tsx'),
     
     popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
     background: path.join(__dirname, 'src', 'pages', 'Background', 'index.ts'),
@@ -76,6 +76,11 @@ var options = {
           },
           {
             loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: "[local]--[hash:base64:10]--[path]"
+              }
+            }
           },
           {
             loader: 'sass-loader',

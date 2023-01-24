@@ -1,5 +1,5 @@
 import {AssessmentManager} from "./modules/AssessmentManager"
-import QualityScenarioManager from "./modules/QualityScenarioManager";
+import QualityScenarioManager from "./modules/VideoQualityManager";
 import {CustomPlayer} from "./modules/CustomPlayer";
 import { DebugMenuAnalyzer } from "./modules/DebugMenuAnalyzer";
 

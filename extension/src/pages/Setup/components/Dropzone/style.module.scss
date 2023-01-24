@@ -1,0 +1,23 @@
+@import "../../../../config//style.config.scss";
+
+.dropzone{
+    width: 90%;
+    min-height: 150px;
+    background-color: white;
+
+    border-radius: 5px;
+
+    margin-top: 2em;
+    border: 2px $netflix-red dashed;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.text{
+   color: $netflix-dark;
+   font-size: $font-size-small;
+}

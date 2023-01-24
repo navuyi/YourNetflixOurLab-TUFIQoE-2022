@@ -17,7 +17,7 @@ export class Controller{
 
     private injectScript = async (tabId:number) : Promise<void> => {
         const variables = await ChromeStorage.get_experiment_variables()
-        const running = variables.experiment_running
+        const running = variables.extension_running
         const mode = variables.extension_mode
         if(running === false){
             this.logger.log("Extension is not running.")

@@ -104,7 +104,7 @@ class Mapper{
         const mapping_finished = variables.video_index > settings.config.videos.length
         if(mapping_finished){
             variables.video_index = -1
-            variables.experiment_running = false
+            variables.extension_running = false
             await ChromeStorage.set_experiment_variables(variables)
         }
 

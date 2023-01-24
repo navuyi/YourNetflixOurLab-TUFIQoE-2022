@@ -1,0 +1,28 @@
+@import "../../../../config//style.config.scss";
+
+
+.button{
+    width: 100%;
+
+    outline: none;
+    border: none;
+    border-radius: 5px;
+
+    font-size: $font-size-small;
+    color: whitesmoke;
+
+    padding: 1em 1em;
+    margin-top: 1em;
+
+    filter: brightness(0.8);
+    cursor: pointer;
+}
+
+.button:hover{
+    filter: brightness(1);
+}
+
+.button[disabled]{
+    filter: brightness(0.3);
+    cursor: not-allowed;
+}
