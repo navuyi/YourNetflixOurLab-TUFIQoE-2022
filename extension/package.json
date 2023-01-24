@@ -20,8 +20,6 @@
     "@types/react-redux": "^7.1.25",
     "axios": "^0.27.2",
     "bootstrap": "^5.2.0",
-    "mocha": "^10.0.0",
-    "pytest": "^1.0.0",
     "react": "^17.0.2",
     "react-bootstrap": "^2.5.0",
     "react-css-modules": "^4.7.11",

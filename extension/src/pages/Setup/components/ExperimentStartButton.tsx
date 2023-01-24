@@ -13,7 +13,8 @@ const ExperimentStartButton = (props : T_PROPS) => {
             style={{
                 backgroundColor: "#DB0000"
             }}
-            attributes={{disabled: true}}
+            attributes={{disabled: false}}
+            handleClick={() => {}}
         />
     )
 }
