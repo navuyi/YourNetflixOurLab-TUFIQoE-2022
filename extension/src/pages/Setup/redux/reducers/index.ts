@@ -1,12 +1,13 @@
 import { combineReducers } from "redux";
-import countReducer from "./countReducer";
-import nameReducer from "./nameReducer";
+import configReducer from "./configReducer";
+
+import subjectIDReducer from "./subjectIDReducer";
 
 const rootReducer = combineReducers({
-    count: countReducer,
-    name: nameReducer
+    config: configReducer,
+    subject_id: subjectIDReducer
 })
 
 
-export type AppState = ReturnType<typeof rootReducer>
+export type T_APP_STATE = ReturnType<typeof rootReducer>
 export default rootReducer

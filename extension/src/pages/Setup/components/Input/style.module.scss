@@ -1,0 +1,34 @@
+@import "../../../../config/style.config.scss";
+$border-width: 2px;
+
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    width: 100%;
+}
+
+.label{
+    font-size: $font-size-small;
+    font-family: ubuntu-regular;
+    margin-bottom: 1px;
+}
+.input{
+    width: 100%;
+    font-size: $font-size-small;
+    font-family: ubuntu-regular;
+
+    padding: 5px 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    
+    outline: none;
+    border: $border-width solid rga(1,1,1,0);
+    box-sizing: border-box;
+}
+.input:focus{
+    border: $border-width solid $netflix-red;
+}
