@@ -17,6 +17,10 @@
     justify-content: center;
 }
 
+.dropzone[dragover=true]{
+    border: 2px $netflix-red solid;
+}
+
 .text{
    color: $netflix-dark;
    font-size: $font-size-small;

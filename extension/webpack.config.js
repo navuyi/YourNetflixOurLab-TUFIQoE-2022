@@ -35,6 +35,7 @@ if (fileSystem.existsSync(secretsPath)) {
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
+ 
   entry: {
     break: path.join(__dirname, 'src', 'pages', 'Break', 'index.tsx'),
 
