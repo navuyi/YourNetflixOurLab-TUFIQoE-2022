@@ -14,7 +14,6 @@ export const useConfig = () => {
     const configDispatch = useDispatch<Dispatch<T_CONFIG_ACTIONS>>()
 
     const save_config = async (config : T_CONFIG) => {
-     
         // Update storage
         const settings = await ChromeStorage.get_experiment_settings()
         settings.config = config

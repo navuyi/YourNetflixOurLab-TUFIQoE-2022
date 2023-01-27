@@ -15,7 +15,8 @@ const MappingStartButton = (props : T_PROPS) => {
         <Button
             text="Run extension in mapping mode"
             style={{
-                backgroundColor: "#00A896"
+                backgroundColor: "#00A896",
+                marginTop: "1em"
             }}
             attributes={{disabled: !mapping_applicable}}
             handleClick={() => {}}

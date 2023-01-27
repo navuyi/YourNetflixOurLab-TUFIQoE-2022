@@ -55,13 +55,6 @@ const Setup = () => {
           {
             config.value != null ? <ConfigDetected /> : <Dropzone />
           }
-          <div className={style.config_info_box}>
-            <ul>
-              <li>url one</li>
-              <li>url one</li>
-              <li>url one</li>
-            </ul>
-          </div>
           <MappingStartButton />
         </div>
 
