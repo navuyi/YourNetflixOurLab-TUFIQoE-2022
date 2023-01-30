@@ -3,16 +3,42 @@ import {Controller} from "./modules/Controller"
 import { MESSAGE_HEADERS } from "../../config/messages.config"
 import { get_local_datetime } from "../../utils/time_utils"
 import { T_MESSAGE } from "../../config/messages.config"
+import { ChromeStorage } from "../../utils/custom/ChromeStorage"
 
 /**
  * Detect extension reloads and perform actions.
  * This listener callback executes only when extension is installed or reloaded. 
 */
-chrome.runtime.onInstalled.addListener(() => {
+chrome.runtime.onInstalled.addListener(async () => {
     console.log(`[BackgroundScript] | ${get_local_datetime(new Date())} | Installing...` )
 
-     // Initialize local storage || WARNING --> THIS RESETS ALL chrome.storage KEYS TO DEFAULT VALUES
-     chrome.storage.local.set(STORAGE_DEFAULT)
+    // Initialize local storage || WARNING --> THIS RESETS ALL chrome.storage KEYS TO DEFAULT VALUES
+    await ChromeStorage.initialize_default() // same as --> chrome.storage.local.set(STORAGE_DEFAULT)
+
+    // Handle cadmiumPlayercore request blocking and injecting modified version
+    chrome.declarativeNetRequest.updateDynamicRules({
+        addRules: [
+            {
+                id: 1,
+                priority: 1,
+                //@ts-ignore
+                action: { type: "redirect", redirect: {extensionPath: "/cadmiumPlayercore.bundle.js"} },
+                //@ts-ignore
+                condition: { urlFilter: "*://assets.nflxext.com/*/ffe/player/html/*", resourceTypes: ['script'] }
+            },
+            {
+                id: 2,
+                priority: 1,
+                //@ts-ignore
+                action: { type: "redirect", redirect: {extensionPath: "/cadmiumPlayercore.bundle.js"} },
+                //@ts-ignore
+                condition: { urlFilter: "*://www.assets.nflxext.com/*/ffe/player/html/*", resourceTypes: ['script'] },
+            }
+        ],
+        removeRuleIds: [1,2,3,4]   
+    }, () => {
+        
+    })
 })
 
 chrome.action.onClicked.addListener(async (tab) => {

@@ -10,6 +10,7 @@ export class ScenarioGenerator{
     public static generate_video_scenario = (video : T_VIDEO) : T_SCENARIO_ITEM[] => {
         // Initialize video scenario array
         const scenario : T_SCENARIO_ITEM[] = []
+        console.log(video)
         const bitrate_vmaf_map = video.bitrate_vmaf_map
        
         for(const vmaf_template of video.vmaf_template_scenario){

@@ -24,8 +24,6 @@ export class Controller{
             return
         }
         
-       
-        await this.increaseVideoCount()
 
         // Define conent script file
         let content_script;
@@ -50,22 +48,6 @@ export class Controller{
         })
         this.logger.log("ContentScript has been injected")
     }
-
-    /**
-     *  Method that keeps track of videos order and limit.
-     *  For the first video in queue the count will be 1 but its index in an array is 0.
-     *  Video count is increased just before injecting the ContentScript.
-     *  It means that n-th video in row has the count of n for the enterity of playback. The index is n-1  
-    */
-    async increaseVideoCount(){
-        const variables = await ChromeStorage.get_experiment_variables()
-        const video_index = variables.video_index
-        const next_video_index = video_index + 1
-        this.logger.log(`Increasing video count to ${next_video_index}`)
-        variables.video_index = next_video_index
-        await ChromeStorage.set_experiment_variables(variables)
-    }
-
 
 
     listenForVideoStart(){

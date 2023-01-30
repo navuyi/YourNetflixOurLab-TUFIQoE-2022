@@ -10,25 +10,24 @@ import { wait_for_video_to_load } from "../../../../utils/waiters/wait_for_video
 import { ChromeStorage } from "../../../../utils/custom/ChromeStorage"
 import { T_MESSAGE } from "../../../../config/messages.config"
 import { MESSAGE_HEADERS } from "../../../../config/messages.config"
+import { save_json } from "../../../../utils/save_json"
 
 class Mapper{
     private available_bitrates : Array<number>
-    private bitrate_vmaf_map : Array<T_BITRATE_VMAF_MAP_ITEM>
     private logger : CustomLogger
 
     constructor(){
         this.available_bitrates = []
-        this.bitrate_vmaf_map = []
         this.logger = new CustomLogger("[Mapper]")
     }
 
 
     public init = async () : Promise<void> => {
+        await wait_for_video_to_load()
         // Get available bitrate values
         this.available_bitrates = await NetflixBitrateMenu.get_available_bitrates()//this.bitrate_menu.get_available_bitrates()
         this.logger.log(`Available bitrates: ${this.available_bitrates}`)
 
-        await wait_for_video_to_load()
         NetflixPlayerAPI.set_video_muted(true)
         await this.create_map()
     }
@@ -37,6 +36,8 @@ class Mapper{
      *  This method maps available bitrate values to vmaf.
     */ 
     private create_map = async () : Promise<void> => {
+        const bitrate_vmaf_map : Array<T_BITRATE_VMAF_MAP_ITEM> = []
+        console.log(this.available_bitrates)
         for(const bitrate of this.available_bitrates){
             // Set next bitrate to be mapped
             await NetflixBitrateMenu.set_bitrate(bitrate)
@@ -45,11 +46,21 @@ class Mapper{
             const map_item = await this.wait_for_change(bitrate)
 
             // Update general vmaf <-> bitrate map
-            this.bitrate_vmaf_map.push(map_item)
+            bitrate_vmaf_map.push(map_item)
+        }
+
+        const settings = await ChromeStorage.get_experiment_settings()
+        const variables = await ChromeStorage.get_experiment_variables()
+        if(settings.config == null){
+            this.logger.log("Config file was not loaded and is null. Cannot proceed.")
+            return
         }
 
         this.logger.log(`Bitrate to vmaf mapping finished.`)
-        this.logger.log(this.bitrate_vmaf_map)
+        // Updates proceeded video's bitrate-vmaf map
+        settings.config!.videos[variables.video_index].bitrate_vmaf_map = bitrate_vmaf_map
+        await ChromeStorage.set_experiment_settings(settings)
+        // Finalize process
         await this.finalize()
     }
 
@@ -93,29 +104,37 @@ class Mapper{
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
         
-        // Generate Bitrate-VMAF scenario for the video // AFTER UPDATING CONFIGURATION
-        if(!settings.config) return
-
+        // Generate scenario for the video 
+        if(!settings.config) return;
         const scenario = ScenarioGenerator.generate_video_scenario(settings.config.videos[variables.video_index])
         settings.config.videos[variables.video_index].scenario = scenario
         await ChromeStorage.set_experiment_settings(settings)
 
-        // Update storage if mapping is finished
-        const mapping_finished = variables.video_index > settings.config.videos.length
-        if(mapping_finished){
-            variables.video_index = -1
+
+        // Increment video_index
+        variables.video_index += 1
+        await ChromeStorage.set_experiment_variables(variables)
+
+        if(variables.video_index < settings.config.videos.length){
+            this.logger.log("Mapping in progress. Proceding to next video")
+            window.location.href = settings.config.videos[variables.video_index].url
+        }
+        else{
+            this.logger.log("Mapping finished")
+            variables.video_index = 0
             variables.extension_running = false
             await ChromeStorage.set_experiment_variables(variables)
-        }
+            save_json(settings.config, "complete_config.json")
 
-        // Redirect to next video or setup screen
-        const msg : T_MESSAGE = {
-            header: MESSAGE_HEADERS.REDIRECT,
-            data: {
-                url: mapping_finished ? "setup.html" : settings.config.videos[variables.video_index+1].url
+             // Redirect to setup screen
+            const msg : T_MESSAGE = {
+                header: MESSAGE_HEADERS.REDIRECT,
+                data: {
+                    url: "setup.html"
+                }
             }
+            chrome.runtime.sendMessage(msg)   
         }
-        chrome.runtime.sendMessage(msg)        
     }
 }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { ChromeStorage } from "../../../utils/custom/ChromeStorage";
 import { T_APP_STATE } from "../redux/reducers";
 import Button from "./Button/Button";
 
@@ -11,6 +12,20 @@ const MappingStartButton = (props : T_PROPS) => {
 
     const {mapping_applicable} = useSelector((state:T_APP_STATE) => state.config)
 
+    const handleMappingStart = async () => {
+        console.log("elo")
+        const settings = await ChromeStorage.get_experiment_settings()
+        const variables = await ChromeStorage.get_experiment_variables()
+
+        variables.extension_mode = "mapping"
+        variables.extension_running = true
+        const url = settings.config?.videos[variables.video_index].url as string
+
+        await ChromeStorage.set_experiment_variables(variables)
+
+        window.location.href = url 
+    }
+
     return(
         <Button
             text="Run extension in mapping mode"
@@ -19,7 +34,7 @@ const MappingStartButton = (props : T_PROPS) => {
                 marginTop: "1em"
             }}
             attributes={{disabled: !mapping_applicable}}
-            handleClick={() => {}}
+            handleClick={() => {handleMappingStart()}}
         />
     )
 }
