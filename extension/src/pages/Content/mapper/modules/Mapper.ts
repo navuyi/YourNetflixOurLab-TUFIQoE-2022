@@ -111,7 +111,7 @@ class Mapper{
         await ChromeStorage.set_experiment_settings(settings)
 
 
-        // Increment video_index
+        // Increment video_index before redirecting
         variables.video_index += 1
         await ChromeStorage.set_experiment_variables(variables)
 
@@ -126,7 +126,6 @@ class Mapper{
             await ChromeStorage.set_experiment_variables(variables)
             save_json(settings.config, "complete_config.json")
 
-             // Redirect to setup screen
             const msg : T_MESSAGE = {
                 header: MESSAGE_HEADERS.REDIRECT,
                 data: {

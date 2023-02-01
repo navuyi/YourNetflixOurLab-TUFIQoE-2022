@@ -7,4 +7,4 @@ SET FLASK_ENV=production    &:: <-- production mode (???)
 SET FLASK_DEBUG=True        &:: <-- debug is ESSENTIAL in order for logging to work
 
 
-python -m flask run
+python -m flask run --port 5001

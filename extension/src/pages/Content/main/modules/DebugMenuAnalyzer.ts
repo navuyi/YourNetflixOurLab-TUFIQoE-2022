@@ -9,6 +9,7 @@ import { NetflixPlayerAPI } from "../../../../utils/netflix/NetflixPlayerAPI"
 import { patch_video_ended } from "../../../../utils/http_requests/patch-video-ended"
 import { MESSAGE_HEADERS } from "../../../../config/messages.config"
 import { T_MESSAGE } from "../../../../config/messages.config"
+import { patch_experiment_ended } from "../../../../utils/http_requests/patch_experiment_ended"
 
 export class DebugMenuAnalyzer{
     private logger : CustomLogger
@@ -30,7 +31,7 @@ export class DebugMenuAnalyzer{
 
         // Start interval that will be killed in case of switching video to another
         this.interval = setInterval(async () => {
-            // Check if debug menu is not null
+            // Check if debug menu is defined
             if(!this.debug_menu) return;
             
             const timestamp = get_local_datetime(new Date())
@@ -75,7 +76,7 @@ export class DebugMenuAnalyzer{
             const settings = await ChromeStorage.get_experiment_settings()
             
             // Update current video finished time
-            await patch_video_ended()
+            await patch_video_ended(variables.database_video_id)
 
             if(variables.video_index < settings.config?.videos.length!){
                 variables.video_index += 1
@@ -83,10 +84,10 @@ export class DebugMenuAnalyzer{
             }
             else{
                 // Experiment finished
-                await patch_video_ended()
+                await patch_experiment_ended(variables.database_experiment_id)
             }
 
-            // Send FINISHED signal to the BackgroundScript
+            // Send FINISHED signal to the BackgroundScript in order to navigate to break page
             const message : T_MESSAGE = {
                 header: MESSAGE_HEADERS.FINISHED
             }

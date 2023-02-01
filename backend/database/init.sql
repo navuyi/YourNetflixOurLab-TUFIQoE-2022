@@ -11,25 +11,11 @@ CREATE TABLE IF NOT EXISTS experiment(
     id INTEGER NOT NULL PRIMARY KEY,
     
     started TEXT NOT NULL,
-    ended TEXT DEFAUL NULL,
+    ended TEXT DEFAULT NULL,
     
-    device_id TEXT NOT NULL,        
-    experiment_type TEXT NOT NULL,  
-    video_limit INTEGER NOT NULL,
-    tester_id TEXT NOT NULL,
-    configuration TEXT NOT NULL,
+    subject_id TEXT NOT NULL,
+    settings TEXT NOT NULL,
     urls TEXT NOT NULL        
-);
-
-
-CREATE TABLE IF NOT EXISTS bitrate(
-    id INTEGER NOT NULL PRIMARY KEY,
-    video_id INTEGER NOT NULL,
-    value INTEGER NOT NULL,     
-    previous INTEGER DEFAULT NULL,  
-    timestamp TEXT NOT NULL,
-
-    FOREIGN KEY(video_id) REFERENCES video(id)
 );
 
 
@@ -37,10 +23,9 @@ CREATE TABLE IF NOT EXISTS video(
     id INTEGER NOT NULL PRIMARY KEY,
     
     started TEXT NOT NULL,  
-    ended TEXT DEFAUL NULL,    
+    ended TEXT DEFAULT NULL,    
 
     experiment_id INTEGER NOT NULL,
-    video_index INTEGER NOT NULL,
     url TEXT NOT NULL,
 
     FOREIGN KEY(experiment_id) REFERENCES experiment(id)
