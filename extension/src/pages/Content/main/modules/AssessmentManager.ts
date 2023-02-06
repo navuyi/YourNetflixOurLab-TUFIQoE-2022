@@ -6,7 +6,6 @@ import { get_local_datetime } from "../../../../utils/time_utils"
 
 
 export class AssessmentManager{
-    private interval : ReturnType<typeof setInterval> | undefined
     private started : Date 
     private ended : Date
 
@@ -18,7 +17,7 @@ export class AssessmentManager{
     private logger : CustomLogger
 
     constructor() {
-        this.interval = undefined
+        
         this.started = new Date()
         this.ended = new Date()
 
@@ -254,7 +253,7 @@ export class AssessmentManager{
         const variables = await ChromeStorage.get_experiment_variables()
 
         const data = {
-            video_id: variables.video_index,
+            video_id: variables.database_video_id,
             value: value,
             description: description,
             started: get_local_datetime(this.started),

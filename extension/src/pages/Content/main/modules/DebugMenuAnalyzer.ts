@@ -77,13 +77,19 @@ export class DebugMenuAnalyzer{
             
             // Update current video finished time
             await patch_video_ended(variables.database_video_id)
+            
 
+            // assuming 3 video urls
+            // 0 --> 1
+            // 1 --> 2
+            // 2 --> 3
             if(variables.video_index < settings.config?.videos.length!){
                 variables.video_index += 1
                 await ChromeStorage.set_experiment_variables(variables)
             }
-            else{
-                // Experiment finished
+
+            // Check if experiment has finished
+            if(variables.video_index === settings.config?.videos.length!){
                 await patch_experiment_ended(variables.database_experiment_id)
             }
 

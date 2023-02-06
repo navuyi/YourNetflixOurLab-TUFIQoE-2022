@@ -1,5 +1,4 @@
 import axios from "axios"
-import { ChromeStorage } from "../custom/ChromeStorage"
 import { get_local_datetime } from "../time_utils"
 import {  backend_urls } from "./config"
 

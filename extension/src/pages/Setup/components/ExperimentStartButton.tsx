@@ -16,7 +16,7 @@ const ExperimentStartButton = (props : T_PROPS) => {
     const subjectID = useSelector((state:T_APP_STATE) => state.subject_id)
     const {experiment_applicable} = useSelector((state:T_APP_STATE) => state.config)
     
-
+    // TODO transfer this to a custom hook view-logic separation
     const handleExperimentStart = async () => {
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
@@ -58,10 +58,11 @@ const ExperimentStartButton = (props : T_PROPS) => {
         variables.database_video_id = database_video_id
         await ChromeStorage.set_experiment_variables(variables)
 
-        // TODO redirect to first video
+        // Redirect to the first video
         variables.extension_running = true
         variables.extension_mode = "main"
         await ChromeStorage.set_experiment_variables(variables)
+
         window.location.href = video_url
     }
 

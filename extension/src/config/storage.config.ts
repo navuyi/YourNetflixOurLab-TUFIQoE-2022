@@ -38,7 +38,7 @@ export const STORAGE_DEFAULT : T_STORAGE = {
         database_experiment_id: -1,
         database_video_id: -1,
         device_id: "dev_device_id",
-        subject_id: "dev_subject_id",
+        subject_id: "",
         extension_running: false,
         extension_mode: "", // main or mapping
         video_index: 0

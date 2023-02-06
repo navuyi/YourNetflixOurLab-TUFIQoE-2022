@@ -1,8 +1,9 @@
 import { CustomLogger } from "../../../../utils/custom/CustomLogger";
-
-
 import {T_SCENARIO_ITEM } from "../../../../config/types/data-structures.type";
 import { ChromeStorage } from "../../../../utils/custom/ChromeStorage";
+import { wait_for_video_to_load } from "../../../../utils/waiters/wait_for_video_to_load";
+import { NetflixBitrateMenu } from "../../../../utils/netflix/NetflixBitrateMenu";
+import { NetflixPlayerAPI } from "../../../../utils/netflix/NetflixPlayerAPI";
 
 export class VideoQualityManager {
     private scenario : T_SCENARIO_ITEM[] | undefined
@@ -14,20 +15,27 @@ export class VideoQualityManager {
         this.logger = new CustomLogger("[VideoQualityManager]")
     }
 
-    async init(){
+    public init = async () : Promise<void> => {
+        await wait_for_video_to_load()
         this.scenario = await this.prepare_video_scenario()
         this.bitrate_interval = await this.prepare_bitrate_interval()
-
         this.iterator = this.scenario_iterator()
 
-        // Start bitrate changes
-        // TODO
+        await this.set_bitrate()
+        await this.reset_playback()
+        NetflixPlayerAPI.set_video_muted(false)
+        await this.set_bitrate()
+
+        // Start cyclic bitrate changes
+        setInterval(async () => {
+            await this.set_bitrate()
+        }, this.bitrate_interval)
     }
 
     /**
      *  Method reads bitrate changes interval from config file. Provided in seconds has to be converted to ms.
     */
-    async prepare_bitrate_interval() {
+    private prepare_bitrate_interval = async () : Promise<number> => {
         const settings = await ChromeStorage.get_experiment_settings()
         const configuration = settings.config
         const interval_s = configuration?.bitrate_interval // <-- interval from config file, given in seconds
@@ -51,6 +59,26 @@ export class VideoQualityManager {
 
         return settings.config?.videos[variables.video_index].scenario
     }
+
+    private set_bitrate = async () : Promise<void> => {
+        if(this.iterator == null) return;
+
+        const settings = this.iterator.next().value
+        this.logger.log(`Setting bitrate to ${settings.bitrate}kbps which corresponds to VMAF ${settings.vmaf}`)
+        this.logger.log(`VMAF template was ${settings.vmaf_template}. Difference: ${settings.vmaf_diff}`)
+
+        await NetflixBitrateMenu.set_bitrate(settings.bitrate)
+    }
+
+    private reset_playback = async () : Promise<void> => {
+        const video_duration = NetflixPlayerAPI.get_video_duration()
+        NetflixPlayerAPI.seek(Math.round(video_duration/2)) 
+        NetflixPlayerAPI.seek(Math.round(video_duration/4)) 
+        NetflixPlayerAPI.seek(0)                            // seek to the beginning of the video
+    }
+
+    
+
 
     /**
      * Yields scenario's items in loop

@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Break from './Break';
+import App from './App';
 
 
-render(<Break />, window.document.querySelector('#app-container'));
-
+render(<App />, window.document.querySelector('#app-container'));

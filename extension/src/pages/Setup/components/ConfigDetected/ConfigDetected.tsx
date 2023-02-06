@@ -16,7 +16,7 @@ const ConfigDetected = () => {
     const [status, setStatus] = useState<string>("")
     const [description, setDescription] = useState<string>("")
     const [_style, _setStyle] = useState<object>({})
-    const {mapping_applicable, experiment_applicable, value} = useSelector((state:T_APP_STATE) => state.config)
+    const {mapping_applicable, experiment_applicable, value:config} = useSelector((state:T_APP_STATE) => state.config)
     const configDispatch = useDispatch<Dispatch<T_CONFIG_ACTIONS>>()
   
     useEffect(() => {
@@ -73,7 +73,7 @@ const ConfigDetected = () => {
             <span className={style.description}>{description}</span>
             <div className={style.url_list}>
                 {
-                    value?.videos.map((video, index) => {
+                    config?.videos.map((video, index) => {
                         return(
                             <input key={index} className={style.url_item} value={video.url} disabled/>
                         )
