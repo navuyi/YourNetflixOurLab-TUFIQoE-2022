@@ -9,11 +9,13 @@ type T_PROPS = {
 }
 
 const MappingStartButton = (props : T_PROPS) => {
-
-    const {mapping_applicable} = useSelector((state:T_APP_STATE) => state.config)
+    const {mapping_applicable, experiment_applicable} = useSelector((state:T_APP_STATE) => state.config)
 
     const handleMappingStart = async () => {
-        console.log("elo")
+        if(mapping_applicable === true && experiment_applicable === true){
+            const confirmation = window.confirm("Provided config can be used to start experiment. Are you sure you want to run the mapping mode?")
+            if(confirmation === false) return;
+        }
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
 
