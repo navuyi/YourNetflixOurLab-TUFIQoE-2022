@@ -55,7 +55,6 @@ CREATE TABLE IF NOT EXISTS playback_data(
     total_dropped_frames TEXT,
     total_frames TEXT,
     volume TEXT,
-    bitrate TEXT,
 
     FOREIGN KEY(video_id) REFERENCES video(id)
 );

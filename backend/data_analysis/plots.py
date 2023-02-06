@@ -62,7 +62,7 @@ def plot_02(bitrate, playing_vmaf, buffering_vmaf, video_id):
 
 def main():
     for filename in FILES:
-        bitrate = load_data(filename, "bitrate")
+        bitrate = load_data(filename, "playing_bitrate_video")
         playing_vmaf = load_data(filename, "playing_vmaf")
         buffering_vmaf = load_data(filename, "buffering_vmaf")
         video_id = load_data(filename, "video_id")[0]
