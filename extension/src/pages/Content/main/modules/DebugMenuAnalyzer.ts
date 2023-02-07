@@ -50,7 +50,6 @@ export class DebugMenuAnalyzer{
         }, settings.stats_record_interval_ms)
     }
 
-    // Continue HERE - standarize the way video_index in tracked, incremented etc. 
     private check_video_finished = async () : Promise<void> => {
         const outer_container = document.getElementsByClassName("nfa-pos-abs nfa-bot-6-em nfa-right-5-em nfa-d-flex")[0]
         const player_space = document.getElementsByClassName("PlayerSpace")[0]
@@ -78,26 +77,17 @@ export class DebugMenuAnalyzer{
             // Update current video finished time
             await patch_video_ended(variables.database_video_id)
             
-
-            // assuming 3 video urls
-            // 0 --> 1
-            // 1 --> 2
-            // 2 --> 3
-            if(variables.video_index < settings.config?.videos.length!){
-                variables.video_index += 1
-                await ChromeStorage.set_experiment_variables(variables)
-            }
+            // Increment video_index
+            variables.video_index += 1
+            await ChromeStorage.set_experiment_variables(variables)
 
             // Check if experiment has finished
             if(variables.video_index === settings.config?.videos.length!){
                 await patch_experiment_ended(variables.database_experiment_id)
             }
 
-            // Send FINISHED signal to the BackgroundScript in order to navigate to break page
-            const message : T_MESSAGE = {
-                header: MESSAGE_HEADERS.FINISHED
-            }
-            chrome.runtime.sendMessage(message)
+            // Send msg with FINISHED header in order to navigate to break page // cannot use window.location.href, page must be found within extension bundle
+            chrome.runtime.sendMessage({header: MESSAGE_HEADERS.FINISHED} as T_MESSAGE)
         }
     }
 }

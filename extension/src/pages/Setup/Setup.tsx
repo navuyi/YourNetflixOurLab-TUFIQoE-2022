@@ -42,7 +42,6 @@ const Setup = () => {
         payload: mapping_applicable
       })
     }
-
     init()
   }, [])
 

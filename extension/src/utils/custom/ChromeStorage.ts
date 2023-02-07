@@ -1,4 +1,4 @@
-import { STORAGE_DEFAULT } from "../../config/storage.config"
+import { STORAGE_DEFAULT, T_STORAGE } from "../../config/storage.config"
 import { T_EXPERIMENT_SETTINGS, T_EXPERIMENT_VARIABLES } from "../../config/storage.config"
 import { CustomLogger } from "./CustomLogger"
 
@@ -36,16 +36,30 @@ export abstract class ChromeStorage{
         await chrome.storage.local.set({experiment_variables: variables})
     }
 
+    public static update_experiment_variables_property = async <T extends keyof T_EXPERIMENT_VARIABLES>(key:T, value:any) : Promise<void> => {
+        const variables = await ChromeStorage.get_experiment_variables()
+        variables[key] = value
+        await ChromeStorage.set_experiment_variables(variables)
+    }
+
     
     // Experiment settings utils
     public static get_experiment_settings = async () : Promise<T_EXPERIMENT_SETTINGS> => {
         const experiment_settings = await ChromeStorage.get_single("experiment_settings")
-        return experiment_settings
+        return experiment_settings 
     }
 
     public static set_experiment_settings = async (settings : T_EXPERIMENT_SETTINGS) : Promise<void> => {
         await chrome.storage.local.set({experiment_settings: settings})
     }
 
-    
+    public static update_experiment_settings_property = async <T extends keyof T_EXPERIMENT_SETTINGS>(key:T, value:any) : Promise<void> => {
+        const settings = await ChromeStorage.get_experiment_settings()
+        settings[key] = value
+        await ChromeStorage.set_experiment_settings(settings)
+    }
+
+
+
 }
+

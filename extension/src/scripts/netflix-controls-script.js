@@ -40,6 +40,13 @@ const create_duration_element = () => {
     (document.body).appendChild(element)
 }
 
+
+/**
+ * If executed in scope of original Neflix page (not content script) returns Netflix player object.
+ * Player object failitates manipulation of video player - makes seeking available
+ * Entire solution requires some boilerplate code.
+ * @returns {player}
+ */
 const get_netflix_player = () => {
     const videoPlayer = window.netflix.appContext.state.playerApp.getAPI().videoPlayer;
     const player = videoPlayer.getVideoPlayerBySessionId(videoPlayer.getAllPlayerSessionIds()[0]);
