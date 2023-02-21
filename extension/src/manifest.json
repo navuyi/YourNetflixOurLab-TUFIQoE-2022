@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "YourNetflixOurLab",
-  "description": "AGH-TUFIQoE-2022 Netflix Experiment || Chrome Extension by Rafal Figlus",
+  "description": "AGH-TUFIQoE-2023 Netflix Experiment || Chrome Extension by Rafal Figlus",
   "background": {
     "service_worker": "background.bundle.js"
   },
@@ -9,17 +9,21 @@
     "default_icon": "32.png"
   },
   "icons": {
+    "16": "16.png",
+    "32": "32.png",
+    "48": "48.png",
+    "64": "64.png",
     "128": "128.png"
   },
   "web_accessible_resources": [
     {
       "resources": [
-        "content.styles.css",
-        "icon-128.png",
-        "icon-34.png",
+        "16.png",
         "32.png",
+        "48.png",
         "64.png",
-        "logo.png"
+        "128.png",
+        "blurred.png"
       ],
       "matches": []
     },

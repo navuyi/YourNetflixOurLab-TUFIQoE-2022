@@ -17,19 +17,24 @@ export class VideoQualityManager {
 
     public init = async () : Promise<void> => {
         await wait_for_video_to_load()
+        
         this.scenario = await this.prepare_video_scenario()
         this.bitrate_interval = await this.prepare_bitrate_interval()
         this.iterator = this.scenario_iterator()
 
-        await this.set_bitrate()
-        await this.reset_playback()
-        NetflixPlayerAPI.set_video_muted(false)
-        await this.set_bitrate()
-
-        // Start cyclic bitrate changes
-        setInterval(async () => {
+        await this.set_bitrate() // <-- set first bitrate
+        await this.reset_playback() // <-- reset video, rewind to beginning in order to apply set bitrate
+        NetflixPlayerAPI.set_video_muted(false) // <-- unmute video, could be muted because of previous mapping
+        
+        // Set another bitrate and start cyclic bitrate changes after some delay
+        setTimeout(async () => {
             await this.set_bitrate()
-        }, this.bitrate_interval)
+
+            // Start cyclic bitrate changes
+            setInterval(async () => {
+                await this.set_bitrate()
+            }, this.bitrate_interval)
+        }, 10e3)
     }
 
     /**

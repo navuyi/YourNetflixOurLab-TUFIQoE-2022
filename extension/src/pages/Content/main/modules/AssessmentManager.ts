@@ -1,6 +1,6 @@
 import { ChromeStorage } from "../../../../utils/custom/ChromeStorage"
 import { CustomLogger } from "../../../../utils/custom/CustomLogger"
-import { send_assessment } from "../../../../utils/http_requests/send_assessment"
+import { post_assessment } from "../../../../utils/http_requests/post-assessment"
 import { NetflixPlayerAPI } from "../../../../utils/netflix/NetflixPlayerAPI"
 import { get_local_datetime } from "../../../../utils/time_utils"
 
@@ -265,7 +265,7 @@ export class AssessmentManager{
         // Schedule next assessment panel
         this.schedule_assessment_panel()
         
-        /*await*/ send_assessment(data) // <-- not waiting for response
+        /*await*/ post_assessment(data) // <-- not waiting for response
     }
 }
 
