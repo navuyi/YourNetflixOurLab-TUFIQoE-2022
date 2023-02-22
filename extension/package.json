@@ -1,11 +1,11 @@
 {
-  "name": "chrome-extension-boilerplate-react",
+  "name": "your-netflix-our-lab-netflix-qoe-experiment",
   "version": "4.3.5",
-  "description": "A chrome extension boilerplate built with React 17, Webpack 5, and Webpack Dev Server 4",
+  "description": "TUFIQoE ecologically valid qoe experiment based on Netflix streaming platform - extension",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lxieyang/chrome-extension-boilerplate-react.git"
+    "url": ""
   },
   "scripts": {
     "build": "node utils/build.js",
@@ -63,7 +63,6 @@
     "html-webpack-plugin": "^5.5.0",
     "jest": "^29.3.1",
     "jsdoc": "^3.6.10",
-    "node-sass": "^6.0.1",
     "prettier": "^2.5.1",
     "sass-loader": "^12.4.0",
     "source-map-loader": "^3.0.1",
