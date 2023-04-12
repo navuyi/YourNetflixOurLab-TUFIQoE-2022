@@ -1,19 +1,21 @@
-import { T_CONFIG } from "./types/data-structures.type"
+import { T_VIDEO } from "./types/data-structures.type"
 
 
 export type T_EXPERIMENT_SETTINGS = {
     stats_record_interval_ms: number,
-    stats_nonclickable: boolean,
-    stats_invisible: boolean,
     bitrate_interval_ms: number,
     assessment_interval_ms: number,
-    config: T_CONFIG | null
+    
+    stats_nonclickable: boolean
+    stats_invisible: boolean
+
+    urls: Array<string>
+    videos: Array<T_VIDEO>
 }
 
 export type T_EXPERIMENT_VARIABLES = {
     database_experiment_id: number,
     database_video_id: number,
-    device_id: number | string,
     subject_id: number | string,
     extension_running : boolean,
     extension_mode: string,
@@ -32,12 +34,12 @@ export const STORAGE_DEFAULT : T_STORAGE = {
         stats_invisible: false,
         bitrate_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
         assessment_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
-        config: null
+        urls: ["https://www.netflix.com/watch/70069631?trackId=14170286", "https://www.netflix.com/watch/70196274?trackId=255824129"],
+        videos: []
     },
     experiment_variables: {
         database_experiment_id: -1,
         database_video_id: -1,
-        device_id: "dev_device_id",
         subject_id: "",
         extension_running: false,
         extension_mode: "", // main or mapping

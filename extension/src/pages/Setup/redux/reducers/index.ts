@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
-import configReducer from "./configReducer";
 
 import subjectIDReducer from "./subjectIDReducer";
 
 const rootReducer = combineReducers({
-    config: configReducer,
     subject_id: subjectIDReducer
 })
 

@@ -1,22 +1,31 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useLayoutEffect, useState } from "react";
 import { ChromeStorage } from "../../../utils/custom/ChromeStorage";
 import { post_new_experiment } from "../../../utils/http_requests/post_new_experiment";
 import { post_new_video } from "../../../utils/http_requests/post_new_video";
-import { remove_whitespaces } from "../../../utils/string_utils";
 import { get_local_datetime } from "../../../utils/time_utils";
-import { T_APP_STATE } from "../redux/reducers";
 import Button from "./Button/Button";
 
-type T_PROPS = {
-    
-}
 
-const ExperimentStartButton = (props : T_PROPS) => {
-    const subjectID = useSelector((state:T_APP_STATE) => state.subject_id)
-    const {experiment_applicable} = useSelector((state:T_APP_STATE) => state.config)
-    
-    // TODO transfer this to a custom hook view-logic separation
+const ExperimentStartButton = () => {
+    const [startAvailable, setStartAvailable] = useState(false)
+
+    useLayoutEffect(() => {
+        const init = async () => {
+            const settings = await ChromeStorage.get_experiment_settings()
+
+            if(settings.videos.length === 0){
+                return
+            }
+            if(settings.videos.some(video => video.scenario == null || video.bitrate_vmaf_map == null)){
+                return
+            }
+
+            setStartAvailable(true)
+        }
+
+        init()
+    }, [])
+
     const handleExperimentStart = async () => {
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
@@ -26,7 +35,7 @@ const ExperimentStartButton = (props : T_PROPS) => {
         const database_experiment_id = await post_new_experiment({
             subject_id: variables.subject_id, 
             started: timestamp,
-            urls: JSON.stringify(settings.config?.videos.map(video => video.url)),
+            urls: JSON.stringify(settings.videos.map(video => video.url)),
             settings: JSON.stringify(settings)
         })
         if(database_experiment_id === null || database_experiment_id === undefined){
@@ -39,7 +48,7 @@ const ExperimentStartButton = (props : T_PROPS) => {
         
 
         // Create video
-        const video_url = settings.config?.videos[variables.video_index].url
+        const video_url = settings.videos[variables.video_index].url
         if(video_url === null || video_url === undefined){
             window.alert("Video url could not be accessed. Internal error")
             return
@@ -70,9 +79,10 @@ const ExperimentStartButton = (props : T_PROPS) => {
         <Button 
             text="Run extension in experiment mode"
             style={{
-                backgroundColor: "#DB0000"
+                backgroundColor: "#DB0000",
+                marginTop: "5px"
             }}
-            attributes={{disabled: (remove_whitespaces(subjectID)==="" || !experiment_applicable)}}
+            attributes={{disabled: !startAvailable}}
             handleClick={() => {handleExperimentStart()}}
         />
     )

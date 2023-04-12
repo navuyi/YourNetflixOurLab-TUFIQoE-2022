@@ -38,20 +38,11 @@ export class VideoQualityManager {
     }
 
     /**
-     *  Method reads bitrate changes interval from config file. Provided in seconds has to be converted to ms.
+     *  Returns bitrate interval
     */
     private prepare_bitrate_interval = async () : Promise<number> => {
         const settings = await ChromeStorage.get_experiment_settings()
-        const configuration = settings.config
-        const interval_s = configuration?.bitrate_interval // <-- interval from config file, given in seconds
-
-        if (interval_s != null && typeof (interval_s) == 'number') {
-            this.logger.log(`Configuration's bitrate change interval - OK, ${interval_s}s = ${this.bitrate_interval}ms`)
-            return 1000 * interval_s
-        } else {
-            this.logger.log(`Configuration's bitrate change interval missing or incorrect. Using default interval`)
-            return settings.bitrate_interval_ms
-        }
+        return settings.bitrate_interval_ms
     }
 
     /**
@@ -62,7 +53,7 @@ export class VideoQualityManager {
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
 
-        return settings.config?.videos[variables.video_index].scenario
+        return settings.videos[variables.video_index].scenario
     }
 
     private set_bitrate = async () : Promise<void> => {

@@ -21,7 +21,7 @@ export const useResumeExperiment = (timeout:number) => {
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
         const data = {
-            url: settings.config?.videos[variables.video_index].url as string,
+            url: settings.videos[variables.video_index].url as string,
             experiment_id: variables.database_experiment_id,
             started: get_local_datetime(new Date())
         }

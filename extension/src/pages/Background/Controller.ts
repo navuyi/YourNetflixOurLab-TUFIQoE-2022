@@ -1,5 +1,5 @@
-import { ChromeStorage } from "../../../utils/custom/ChromeStorage"
-import { CustomLogger } from "../../../utils/custom/CustomLogger"
+import { ChromeStorage } from "../../utils/custom/ChromeStorage"
+import { CustomLogger } from "../../utils/custom/CustomLogger"
 
 const NETFLIX_WATCH_URL = "https://www.netflix.com/watch"
 

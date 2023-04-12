@@ -91,16 +91,7 @@ export class AssessmentManager{
     */
     private prepare_assessment_interval = async () : Promise<void> => {
         const settings = await ChromeStorage.get_experiment_settings()
-
-        const interval = settings.config?.assessment_interval
-        if(interval != null && typeof interval == 'number'){
-            this.assessment_interval = interval*1000
-            this.logger.log(`Configuration assessment interval OK: ${interval}s - ${this.assessment_interval}ms`)
-        }
-        else{
-            this.logger.log(`Configuration assessment interval missing or incorrect. Using default value: ${settings.assessment_interval_ms}ms.`)
-            this.assessment_interval = settings.assessment_interval_ms
-        }
+        this.assessment_interval = settings.assessment_interval_ms
     }
 
     /**

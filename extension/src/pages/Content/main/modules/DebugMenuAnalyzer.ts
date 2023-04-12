@@ -82,7 +82,7 @@ export class DebugMenuAnalyzer{
             await ChromeStorage.set_experiment_variables(variables)
 
             // Check if experiment has finished
-            if(variables.video_index === settings.config?.videos.length!){
+            if(variables.video_index === settings.videos.length!){
                 await patch_experiment_ended(variables.database_experiment_id)
             }
 

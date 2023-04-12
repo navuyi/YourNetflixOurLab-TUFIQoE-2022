@@ -51,14 +51,14 @@ class Mapper{
 
         const settings = await ChromeStorage.get_experiment_settings()
         const variables = await ChromeStorage.get_experiment_variables()
-        if(settings.config == null){
+        if(settings.videos == null){
             this.logger.log("Config file was not loaded and is null. Cannot proceed.")
             return
         }
 
         this.logger.log(`Bitrate to vmaf mapping finished.`)
         // Updates proceeded video's bitrate-vmaf map
-        settings.config!.videos[variables.video_index].bitrate_vmaf_map = bitrate_vmaf_map
+        settings.videos[variables.video_index].bitrate_vmaf_map = bitrate_vmaf_map
         await ChromeStorage.set_experiment_settings(settings)
         // Finalize process
         await this.finalize()
@@ -105,9 +105,9 @@ class Mapper{
         const variables = await ChromeStorage.get_experiment_variables()
         
         // Generate scenario for the video 
-        if(!settings.config) return;
-        const scenario = ScenarioGenerator.generate_video_scenario(settings.config.videos[variables.video_index])
-        settings.config.videos[variables.video_index].scenario = scenario
+        if(!settings.videos) return;
+        const scenario = ScenarioGenerator.generate_video_scenario(settings.videos[variables.video_index])
+        settings.videos[variables.video_index].scenario = scenario
         await ChromeStorage.set_experiment_settings(settings)
 
 
@@ -115,16 +115,16 @@ class Mapper{
         variables.video_index += 1
         await ChromeStorage.set_experiment_variables(variables)
 
-        if(variables.video_index < settings.config.videos.length){
+        if(variables.video_index < settings.urls.length){
             this.logger.log("Mapping in progress. Proceding to next video")
-            window.location.href = settings.config.videos[variables.video_index].url
+            window.location.href = settings.urls[variables.video_index]
         }
         else{
             this.logger.log("Mapping finished")
             variables.video_index = 0
             variables.extension_running = false
             await ChromeStorage.set_experiment_variables(variables)
-            save_json(settings.config, "complete_config.json")
+            save_json(settings.videos, "complete_config.json")
 
             const msg : T_MESSAGE = {
                 header: MESSAGE_HEADERS.REDIRECT,

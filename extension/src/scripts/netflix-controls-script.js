@@ -1,4 +1,4 @@
-import { netflix_api_elements } from "../config/netflix_player_api";
+import { netflix_api_elements } from "../config/netflix-player-api.config";
 /*
     Netflix player playback controls have to be established with HTML elements
     due to the separation of original page window object and the ContentScript.

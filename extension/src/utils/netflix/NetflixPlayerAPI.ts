@@ -1,5 +1,5 @@
 import { CustomLogger } from "../custom/CustomLogger"
-import { netflix_api_elements } from "../../config/netflix-player_api"
+import { netflix_api_elements } from "../../config/netflix-player-api.config"
 
 export class NetflixPlayerAPI{
     private static logger = new CustomLogger("[NetflixPlaybackController]")

@@ -11,7 +11,7 @@ const Landing = () => {
             const settings = await ChromeStorage.get_experiment_settings()
             const variables = await ChromeStorage.get_experiment_variables()
 
-            if(variables.video_index < settings.config?.videos.length!){
+            if(variables.video_index < settings.videos.length!){
                 navigate("break")
             }
             else{

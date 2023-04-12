@@ -11,23 +11,11 @@ export type T_BITRATE_VMAF_MAP_ITEM = {
 }
 
 export type T_VIDEO = {
-    name: string,
-    description: string,
     url: string,
     vmaf_template_scenario: Array<T_VMAF_TEMPLATE_ITEM>,
     bitrate_vmaf_map?: Array<T_BITRATE_VMAF_MAP_ITEM>
     scenario?: Array<T_SCENARIO_ITEM>
 }
-
-export type T_CONFIG = {
-    title: string,
-    description: string,
-    assessment_interval: number,
-    bitrate_interval: number,
-    videos: Array<T_VIDEO>
-}
-
-
 
 
 export type T_DEBUG_DATA_PROCESSED = {
