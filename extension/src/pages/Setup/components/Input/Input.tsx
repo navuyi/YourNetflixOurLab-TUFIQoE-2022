@@ -3,9 +3,10 @@ import style from "./style.module.scss"
 
 
 type T_PROPS = {
-    label: string
+    label?: string
     type?: string
     value: string
+    placeholder?: string
     handleChange: Function
 }
 
@@ -13,13 +14,15 @@ const Input = (props : T_PROPS) => {
 
     return(
         <div className={style.wrapper}>
-            <span className={style.label}>{props.label}</span>
+            {
+                props.label ? <span className={style.label}>{props.label}</span> : null
+            }
             <input 
                 className={style.input}
                 type={props.type}
                 value={props.value}
                 onChange={(e) => props.handleChange(e.currentTarget.value)}
-                placeholder={props.label}
+                placeholder={props.placeholder}
             />
         </div>
         

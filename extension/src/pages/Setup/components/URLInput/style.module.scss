@@ -1,0 +1,77 @@
+@import "../../../../config/style.config.scss";
+
+.urlInput{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    margin-top: 1em;
+}
+
+
+.urlWrapper{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin: 10px 0;
+}
+
+.url{
+    width: 100%;
+    font-family: ubuntu-regular;
+    font-size: $font-size-small;
+
+    color: black;
+    background-color: whitesmoke;
+
+    padding: 5px 5px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    outline: none;
+    border: none;
+
+    box-sizing: border-box;
+}
+
+.delete{
+    width: 10%;
+    background-color: $support;
+
+    border-bottom-right-radius: 5px;
+    border-top-right-radius: 5px;
+
+    cursor: pointer;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: 900;
+}
+.delete:hover{
+    filter: brightness(0.9);
+}
+
+
+.addUrl{
+    font-family: ubuntu-regular;
+    font-size: $font-size-small;
+
+    border: none; outline: none;
+    background-color: $secondary;
+    color:white;
+
+    border-radius: 5px;
+    padding: 5px 10px;
+
+    cursor: pointer;
+}
+
+.addUrl:hover{
+    filter:brightness(0.9)
+}
