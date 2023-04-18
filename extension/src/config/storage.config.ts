@@ -34,7 +34,7 @@ export const STORAGE_DEFAULT : T_STORAGE = {
         stats_invisible: false,
         bitrate_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
         assessment_interval_ms: 2.5 * 60 * 1000, // default 2.5min=150sec=150*1000
-        urls: ["https://www.netflix.com/watch/70069631?trackId=14170286", "https://www.netflix.com/watch/70196274?trackId=255824129"],
+        urls: ["https://www.netflix.com/watch/81387423?trackId=255824129"],
         videos: []
     },
     experiment_variables: {

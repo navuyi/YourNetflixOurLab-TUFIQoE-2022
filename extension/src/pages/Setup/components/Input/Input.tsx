@@ -8,6 +8,7 @@ type T_PROPS = {
     value: string
     placeholder?: string
     handleChange: Function
+    disabled: boolean
 }
 
 const Input = (props : T_PROPS) => {
@@ -23,6 +24,7 @@ const Input = (props : T_PROPS) => {
                 value={props.value}
                 onChange={(e) => props.handleChange(e.currentTarget.value)}
                 placeholder={props.placeholder}
+                disabled={props.disabled}
             />
         </div>
         

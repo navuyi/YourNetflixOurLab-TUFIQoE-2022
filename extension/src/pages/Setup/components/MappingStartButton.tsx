@@ -1,29 +1,14 @@
 import React, { useLayoutEffect, useState } from "react";
 import { ChromeStorage } from "../../../utils/custom/ChromeStorage";
 import Button from "./Button/Button";
-
+import { useSelector } from "react-redux";
+import { T_APP_STATE } from "../redux/reducers";
 
 
 const MappingStartButton = () => {
-    const [mappingAvailable, setMappingAvailable] = useState(false)
-
-    useLayoutEffect(() => {
-        const init = async () => {
-            const settings = await ChromeStorage.get_experiment_settings()
-            if(settings.urls.length === 0){
-                return 
-            }
-            if(settings.urls.some(url => /https:\/\/www.netflix.com\/watch\//gm.test(url) === false)){
-                return
-            }
-
-
-
-            setMappingAvailable(true)
-        }
-
-        init()
-    }, [])
+    const setup = useSelector((state:T_APP_STATE) => state.setup)
+    console.log(setup)
+    
    
     const handleMappingStart = async () => {
         const settings = await ChromeStorage.get_experiment_settings()
@@ -45,7 +30,7 @@ const MappingStartButton = () => {
                 backgroundColor: "#00A896",
                 marginTop: "1em"
             }}
-            attributes={{disabled: !mappingAvailable}}
+            attributes={{disabled: !setup.mappingAvailable }}
             handleClick={() => {handleMappingStart()}}
         />
     )

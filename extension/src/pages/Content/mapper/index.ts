@@ -37,8 +37,10 @@ const init = async () => {
         window.alert("Error. Template not found.")
         return
     }
+
+    console.log(video_duration)
     
-    const vmaf_template = templates[Math.round(Math.random()*templates.length)]
+    const vmaf_template = templates[Math.floor(Math.random()*templates.length)]
 
     const settings = await ChromeStorage.get_experiment_settings()
     const variables = await ChromeStorage.get_experiment_variables()
@@ -48,7 +50,6 @@ const init = async () => {
         vmaf_template_scenario: vmaf_template 
     })
     await ChromeStorage.update_experiment_settings_property("videos", settings.videos)
-    
     
     const mapper = new Mapper()
     mapper.init()

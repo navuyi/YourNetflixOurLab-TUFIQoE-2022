@@ -4,15 +4,22 @@ import { post_new_experiment } from "../../../utils/http_requests/post_new_exper
 import { post_new_video } from "../../../utils/http_requests/post_new_video";
 import { get_local_datetime } from "../../../utils/time_utils";
 import Button from "./Button/Button";
-
+import { useSelector } from "react-redux";
+import { T_APP_STATE } from "../redux/reducers";
+import { useDispatch } from "react-redux";
+import { T_SETUP_ACTIONS } from "../redux/actions/setupActions";
+import { Dispatch } from "redux";
 
 const ExperimentStartButton = () => {
-    const [startAvailable, setStartAvailable] = useState(false)
+    const setup = useSelector((state:T_APP_STATE) => state.setup)
+    const setupDispatch = useDispatch<Dispatch<T_SETUP_ACTIONS>>()
+
+    const subjectID = useSelector((state:T_APP_STATE) => state.subject_id)
 
     useLayoutEffect(() => {
         const init = async () => {
             const settings = await ChromeStorage.get_experiment_settings()
-
+            console.log(settings)
             if(settings.videos.length === 0){
                 return
             }
@@ -20,7 +27,9 @@ const ExperimentStartButton = () => {
                 return
             }
 
-            setStartAvailable(true)
+            setupDispatch({
+                type:"SET_SETUP", key: "experimentAvailable", payload: true
+            })
         }
 
         init()
@@ -79,10 +88,10 @@ const ExperimentStartButton = () => {
         <Button 
             text="Run extension in experiment mode"
             style={{
-                backgroundColor: "#DB0000",
+                backgroundColor: "#ffc857ff",
                 marginTop: "5px"
             }}
-            attributes={{disabled: !startAvailable}}
+            attributes={{disabled: !setup.experimentAvailable || !subjectID}}
             handleClick={() => {handleExperimentStart()}}
         />
     )

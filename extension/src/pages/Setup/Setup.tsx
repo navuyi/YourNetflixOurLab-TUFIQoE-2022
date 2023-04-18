@@ -5,11 +5,13 @@ import MappingStartButton from './components/MappingStartButton';
 import ExperimentStartButton from './components/ExperimentStartButton';
 import SubjectIDInput from './components/SubjectIDInput';
 import URLInput from './components/URLInput/URLInput';
-
-
+import { useSelector } from 'react-redux';
+import { T_APP_STATE } from './redux/reducers';
 
 
 const Setup = () => {
+  const setup = useSelector((state:T_APP_STATE) => state.setup)
+  
 
   return(
     <div className={style.setup}>
@@ -21,6 +23,9 @@ const Setup = () => {
         </div>
 
         <div className={style.wrapper}>
+          {
+            setup.experimentAvailable ? <span className={style.configDetectedInfo}>Config detected. Experiment can be started</span> : null
+          }
           <SubjectIDInput />
           <ExperimentStartButton />
         </div>
