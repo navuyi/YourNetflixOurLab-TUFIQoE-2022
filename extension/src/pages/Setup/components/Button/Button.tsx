@@ -6,7 +6,7 @@ type T_PROPS = {
     text: string,
     style? : object,
     attributes?: object,
-    handleClick: Function
+    handleClick: Function,
 }
 
 const Button = (props : T_PROPS) => {

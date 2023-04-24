@@ -10,6 +10,11 @@
     margin-top: 1em;
 }
 
+.urlInput[disabled]{
+    opacity: 0.5;
+    pointer-events: none;
+}
+
 
 .urlWrapper{
     width: 100%;

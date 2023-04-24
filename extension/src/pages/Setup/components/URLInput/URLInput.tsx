@@ -7,10 +7,16 @@ import { useSelector } from "react-redux"
 import { T_APP_STATE } from "../../redux/reducers"
 import { useDispatch } from "react-redux"
 import { T_SETUP_ACTIONS } from "../../redux/actions/setupActions"
+import { useSetup } from "../../hooks/useSetup"
 
-const URLInput = () => {
+type T_PROPS = {
+    attributes: object
+}
+
+const URLInput = (props:T_PROPS) => {
     const setup = useSelector((state:T_APP_STATE) => state.setup)
     const setupDispatch = useDispatch<Dispatch<T_SETUP_ACTIONS>>()
+    const {validateMappingAvailable} = useSetup()
 
     useLayoutEffect(() => {
         const init = async () => {
@@ -18,7 +24,6 @@ const URLInput = () => {
             setupDispatch({
                 type: "SET_SETUP", key: "urls", payload: settings.urls
             })
-            console.log("rerender")
         }
 
         init()
@@ -29,26 +34,17 @@ const URLInput = () => {
             await ChromeStorage.update_experiment_settings_property("urls", setup.urls)
         }
         updateStorage()
-
-        // Check if URLs allow for mapping
-        const urlsValid = setup.urls.every(url => /https:\/\/www.netflix.com\/watch\/[0-9]+.+/gm.test(url) === true) && setup.urls.length > 0
-        setupDispatch({
-            type: "SET_SETUP", key: "mappingAvailable", payload: urlsValid
-        })
-
-
+        validateMappingAvailable(setup.urls)
     }, [setup.urls])
 
+    
     const handleChange = (e:ChangeEvent<HTMLInputElement>, index:number) => {
         const tmp = [...setup.urls]
         tmp[index] = e.currentTarget.value
         setupDispatch({
             type: "SET_SETUP", key: "urls", payload: tmp
         })
-
-        //TODO - Update chrome storage 
     }
-
     const handleDeleteUrl = (e:MouseEvent<HTMLDivElement>, index: number) => {
         const tmp = [...setup.urls]
         tmp.splice(index, 1)
@@ -56,7 +52,6 @@ const URLInput = () => {
             type: "SET_SETUP", key: "urls", payload: tmp
         })
     }
-
     const handleAddUrl = () => {
         const tmp = [...setup.urls]
         tmp.push("")
@@ -66,12 +61,12 @@ const URLInput = () => {
     }
 
     return(
-        <div className={style.urlInput}>
+        <div className={style.urlInput} {...props.attributes}>
             {
                 setup.urls.map((url, index) => {
                     return (
                         <div className={style.urlWrapper} key={index}>
-                            <input className={style.url} value={url} onChange={e => handleChange(e, index)}/>
+                            <input className={style.url} value={url} onChange={e => handleChange(e, index)} />
                             <div className={style.delete} onClick={e => handleDeleteUrl(e, index)}>X</div>
                         </div> 
                     )

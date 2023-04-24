@@ -16,7 +16,7 @@ const initialState : T_SETUP = {
 const setupReducer = (state: T_SETUP = initialState, actions: T_SETUP_ACTIONS) => {
     switch(actions.type){
         case 'SET_SETUP':
-            const tmp = {...state}
+            const tmp = {...state} // shallow copy
             tmp[actions.key] = actions.payload
             return tmp
         default:

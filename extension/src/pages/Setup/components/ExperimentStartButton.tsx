@@ -9,27 +9,18 @@ import { T_APP_STATE } from "../redux/reducers";
 import { useDispatch } from "react-redux";
 import { T_SETUP_ACTIONS } from "../redux/actions/setupActions";
 import { Dispatch } from "redux";
+import { useSetup } from "../hooks/useSetup";
 
 const ExperimentStartButton = () => {
     const setup = useSelector((state:T_APP_STATE) => state.setup)
-    const setupDispatch = useDispatch<Dispatch<T_SETUP_ACTIONS>>()
-
     const subjectID = useSelector((state:T_APP_STATE) => state.subject_id)
+
+    const {validateExperimentAvailable} = useSetup()
 
     useLayoutEffect(() => {
         const init = async () => {
             const settings = await ChromeStorage.get_experiment_settings()
-            console.log(settings)
-            if(settings.videos.length === 0){
-                return
-            }
-            if(settings.videos.some(video => video.scenario == null || video.bitrate_vmaf_map == null)){
-                return
-            }
-
-            setupDispatch({
-                type:"SET_SETUP", key: "experimentAvailable", payload: true
-            })
+            validateExperimentAvailable(settings)
         }
 
         init()

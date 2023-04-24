@@ -30,7 +30,7 @@ const MappingStartButton = () => {
                 backgroundColor: "#00A896",
                 marginTop: "1em"
             }}
-            attributes={{disabled: !setup.mappingAvailable }}
+            attributes={{disabled: (!setup.mappingAvailable) || (setup.mappingAvailable && setup.experimentAvailable) }}
             handleClick={() => {handleMappingStart()}}
         />
     )
