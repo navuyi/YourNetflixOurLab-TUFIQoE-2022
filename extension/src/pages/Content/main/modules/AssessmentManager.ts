@@ -164,7 +164,7 @@ export class AssessmentManager{
     */
     private create_header = () : HTMLElement => {
         const header = document.createElement("h1")
-        header.innerText = "Oceń jakość usługi od strony audiowizualnej"
+        header.innerText = "Score audio-visual quality of the service"
         header.style.color = "#F39A9D"
         header.style.fontSize = "3rem"
         header.style.zIndex = "10001"
@@ -178,7 +178,7 @@ export class AssessmentManager{
      * @returns {Array.HTMLElement}
      */
     create_buttons(){
-        const descriptions = ["Doskonała", "Dobra", "Przeciętna", "Niska", "Zła"]
+        const descriptions = ["Excellent", "Good", "Fair", "Poor", "Bad"]
         const buttons : HTMLButtonElement[] = []
         descriptions.forEach((text, index) => {
             const button = document.createElement("button")
