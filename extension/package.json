@@ -26,7 +26,8 @@
     "react-css-modules": "^4.7.11",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
-    "react-json-editor-ajrm": "^2.5.13"
+    "react-json-editor-ajrm": "^2.5.13",
+    "sass": "^1.63.6"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -55,7 +56,6 @@
     "html-loader": "^3.1.0",
     "html-webpack-plugin": "^5.5.0",
     "jsdoc": "^3.6.10",
-    "node-sass": "^6.0.1",
     "prettier": "^2.5.1",
     "sass-loader": "^12.4.0",
     "source-map-loader": "^3.0.1",
