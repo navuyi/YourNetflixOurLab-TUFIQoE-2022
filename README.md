@@ -1,8 +1,7 @@
-# FixYourNetflix-TUFIQoE-2022
+# YourNetflixOurLab-TUFIQoE-2022
 
 Chrome extension and Python/flask REST API for [ecologically valid](https://en.wikipedia.org/wiki/Ecological_validity) QoE experiment using Netflix streaming platform. 
 <b>Does NOT require usage of Netflix-1080p extension.</b>
-
 
 
 # Technology stack
@@ -18,27 +17,25 @@ Backend
 - Sqlite3
 
 
-# Installation
-Installation and execution has been tested on macOS and Windows opearting systems. 
+## Installing and Running
 
-## Backend
-Python is required. 
-1. Inside <b>backend</b> directory run `python -m venv venv` 
-2. Install packages listed in requirements.txt
-    - activate venv (syntax depends is OS dependent)
-    - `pip install -r requirements.txt`
-3. Navigate to backend/database and run `python init.py` in order to initalize SQLite3 databse file
-4. Start backend server by running startup proper startup file in <b>backend</b> directory: 
-    - `source start-mac.sh` or
-    - `start-windows.bat`<br>
+### Procedures:
 
-## Extension
-Node is required
-1. Inside <b>extension</b> directory run `npm install` in order to install dependencies
-2. Run `npm run build` to generate Chrom extension build package
-3. Open <b>Extensions</b> in Chrome browser
-4. Activate <b>Developer Mode</b> 
-5. Click <b>Load unpacked</b> and import build directory generated in step 2.
+1. Check if your [Node.js](https://nodejs.org/) version is >= **14**.
+2. Clone this repository.
+3. Go to /extension folder.
+4. Run `npm install` to install the dependencies.
+5. Run `npm run build`
+6. Load your extension on Chrome following:
+   1. Access `chrome://extensions/`
+   2. Check `Developer mode`
+   3. Click on `Load unpacked extension`
+   4. Select the `build` folder.
+7. Run backend:
+   1. Make venv env `python3 -m venv venv`
+   2. Install requirements `pip install -r requirements.txt` or on macOS `sh make-mac.sh`
+   3. On macOS run `sh make-mac.sh` || on Windows `.\start-windows.bat`
+8. Happy hacking.
 
 # Glossary
 - empty config - configuration file that does NOT contain all of the key-value pairs required to run experiment 
