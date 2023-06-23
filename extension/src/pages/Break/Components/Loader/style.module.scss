@@ -1,0 +1,17 @@
+@import "../../../../config/style.config.scss";
+
+.loader {
+    border: 6px solid lightgray; /* Light grey */
+    border-top: 6px solid $netflix-red;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+    animation: spin 2s linear infinite;
+
+    margin-top: auto;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }

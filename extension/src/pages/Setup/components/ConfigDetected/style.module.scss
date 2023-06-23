@@ -1,0 +1,76 @@
+@import "../../../../config//style.config.scss";
+
+.config_detected{
+    width: 100%;
+    min-height: 100px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 2em;
+    font-family: ubuntu-medium;
+}
+
+
+.header_wrapper{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    width: 100%;
+}
+.header{
+    font-size: $font-size-medium;
+    font-family: ubuntu-medium;
+
+}
+
+.trash{
+    width: 28px;
+    filter: invert(1);
+    cursor: pointer;
+}
+.trash:hover{
+    transform: scale(0.95);
+}
+.trash:active{
+    transform: scale(1.1);
+}
+
+.status{
+    font-size: $font-size-small;
+}
+.status_detail{
+    
+}
+
+.description{
+    font-size: $font-size-small;
+    font-family: ubuntu-light;
+    width: 80%;
+    filter: brightness(0.6)
+}
+
+.url_list{
+    width: 100%;
+    margin-top: 1em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.url_item{
+    width: 100%;
+    margin: 0;
+    border: none;
+    padding: 8px 5px;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    border-radius: 5px;
+
+    background-color: white;
+    font-family: ubuntu-regular;
+    font-size: $font-size-small - 2px;
+    color: black;
+}

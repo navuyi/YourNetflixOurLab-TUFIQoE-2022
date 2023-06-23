@@ -1,0 +1,35 @@
+@font-face{
+    font-family: "ubuntu-medium";
+    src: url("/src/assets/fonts/Ubuntu/Ubuntu-Medium.ttf") format("truetype");
+}
+@font-face{
+    font-family: "ubuntu-bold";
+    src: url("/src/assets/fonts/Ubuntu/Ubuntu-Bold.ttf") format("truetype");
+}
+@font-face{
+    font-family: "ubuntu-light";
+    src: url("/src/assets/fonts/Ubuntu/Ubuntu-Light.ttf") format("truetype");
+}
+@font-face{
+    font-family: "ubuntu-regular";
+    src: url("/src/assets/fonts/Ubuntu/Ubuntu-Regular.ttf") format("truetype");
+}
+
+
+$font-size-large: 24px;
+$font-size-medium: 20px;
+$font-size-small: 16px;
+
+$netflix-dark: #222222;
+$netflix-red: #DB0000;
+$netflix-gray: #564D4D;
+$netflix-white: #FFFFFF;
+$netflix-dark-red: #831010;
+
+$primary: #3185FC;
+$secondary: #00A896;
+$support: #02C39A;
+
+
+
+

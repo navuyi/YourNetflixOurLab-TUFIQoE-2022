@@ -35,17 +35,18 @@ if (fileSystem.existsSync(secretsPath)) {
 
 var options = {
   mode: process.env.NODE_ENV || 'development',
+ 
   entry: {
-    break: path.join(__dirname, 'src', 'pages', 'Break', 'index.jsx'),
+    break: path.join(__dirname, 'src', 'pages', 'Break', 'index.tsx'),
 
-    setup: path.join(__dirname, 'src', 'pages', 'Setup', 'index.jsx'),
+    setup: path.join(__dirname, 'src', 'pages', 'Setup', 'index.tsx'),
     
     popup: path.join(__dirname, 'src', 'pages', 'Popup', 'index.jsx'),
-    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.js'),
+    background: path.join(__dirname, 'src', 'pages', 'Background', 'index.ts'),
 
     // What happens here is described in README.md, content scripts require extra preparation
-    mainContentScript: path.join(__dirname, 'src', 'pages', 'Content','main', 'index.js'), // ContentScript responsible for experiment execution
-    mapperContentScript: path.join(__dirname, 'src', 'pages', 'Content', 'mapper', 'index.js'),  // ContentScript responsible for bitrate->vmaf mapping
+    mainContentScript: path.join(__dirname, 'src', 'pages', 'Content','main', 'index.ts'), // ContentScript responsible for experiment execution
+    mapperContentScript: path.join(__dirname, 'src', 'pages', 'Content', 'mapper', 'index.ts'),  // ContentScript responsible for bitrate->vmaf mapping
     //
     /*
     options: path.join(__dirname, 'src', 'pages', 'Options', 'index.jsx'),
@@ -76,6 +77,11 @@ var options = {
           },
           {
             loader: 'css-loader',
+            options: {
+              modules: {
+                localIdentName: "[local]--[hash:base64:10]--[path]"
+              }
+            }
           },
           {
             loader: 'sass-loader',
@@ -167,7 +173,34 @@ var options = {
     new CopyWebpackPlugin({
       patterns: [
         {
+          from: 'src/assets/img/64.png',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/assets/img/48.png',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
           from: 'src/assets/img/32.png',
+          to: path.join(__dirname, 'build'),
+          force: true,
+        },
+      ],
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: 'src/assets/img/16.png',
           to: path.join(__dirname, 'build'),
           force: true,
         },

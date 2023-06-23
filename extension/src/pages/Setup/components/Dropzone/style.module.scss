@@ -1,0 +1,37 @@
+@import "../../../../config//style.config.scss";
+
+.dropzone{
+    width: 100%;
+    min-height: 100px;
+    background-color: white;
+
+    border-radius: 5px;
+    margin-top: 2em;
+    border: 2px $netflix-red dashed;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    animation: fade-in 2s ease;
+}
+
+.dropzone[dragover=true]{
+    border: 2px $netflix-red solid;
+}
+
+.text{
+   color: $netflix-dark;
+   font-size: $font-size-small;
+}
+
+@keyframes fade-in{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

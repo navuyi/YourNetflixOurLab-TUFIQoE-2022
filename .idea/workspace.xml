@@ -2,17 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fa6f7e9-7ec3-4c16-beb0-1ea121590ea9" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/extension/src/scripts/cadmium-playercore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/app/blueprints/test_A.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/app/blueprints/test_A.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/manifest.json" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/manifest.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/pages/Background/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/Background/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/pages/Content/main/modules/BitrateManager.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/Content/main/modules/BitrateManager.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/pages/Content/utils/VideoPlayerController.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/pages/default_experiment_config.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/pages/default_experiment_config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/scripts/cadmium-player.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/src/scripts/netflix-controls-script.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/src/scripts/netflix-controls-script.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/extension/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/extension/webpack.config.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,7 +38,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/Users/navuyi/Desktop/tufiqoe/WatchingWithFriends-TUFIQoE-2022/scenarios&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Users/navuyi/Desktop/tufiqoe/WatchingWithFriends-TUFIQoE-2022/extension/node_modules/typescript/lib&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/navuyi/Desktop/tufiqoe/YourNetflixOurLab-TUFIQoE-2022/extension/node_modules/typescript/lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -97,6 +87,9 @@
       <workItem from="1665482049602" duration="1859000" />
       <workItem from="1665493120969" duration="1824000" />
       <workItem from="1665558318217" duration="5155000" />
+      <workItem from="1667990232640" duration="1467000" />
+      <workItem from="1668075078690" duration="1571000" />
+      <workItem from="1668081814944" duration="412000" />
     </task>
     <servers />
   </component>
