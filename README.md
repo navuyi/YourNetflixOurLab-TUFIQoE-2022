@@ -1,4 +1,4 @@
-# FixYourNetflix-TUFIQoE-2022
+# YourNetflixOurLab-TUFIQoE-2022
 
 Chrome extension and Python/flask REST API for [ecologically valid](https://en.wikipedia.org/wiki/Ecological_validity) QoE experiment using Netflix streaming platform. 
 Requires simultaneous usage of Netflix-1080p extension.
@@ -28,4 +28,8 @@ Backend
    2. Check `Developer mode`
    3. Click on `Load unpacked extension`
    4. Select the `build` folder.
-7. Happy hacking.
+7. Run backend:
+   1. Make venv env `python3 -m venv venv`
+   2. Install requirements `pip install -r requirements.txt` or on macOS `sh make-mac.sh`
+   3. On macOS run `sh make-mac.sh` || on Windows `.\start-windows.bat`
+8. Happy hacking.
