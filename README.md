@@ -27,14 +27,17 @@ Backend
 4. Run `npm install` to install the dependencies.
 5. Run `npm run build`
 6. Load your extension on Chrome following:
-   1. Access `chrome://extensions/`
-   2. Check `Developer mode`
-   3. Click on `Load unpacked extension`
-   4. Select the `build` folder.
+    1. Access `chrome://extensions/`
+    2. Check `Developer mode`
+    3. Click on `Load unpacked extension`
+    4. Select the `build` folder.
 7. Run backend:
-   1. Make venv env `python3 -m venv venv`
-   2. Install requirements `pip install -r requirements.txt` or on macOS `sh make-mac.sh`
-   3. On macOS run `sh make-mac.sh` || on Windows `.\start-windows.bat`
+    1. cd into `backend` directory
+    2. run `python database/init.py` to initialize SQLite3 database
+    3. Create virtual environment `python -m venv venv`
+    4. Activate the python virtual environment by running OS compatible command
+    5. Install requirements `pip install -r requirements.txt`
+    6. On macOS run `source start-mac.sh` || on Windows `.\start-windows.bat`
 8. Happy hacking.
 
 # Glossary
