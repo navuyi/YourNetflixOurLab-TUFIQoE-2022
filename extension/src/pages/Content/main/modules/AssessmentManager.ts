@@ -252,7 +252,6 @@ export class AssessmentManager{
             duration:  this.ended.getTime() - this.started.getTime()
         }
        
-
         // Schedule next assessment panel
         this.schedule_assessment_panel()
         
